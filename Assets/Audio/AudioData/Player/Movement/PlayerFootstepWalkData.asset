@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d25e59d76cd6a43a37aad2edd0fcef, type: 3}
+  m_Name: PlayerFootstepWalkData
+  m_EditorClassIdentifier: 
+  sAudioSlot: PlayerMovement
+  aacClips:
+  - {fileID: 8300000, guid: 51080fc6184d6fd4c90abca7cec35e31, type: 3}
+  - {fileID: 8300000, guid: e85d8fec5f0e54040a4863e6f281f19b, type: 3}
+  - {fileID: 8300000, guid: 9ad0616866c2c3245962faaad272fbea, type: 3}
+  - {fileID: 8300000, guid: da23406c32bce4b44af24890ee878a20, type: 3}
+  - {fileID: 8300000, guid: 982a947a5447e574c905ea9681865187, type: 3}
+  - {fileID: 8300000, guid: d66b2db0d4882e04da52f37449a011b9, type: 3}
+  audioMixerGroup: {fileID: 243000011820561302, guid: 455a8042665eeec4c84fe72acd725fd7,
+    type: 2}
+  v2Volume: {x: 0.4, y: 0.6}
+  v2Pitch: {x: 0.8, y: 1.2}
+  bLoop: 0

@@ -1,0 +1,850 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2019389346, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+  m_Name: Gamepad Inputs
+  m_EditorClassIdentifier: 
+  hashCode: -1130873026
+  material: {fileID: 21379065055954104}
+  materialHashCode: 0
+  spriteSheet: {fileID: 2800000, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  spriteInfoList:
+  - id: 0
+    x: 0
+    y: 1959
+    width: 86
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 86
+    scale: 1
+    name: Gamepad Inputs_0
+    hashCode: 1134885617
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300000, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 1
+    x: 92
+    y: 1959
+    width: 89
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 89
+    scale: 1
+    name: Gamepad Inputs_1
+    hashCode: 1134885616
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300002, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 2
+    x: 187
+    y: 1959
+    width: 88.5
+    height: 88.5
+    xOffset: 0
+    yOffset: 88.5
+    xAdvance: 88.5
+    scale: 1
+    name: Gamepad Inputs_2
+    hashCode: 1134885619
+    unicode: 0
+    pivot: {x: 0, y: 88.5}
+    sprite: {fileID: 21300004, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 3
+    x: 282
+    y: 1959
+    width: 88.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 88.5
+    scale: 1
+    name: Gamepad Inputs_3
+    hashCode: 1134885618
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300006, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 4
+    x: 378
+    y: 1970
+    width: 116
+    height: 67
+    xOffset: 0
+    yOffset: 67
+    xAdvance: 116
+    scale: 1
+    name: Gamepad Inputs_4
+    hashCode: 1134885621
+    unicode: 0
+    pivot: {x: 0, y: 67}
+    sprite: {fileID: 21300008, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 5
+    x: 494
+    y: 1970
+    width: 111.5
+    height: 67
+    xOffset: 0
+    yOffset: 67
+    xAdvance: 111.5
+    scale: 1
+    name: Gamepad Inputs_5
+    hashCode: 1134885620
+    unicode: 0
+    pivot: {x: 0, y: 67}
+    sprite: {fileID: 21300304, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 6
+    x: 778.5
+    y: 1959
+    width: 88
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 88
+    scale: 1
+    name: Gamepad Inputs_8
+    hashCode: 1134885625
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300014, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 7
+    x: 866.5
+    y: 1959
+    width: 88
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 88
+    scale: 1
+    name: Gamepad Inputs_9
+    hashCode: 1134885624
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300054, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 8
+    x: 620
+    y: 1952.5
+    width: 67
+    height: 95.5
+    xOffset: 0
+    yOffset: 95.5
+    xAdvance: 67
+    scale: 1
+    name: Gamepad Inputs_6
+    hashCode: 1134885623
+    unicode: 0
+    pivot: {x: 0, y: 95.5}
+    sprite: {fileID: 21300010, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 9
+    x: 691
+    y: 1952
+    width: 67
+    height: 96
+    xOffset: 0
+    yOffset: 96
+    xAdvance: 67
+    scale: 1
+    name: Gamepad Inputs_7
+    hashCode: 1134885622
+    unicode: 0
+    pivot: {x: 0, y: 96}
+    sprite: {fileID: 21300012, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 10
+    x: 234
+    y: 1868
+    width: 114
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 114
+    scale: 1
+    name: Gamepad Inputs_12
+    hashCode: -1203480382
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300058, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 11
+    x: 2.5
+    y: 1867.5
+    width: 117
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 117
+    scale: 1
+    name: Gamepad Inputs_10
+    hashCode: -1203480384
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300016, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 12
+    x: 120.5
+    y: 1867.5
+    width: 112.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 112.5
+    scale: 1
+    name: Gamepad Inputs_11
+    hashCode: -1203480383
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300056, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 13
+    x: 347
+    y: 1867
+    width: 101.5
+    height: 89.5
+    xOffset: 0
+    yOffset: 89.5
+    xAdvance: 101.5
+    scale: 1
+    name: Gamepad Inputs_13
+    hashCode: -1203480381
+    unicode: 0
+    pivot: {x: 0, y: 89.5}
+    sprite: {fileID: 21300018, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 14
+    x: 451.5
+    y: 1867
+    width: 102
+    height: 89.5
+    xOffset: 0
+    yOffset: 89.5
+    xAdvance: 102
+    scale: 1
+    name: Gamepad Inputs_14
+    hashCode: -1203480380
+    unicode: 0
+    pivot: {x: 0, y: 89.5}
+    sprite: {fileID: 21300020, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 15
+    x: 553.5
+    y: 1867
+    width: 102.5
+    height: 89.5
+    xOffset: 0
+    yOffset: 89.5
+    xAdvance: 102.5
+    scale: 1
+    name: Gamepad Inputs_15
+    hashCode: -1203480379
+    unicode: 0
+    pivot: {x: 0, y: 89.5}
+    sprite: {fileID: 21300022, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 16
+    x: 2.5
+    y: 1776
+    width: 115.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 115.5
+    scale: 1
+    name: Gamepad Inputs_16
+    hashCode: -1203480378
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300024, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 17
+    x: 118
+    y: 1776
+    width: 114
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 114
+    scale: 1
+    name: Gamepad Inputs_17
+    hashCode: -1203480377
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300306, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 18
+    x: 231.5
+    y: 1776
+    width: 117
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 117
+    scale: 1
+    name: Gamepad Inputs_18
+    hashCode: -1203480376
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300060, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 19
+    x: 347.5
+    y: 1776
+    width: 102.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 102.5
+    scale: 1
+    name: Gamepad Inputs_19
+    hashCode: -1203480375
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300308, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 20
+    x: 451.5
+    y: 1776
+    width: 102
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 102
+    scale: 1
+    name: Gamepad Inputs_20
+    hashCode: -1203480221
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300026, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 21
+    x: 553.5
+    y: 1776
+    width: 102.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 102.5
+    scale: 1
+    name: Gamepad Inputs_21
+    hashCode: -1203480222
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300028, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 22
+    x: 356
+    y: 1699.5
+    width: 108
+    height: 67
+    xOffset: 0
+    yOffset: 67
+    xAdvance: 108
+    scale: 1
+    name: Gamepad Inputs_26
+    hashCode: -1203480219
+    unicode: 0
+    pivot: {x: 0, y: 67}
+    sprite: {fileID: 21300030, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 23
+    x: 467
+    y: 1699.5
+    width: 107
+    height: 67
+    xOffset: 0
+    yOffset: 67
+    xAdvance: 107
+    scale: 1
+    name: Gamepad Inputs_27
+    hashCode: -1203480220
+    unicode: 0
+    pivot: {x: 0, y: 67}
+    sprite: {fileID: 21300032, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 24
+    x: 1
+    y: 1693
+    width: 83
+    height: 85
+    xOffset: 0
+    yOffset: 85
+    xAdvance: 83
+    scale: 1
+    name: Gamepad Inputs_22
+    hashCode: -1203480223
+    unicode: 0
+    pivot: {x: 0, y: 85}
+    sprite: {fileID: 21300062, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 25
+    x: 86.5
+    y: 1693
+    width: 85
+    height: 85
+    xOffset: 0
+    yOffset: 85
+    xAdvance: 85
+    scale: 1
+    name: Gamepad Inputs_23
+    hashCode: -1203480224
+    unicode: 0
+    pivot: {x: 0, y: 85}
+    sprite: {fileID: 21300310, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 26
+    x: 259.5
+    y: 1693
+    width: 86.5
+    height: 85
+    xOffset: 0
+    yOffset: 85
+    xAdvance: 86.5
+    scale: 1
+    name: Gamepad Inputs_25
+    hashCode: -1203480218
+    unicode: 0
+    pivot: {x: 0, y: 85}
+    sprite: {fileID: 21300066, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 27
+    x: 173.5
+    y: 1692
+    width: 85.5
+    height: 85
+    xOffset: 0
+    yOffset: 85
+    xAdvance: 85.5
+    scale: 1
+    name: Gamepad Inputs_24
+    hashCode: -1203480217
+    unicode: 0
+    pivot: {x: 0, y: 85}
+    sprite: {fileID: 21300064, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 28
+    x: 378
+    y: 1600.5
+    width: 116.5
+    height: 68
+    xOffset: 0
+    yOffset: 68
+    xAdvance: 116.5
+    scale: 1
+    name: Gamepad Inputs_32
+    hashCode: -1203480320
+    unicode: 0
+    pivot: {x: 0, y: 68}
+    sprite: {fileID: 21300036, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 29
+    x: 493
+    y: 1600.5
+    width: 114.5
+    height: 68
+    xOffset: 0
+    yOffset: 68
+    xAdvance: 114.5
+    scale: 1
+    name: Gamepad Inputs_33
+    hashCode: -1203480319
+    unicode: 0
+    pivot: {x: 0, y: 68}
+    sprite: {fileID: 21300074, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 30
+    x: 927
+    y: 1600.5
+    width: 96.5
+    height: 68
+    xOffset: 0
+    yOffset: 68
+    xAdvance: 96.5
+    scale: 1
+    name: Gamepad Inputs_38
+    hashCode: -1203480310
+    unicode: 0
+    pivot: {x: 0, y: 68}
+    sprite: {fileID: 21300046, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 31
+    x: 0
+    y: 1592.5
+    width: 85.5
+    height: 86.5
+    xOffset: 0
+    yOffset: 86.5
+    xAdvance: 85.5
+    scale: 1
+    name: Gamepad Inputs_28
+    hashCode: -1203480213
+    unicode: 0
+    pivot: {x: 0, y: 86.5}
+    sprite: {fileID: 21300034, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 32
+    x: 93.5
+    y: 1592.5
+    width: 86.5
+    height: 86.5
+    xOffset: 0
+    yOffset: 86.5
+    xAdvance: 86.5
+    scale: 1
+    name: Gamepad Inputs_29
+    hashCode: -1203480214
+    unicode: 0
+    pivot: {x: 0, y: 86.5}
+    sprite: {fileID: 21300068, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 33
+    x: 188.5
+    y: 1592.5
+    width: 87
+    height: 86.5
+    xOffset: 0
+    yOffset: 86.5
+    xAdvance: 87
+    scale: 1
+    name: Gamepad Inputs_30
+    hashCode: -1203480318
+    unicode: 0
+    pivot: {x: 0, y: 86.5}
+    sprite: {fileID: 21300070, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 34
+    x: 282.5
+    y: 1592.5
+    width: 88
+    height: 86.5
+    xOffset: -44
+    yOffset: 43.25
+    xAdvance: 88
+    scale: 1
+    name: Gamepad Inputs_31
+    hashCode: -1203480317
+    unicode: 0
+    pivot: {x: -44, y: 43.25}
+    sprite: {fileID: 21300072, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 35
+    x: 610
+    y: 1590
+    width: 89
+    height: 88.5
+    xOffset: 0
+    yOffset: 88.5
+    xAdvance: 89
+    scale: 1
+    name: Gamepad Inputs_34
+    hashCode: -1203480314
+    unicode: 0
+    pivot: {x: 0, y: 88.5}
+    sprite: {fileID: 21300038, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 36
+    x: 701.5
+    y: 1590
+    width: 88
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 88
+    scale: 1
+    name: Gamepad Inputs_35
+    hashCode: -1203480313
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300040, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 37
+    x: 803
+    y: 1590
+    width: 46
+    height: 83.5
+    xOffset: 0
+    yOffset: 83.5
+    xAdvance: 46
+    scale: 1
+    name: Gamepad Inputs_36
+    hashCode: -1203480316
+    unicode: 0
+    pivot: {x: 0, y: 83.5}
+    sprite: {fileID: 21300042, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 38
+    x: 861.5
+    y: 1590
+    width: 52
+    height: 83.5
+    xOffset: 0
+    yOffset: 83.5
+    xAdvance: 52
+    scale: 1
+    name: Gamepad Inputs_37
+    hashCode: -1203480315
+    unicode: 0
+    pivot: {x: 0, y: 83.5}
+    sprite: {fileID: 21300044, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 39
+    x: 0
+    y: 1503.5
+    width: 118
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 118
+    scale: 1
+    name: Gamepad Inputs_39
+    hashCode: -1203480309
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300076, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 40
+    x: 118
+    y: 1503.5
+    width: 115
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 115
+    scale: 1
+    name: Gamepad Inputs_40
+    hashCode: -1203480155
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300078, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 41
+    x: 233
+    y: 1503.5
+    width: 116.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 116.5
+    scale: 1
+    name: Gamepad Inputs_41
+    hashCode: -1203480156
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300080, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 42
+    x: 349.5
+    y: 1503.5
+    width: 100
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 100
+    scale: 1
+    name: Gamepad Inputs_42
+    hashCode: -1203480153
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300082, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 43
+    x: 452
+    y: 1503.5
+    width: 101.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 101.5
+    scale: 1
+    name: Gamepad Inputs_43
+    hashCode: -1203480154
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300048, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 44
+    x: 553.5
+    y: 1503.5
+    width: 101
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 101
+    scale: 1
+    name: Gamepad Inputs_440
+    hashCode: -1060139535
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300272, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 45
+    x: 554
+    y: 1415
+    width: 100.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 100.5
+    scale: 1
+    name: Gamepad Inputs_50
+    hashCode: -1203480252
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300094, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 46
+    x: 0
+    y: 1414.5
+    width: 119.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 119.5
+    scale: 1
+    name: Gamepad Inputs_45
+    hashCode: -1203480160
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300084, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 47
+    x: 121
+    y: 1414.5
+    width: 113
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 113
+    scale: 1
+    name: Gamepad Inputs_46
+    hashCode: -1203480157
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300086, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 48
+    x: 232.5
+    y: 1414.5
+    width: 116.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 116.5
+    scale: 1
+    name: Gamepad Inputs_47
+    hashCode: -1203480158
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300088, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 49
+    x: 349
+    y: 1414.5
+    width: 103.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 103.5
+    scale: 1
+    name: Gamepad Inputs_48
+    hashCode: -1203480147
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300090, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 50
+    x: 452.5
+    y: 1414.5
+    width: 101.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 101.5
+    scale: 1
+    name: Gamepad Inputs_49
+    hashCode: -1203480148
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300092, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 51
+    x: 389.5
+    y: 1328.5
+    width: 107
+    height: 68
+    xOffset: 0
+    yOffset: 68
+    xAdvance: 107
+    scale: 1
+    name: Gamepad Inputs_55
+    hashCode: -1203480255
+    unicode: 0
+    pivot: {x: 0, y: 68}
+    sprite: {fileID: 21300302, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 52
+    x: 500
+    y: 1328.5
+    width: 106.5
+    height: 68
+    xOffset: 0
+    yOffset: 68
+    xAdvance: 106.5
+    scale: 1
+    name: Gamepad Inputs_56
+    hashCode: -1203480254
+    unicode: 0
+    pivot: {x: 0, y: 68}
+    sprite: {fileID: 21300052, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 53
+    x: 0
+    y: 1318
+    width: 84.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 84.5
+    scale: 1
+    name: Gamepad Inputs_51
+    hashCode: -1203480251
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300050, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 54
+    x: 84.5
+    y: 1318
+    width: 85
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 85
+    scale: 1
+    name: Gamepad Inputs_52
+    hashCode: -1203480250
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300096, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 55
+    x: 169.5
+    y: 1318
+    width: 85.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 85.5
+    scale: 1
+    name: Gamepad Inputs_53
+    hashCode: -1203480249
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300098, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  - id: 56
+    x: 254
+    y: 1318
+    width: 85.5
+    height: 89
+    xOffset: 0
+    yOffset: 89
+    xAdvance: 85.5
+    scale: 1
+    name: Gamepad Inputs_54
+    hashCode: -1203480256
+    unicode: 0
+    pivot: {x: 0, y: 89}
+    sprite: {fileID: 21300100, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+  fallbackSpriteAssets: []
+--- !u!21 &21379065055954104
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: TextMeshPro/Sprite
+  m_Shader: {fileID: 4800000, guid: 3a1c68c8292caf046bd21158886c5e40, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1,0 +1,272 @@
+
+Player.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: false
+  xy: 8, 658
+  size: 146, 358
+  orig: 146, 358
+  offset: 0, 0
+  index: -1
+BodyAmmoPack
+  rotate: false
+  xy: 232, 593
+  size: 20, 50
+  orig: 20, 50
+  offset: 0, 0
+  index: -1
+Eye-Closed
+  rotate: false
+  xy: 174, 450
+  size: 12, 20
+  orig: 12, 20
+  offset: 0, 0
+  index: -1
+Eye-Open
+  rotate: true
+  xy: 481, 732
+  size: 17, 24
+  orig: 17, 24
+  offset: 0, 0
+  index: -1
+EyeBrow
+  rotate: false
+  xy: 592, 771
+  size: 16, 12
+  orig: 16, 12
+  offset: 0, 0
+  index: -1
+FrontFoot
+  rotate: false
+  xy: 528, 791
+  size: 135, 99
+  orig: 135, 99
+  offset: 0, 0
+  index: -1
+FrontHand-Fist
+  rotate: false
+  xy: 123, 340
+  size: 43, 60
+  orig: 43, 60
+  offset: 0, 0
+  index: -1
+FrontHand-Flat
+  rotate: false
+  xy: 123, 568
+  size: 31, 82
+  orig: 31, 82
+  offset: 0, 0
+  index: -1
+FrontHand-GripUnderSide
+  rotate: false
+  xy: 123, 207
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: -1
+FrontHand-LedgeGrab
+  rotate: true
+  xy: 162, 508
+  size: 68, 52
+  orig: 68, 52
+  offset: 0, 0
+  index: -1
+FrontHand-WeaponHandle
+  rotate: false
+  xy: 123, 273
+  size: 43, 59
+  orig: 43, 59
+  offset: 0, 0
+  index: -1
+FrontHand-WeaponTrigger
+  rotate: true
+  xy: 804, 841
+  size: 43, 62
+  orig: 43, 62
+  offset: 0, 0
+  index: -1
+FrontLowerArm
+  rotate: true
+  xy: 739, 958
+  size: 58, 180
+  orig: 58, 180
+  offset: 0, 0
+  index: -1
+FrontLowerLeg
+  rotate: false
+  xy: 162, 723
+  size: 103, 293
+  orig: 103, 293
+  offset: 0, 0
+  index: -1
+FrontUpperArm
+  rotate: true
+  xy: 528, 961
+  size: 55, 203
+  orig: 55, 203
+  offset: 0, 0
+  index: -1
+FrontUpperLeg
+  rotate: false
+  xy: 8, 8
+  size: 107, 315
+  orig: 107, 315
+  offset: 0, 0
+  index: -1
+HairBang
+  rotate: false
+  xy: 671, 797
+  size: 49, 93
+  orig: 49, 93
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 385, 874
+  size: 135, 142
+  orig: 135, 142
+  offset: 0, 0
+  index: -1
+Neck
+  rotate: false
+  xy: 162, 584
+  size: 62, 59
+  orig: 62, 59
+  offset: 0, 0
+  index: -1
+Ponytail
+  rotate: true
+  xy: 162, 651
+  size: 64, 102
+  orig: 64, 102
+  offset: 0, 0
+  index: -1
+RearFoot
+  rotate: false
+  xy: 385, 757
+  size: 135, 109
+  orig: 135, 109
+  offset: 0, 0
+  index: -1
+RearHand-Fist
+  rotate: true
+  xy: 920, 893
+  size: 43, 62
+  orig: 43, 62
+  offset: 0, 0
+  index: -1
+RearHand-Flat
+  rotate: false
+  xy: 123, 478
+  size: 31, 82
+  orig: 31, 82
+  offset: 0, 0
+  index: -1
+RearHand-LedgeGrab
+  rotate: false
+  xy: 728, 832
+  size: 68, 52
+  orig: 68, 52
+  offset: 0, 0
+  index: -1
+RearHandBase-WeaponHandle
+  rotate: false
+  xy: 123, 152
+  size: 43, 47
+  orig: 43, 47
+  offset: 0, 0
+  index: -1
+RearHandBase-WeaponTrigger
+  rotate: false
+  xy: 123, 408
+  size: 43, 62
+  orig: 43, 62
+  offset: 0, 0
+  index: -1
+RearHandFingers-GripUnderSide
+  rotate: true
+  xy: 990, 899
+  size: 37, 25
+  orig: 37, 25
+  offset: 0, 0
+  index: -1
+RearHandFingers-WeaponHandle
+  rotate: false
+  xy: 123, 108
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+RearHandFingers-WeaponTrigger
+  rotate: true
+  xy: 874, 842
+  size: 42, 36
+  orig: 42, 36
+  offset: 0, 0
+  index: -1
+RearLowerArm
+  rotate: true
+  xy: 739, 892
+  size: 58, 173
+  orig: 58, 173
+  offset: 0, 0
+  index: -1
+RearLowerLeg
+  rotate: false
+  xy: 273, 724
+  size: 104, 292
+  orig: 104, 292
+  offset: 0, 0
+  index: -1
+RearUpperArm
+  rotate: true
+  xy: 528, 898
+  size: 55, 203
+  orig: 55, 203
+  offset: 0, 0
+  index: -1
+RearUpperLeg
+  rotate: false
+  xy: 8, 331
+  size: 107, 319
+  orig: 107, 319
+  offset: 0, 0
+  index: -1
+SecondaryWeaponHolster
+  rotate: false
+  xy: 927, 944
+  size: 89, 72
+  orig: 89, 72
+  offset: 0, 0
+  index: -1
+SecondaryWeaponHolsterStrap
+  rotate: false
+  xy: 385, 726
+  size: 88, 23
+  orig: 88, 23
+  offset: 0, 0
+  index: -1
+Thruster-Exhaust
+  rotate: true
+  xy: 162, 478
+  size: 22, 56
+  orig: 22, 56
+  offset: 0, 0
+  index: -1
+Thruster-Motor
+  rotate: false
+  xy: 728, 801
+  size: 40, 23
+  orig: 40, 23
+  offset: 0, 0
+  index: -1
+ThrusterFlame
+  rotate: true
+  xy: 528, 759
+  size: 24, 56
+  orig: 24, 56
+  offset: 0, 0
+  index: -1

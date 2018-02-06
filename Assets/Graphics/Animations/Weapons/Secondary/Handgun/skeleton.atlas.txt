@@ -1,0 +1,41 @@
+
+skeleton.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: false
+  xy: 8, 232
+  size: 252, 175
+  orig: 252, 175
+  offset: 0, 0
+  index: -1
+Chamber
+  rotate: false
+  xy: 8, 8
+  size: 240, 48
+  orig: 240, 48
+  offset: 0, 0
+  index: -1
+Clip
+  rotate: false
+  xy: 268, 253
+  size: 64, 154
+  orig: 64, 154
+  offset: 0, 0
+  index: -1
+ClipFull
+  rotate: false
+  xy: 340, 254
+  size: 61, 153
+  orig: 61, 153
+  offset: 0, 0
+  index: -1
+Muzzle Flare
+  rotate: false
+  xy: 8, 64
+  size: 240, 160
+  orig: 240, 160
+  offset: 0, 0
+  index: -1

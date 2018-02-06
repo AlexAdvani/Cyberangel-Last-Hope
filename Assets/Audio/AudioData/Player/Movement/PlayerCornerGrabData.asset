@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d25e59d76cd6a43a37aad2edd0fcef, type: 3}
+  m_Name: PlayerCornerGrabData
+  m_EditorClassIdentifier: 
+  sAudioSlot: PlayerMovement
+  aacClips:
+  - {fileID: 8300000, guid: 5a06353754d465244b22a573c4ff25a0, type: 3}
+  - {fileID: 8300000, guid: f1f13dcb482fd8541a28cfba67eb7d2a, type: 3}
+  - {fileID: 8300000, guid: 896df430fa75c8b47b73fd47ba13ab70, type: 3}
+  audioMixerGroup: {fileID: 243000011820561302, guid: 455a8042665eeec4c84fe72acd725fd7,
+    type: 2}
+  v2Volume: {x: 0.6, y: 0.8}
+  v2Pitch: {x: 0.95, y: 1.05}
+  bLoop: 0

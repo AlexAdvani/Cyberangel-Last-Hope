@@ -1,0 +1,501 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77af08a6f4c3334788f717a1fce5bdc, type: 3}
+  m_Name: PCInputImageData
+  m_EditorClassIdentifier: 
+  keyInputs:
+    sName: Keyboard
+    controlType: 0
+    dButtons:
+      KeysList: 6100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000760000007700000078000000790000007a00000030000000310000003200000033000000340000003500000036000000370000003800000039000000000100000101000002010000030100000401000005010000060100000701000008010000090100000a0100000b0100000c0100000d0100000e0100000f010000100100002000000008000000090000000c0000000d000000130000001b00000021000000220000002300000024000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f0000003a0000003b0000003c0000003d0000003e0000003f000000400000005b0000005c0000005d0000005e0000005f000000600000007f0000001101000012010000130100001401000015010000160100001d00000018010000190100001a0100001b0100001c0100001d0100001e0100001f0100002001000021010000220100002301000024010000250100002601000027010000280100002c0100002d0100002e0100002f01000030010000310100003201000033010000340100003b0100003c0100003d0100003e0100003f010000
+      ValuesList:
+      - {fileID: 21300000, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300002, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300004, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300006, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300008, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300010, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300012, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300014, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300016, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300018, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300020, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300022, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300024, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300026, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300028, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300030, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300032, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300034, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300036, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300038, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300040, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300042, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300044, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300046, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300048, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300050, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300052, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300054, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300056, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300058, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300060, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300062, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300064, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300066, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300068, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300070, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300072, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300074, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300076, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300078, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300080, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300082, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300084, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300086, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300088, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300090, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300092, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300094, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300096, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300098, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300100, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300102, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300104, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300106, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300108, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300110, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300112, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300114, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300116, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300118, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300120, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300122, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300124, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300126, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300128, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300130, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300132, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300134, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300136, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300138, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300140, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300142, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300144, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300146, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300148, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300150, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300152, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300154, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300156, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300158, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300160, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300162, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300164, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300166, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300168, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300170, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300172, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300174, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300176, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300178, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300180, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300182, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300184, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300186, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300188, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300190, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300192, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300194, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300196, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300198, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300200, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300202, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300204, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300206, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300208, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300210, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300212, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300214, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300216, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300218, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300220, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300222, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300224, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300226, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300228, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300230, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300232, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300234, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300236, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300238, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300240, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300242, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300244, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300246, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300248, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300250, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels:
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      EditingLabel: 0
+      LabelNum: 0
+    dAxes:
+      KeysList: 
+      ValuesList: []
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels: []
+      EditingLabel: 0
+      LabelNum: 2
+  mouseInputs:
+    sName: Mouse
+    controlType: 1
+    dButtons:
+      KeysList: 03000000040000000500000006000000070000000800000009000000
+      ValuesList:
+      - {fileID: 21300252, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300254, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300256, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300258, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300260, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300262, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - {fileID: 21300264, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels:
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      EditingLabel: 0
+      LabelNum: 0
+    dAxes:
+      KeysList: 000000000100000002000000
+      ValuesList:
+      - fullAxis: {fileID: 21300272, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        posAxis: {fileID: 21300274, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        negAxis: {fileID: 21300276, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - fullAxis: {fileID: 21300266, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        posAxis: {fileID: 21300268, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        negAxis: {fileID: 21300270, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      - fullAxis: {fileID: 21300278, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        posAxis: {fileID: 21300280, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+        negAxis: {fileID: 21300282, guid: f7b8651d65d6c4b43b49c4cc566465d7, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels:
+      - Mouse X
+      - Mouse Y
+      - Scroll Wheel
+      EditingLabel: 0
+      LabelNum: 2
+  lPadInputs:
+  - sName: Xbox One
+    controlType: 2
+    dButtons:
+      KeysList: 060000000700000008000000090000000a0000000b0000000c0000000d0000000f0000001000000011000000120000001300000014000000
+      ValuesList:
+      - {fileID: 21300000, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300002, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300004, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300006, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300008, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300304, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300014, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300054, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300010, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300012, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300064, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300310, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300066, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300062, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels:
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      EditingLabel: 0
+      LabelNum: 0
+    dAxes:
+      KeysList: 000000000100000002000000030000000400000005000000
+      ValuesList:
+      - fullAxis: {fileID: 21300016, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300056, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300058, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300018, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300020, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300022, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300024, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300306, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300060, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300308, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300026, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300028, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300030, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300030, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300030, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300032, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300032, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300032, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 0
+      CustomLabels:
+      - Left Stick X
+      - Left Stick Y
+      - Right Stick X
+      - Right Stick Y
+      - Left Trigger
+      - Right Trigger
+      EditingLabel: 0
+      LabelNum: 5
+  - sName: PlayStation 4
+    controlType: 2
+    dButtons:
+      KeysList: 060000000700000008000000090000000a0000000b0000000c0000000d0000000f000000100000001100000012000000130000001400000015000000
+      ValuesList:
+      - {fileID: 21300034, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300068, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300070, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300072, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300036, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300074, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300042, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300044, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300038, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300040, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300098, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300096, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300100, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300050, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - {fileID: 21300046, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 1
+      CustomLabels:
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      - Entry
+      EditingLabel: 0
+      LabelNum: 0
+    dAxes:
+      KeysList: 000000000100000002000000030000000400000005000000
+      ValuesList:
+      - fullAxis: {fileID: 21300076, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300078, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300080, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300082, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300048, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300272, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300084, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300086, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300088, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300090, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300092, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300094, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300302, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300302, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300302, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      - fullAxis: {fileID: 21300052, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        posAxis: {fileID: 21300052, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+        negAxis: {fileID: 21300052, guid: b65c72f55d72c254885557968d3ac9a2, type: 3}
+      InspectorWasUpdated: 0
+      UpdateInspectorValues: 1
+      CustomLabels:
+      - Left Stick X
+      - Left Stick Y
+      - Right Stick X
+      - Right Stick Y
+      - L2
+      - R2
+      EditingLabel: 0
+      LabelNum: 5
+  dPS4InputConverts:
+    KeysList: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000f000000100000001100000012000000130000001400000015000000
+    ValuesList: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000150000000f0000001000000011000000120000001300000014000000
+    InspectorWasUpdated: 0
+    UpdateInspectorValues: 0
+    CustomLabels:
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    - Entry
+    EditingLabel: 0
+    LabelNum: 0

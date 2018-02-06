@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d25e59d76cd6a43a37aad2edd0fcef, type: 3}
+  m_Name: UIHighlight
+  m_EditorClassIdentifier: 
+  sAudioSlot: UI
+  aacClips:
+  - {fileID: 8300000, guid: 0dda2511e5504214687b505ee2502132, type: 3}
+  audioMixerGroup: {fileID: 243413728177262410, guid: 455a8042665eeec4c84fe72acd725fd7,
+    type: 2}
+  v2Volume: {x: 0.7, y: 0.8}
+  v2Pitch: {x: 0.9, y: 0.95}
+  bLoop: 0

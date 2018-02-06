@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d25e59d76cd6a43a37aad2edd0fcef, type: 3}
+  m_Name: BulletImpactData
+  m_EditorClassIdentifier: 
+  sAudioSlot: BulletImpact
+  aacClips:
+  - {fileID: 8300000, guid: 8b8cd721e0f959e4d8077bbd657b3cab, type: 3}
+  - {fileID: 8300000, guid: a8be9bc9526b9264e83d09c966734a34, type: 3}
+  - {fileID: 8300000, guid: 55e56ef8c3cf5cc4dbd69e5afd713003, type: 3}
+  - {fileID: 8300000, guid: b88b6efc4ffc88e45bb3c2be9c74ce58, type: 3}
+  audioMixerGroup: {fileID: 243000013403836800, guid: 455a8042665eeec4c84fe72acd725fd7,
+    type: 2}
+  v2Volume: {x: 0.3, y: 0.5}
+  v2Pitch: {x: 0.9, y: 1.1}
+  bLoop: 0
