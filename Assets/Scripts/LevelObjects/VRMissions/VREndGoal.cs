@@ -16,6 +16,8 @@ public class VREndGoal : MonoBehaviour
 		// Aiming
 		player.SetAiming(false);
 		player.animator.SetArmBusy(false);
+        // Laser Sight
+        player.CurrentWeapon.laserSight.EnableLaser(false);
 
 		// End the Mission
 		VRMissionModeManager.Instance.EndMission();

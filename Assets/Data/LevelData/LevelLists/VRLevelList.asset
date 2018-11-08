@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907241d1bd590cb4f8b70831c634ada8, type: 3}
+  m_Name: VRLevelList
+  m_EditorClassIdentifier: 
+  aLevelData:
+  - {fileID: 11400000, guid: cfc630f29d7a5ce4b9da3288f79446e4, type: 2}
+  - {fileID: 11400000, guid: f3be69bb6afb15843a656991c7e40f1a, type: 2}
+  - {fileID: 11400000, guid: f8e80542ab04c154e844e9f9fb7aa4bb, type: 2}
+  - {fileID: 11400000, guid: 7ee993cc31b792e4585b4df91687b721, type: 2}
+  - {fileID: 11400000, guid: 469e26c561b5b3b449e7c0c6a20217d1, type: 2}

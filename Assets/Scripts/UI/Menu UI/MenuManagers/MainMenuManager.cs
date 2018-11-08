@@ -7,9 +7,11 @@ public class MainMenuManager : UIMenuManager
 	// Menu Input Panel
 	public GameObject goMenuInputPanel;
 
+    // Initialization
 	void Start()
 	{
 		bMenuInputDisabled = false;
+        Cursor.visible = true;
 	}
 
 	// Update

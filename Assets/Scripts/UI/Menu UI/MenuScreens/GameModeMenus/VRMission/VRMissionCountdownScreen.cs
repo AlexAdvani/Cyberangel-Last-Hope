@@ -16,7 +16,8 @@ public class VRMissionCountdownScreen : UIMenuScreenManager
 	// Initialization
 	protected override void Start ()
 	{
-		StartCoroutine(CountdowntoStart());
+        VRMissionModeManager.Instance.goInputButtonsUI.SetActive(false);
+        StartCoroutine(CountdowntoStart());
 	}
 
 	// Countdown to Start of the Mission
@@ -37,12 +38,12 @@ public class VRMissionCountdownScreen : UIMenuScreenManager
 		GameManager.Player.SetDisabledMovement(false);
 
 		VRMissionModeManager.Instance.StartMissionTimer();
-		VRMissionModeManager.Instance.goInGameUI.SetActive(true);
-		GameManager.DisablePause(false);
+        VRMissionModeManager.Instance.goInGameUI.SetActive(true);
+        VRMissionModeManager.Instance.goMissionUI.SetActive(true);
+        GameManager.DisablePause(false);
 		GameManager.SetPause (false);
-		VRMissionModeManager.Instance.goTargetCounterUI.SetActive(true);
 		UIMenuManager.bMenuInputDisabled = true;
 
-		menuManager.gameObject.SetActive(false);
+		MenuManager.gameObject.SetActive(false);
 	}
 }

@@ -25,10 +25,19 @@ public class UIMenuGraphicsOptionsScreen : UIMenuScreenManager
 
         resolutionDropdown.value = GlobalSettings.iResolution;
         resolutionDropdown.RefreshShownValue();
-		displayModeDropdown.value = GlobalSettings.iDisplayMode;
-        displayModeDropdown.RefreshShownValue();
+
+        if (displayModeDropdown != null)
+        {
+            displayModeDropdown.value = GlobalSettings.iDisplayMode;
+            displayModeDropdown.RefreshShownValue();
+        }
+
         InitializeMonitorDropdown();
-		vSyncToggle.isOn = GlobalSettings.bVSync;
+
+        if (vSyncToggle != null)
+        {
+            vSyncToggle.isOn = GlobalSettings.bVSync;
+        }
 
         SettingsManager.bOptionChanged = settingsChanged;
 	}
@@ -36,6 +45,11 @@ public class UIMenuGraphicsOptionsScreen : UIMenuScreenManager
 	// Initialize Monitor Dropdown Value
 	private void InitializeMonitorDropdown()
 	{
+        if (monitorDropdown == null)
+        {
+            return;
+        }
+
 		monitorDropdown.ClearOptions();
 
 		int unityMonitor = PlayerPrefs.GetInt("");
@@ -73,8 +87,38 @@ public class UIMenuGraphicsOptionsScreen : UIMenuScreenManager
 		monitorDropdown.RefreshShownValue();
 	}
 
-	// Changes the Resolution Based on ID Value
-	public void ChangeResolution(int resolutionID)
+    // Cancel Function
+    public override bool HandleCancelFunction()
+    {
+        if (resolutionDropdown.transform.Find("Dropdown List") != null)
+        {
+            resolutionDropdown.Hide();
+            return true;
+        }
+
+        if (displayModeDropdown != null)
+        {
+            if (displayModeDropdown.transform.Find("Dropdown List") != null)
+            {
+                displayModeDropdown.Hide();
+                return true;
+            }
+        }
+
+        if (monitorDropdown != null)
+        {
+            if (monitorDropdown.transform.Find("Dropdown List") != null)
+            {
+                monitorDropdown.Hide();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Changes the Resolution Based on ID Value
+    public void ChangeResolution(int resolutionID)
 	{
 		int width = 0;
 		int height = 0;

@@ -9,11 +9,11 @@ public class BulletWeaponBehaviour : WeaponBehaviour
 	{
 		base.OnSpineEvent(trackEntry, e);
 
-		// Gunshot event
-		if (e.Data.Name == "Gunshot")
-		{
-			CreateBullet();
-		}
+        // Gunshot event
+        if (e.Data.Name == "Gunshot")
+        {
+            CreateBullet();
+        }
 	}
 
 	// Creates a bullet with velocity and recoil
@@ -61,6 +61,19 @@ public class BulletWeaponBehaviour : WeaponBehaviour
 
 		// Decrement ammo and disable firing
 		iClipAmmo--;
+
+        if (onWeaponFire != null)
+        {
+            onWeaponFire(iClipAmmo);
+        }
+
+        if (TotalAmmo == 0)
+        {
+            if (onWeaponEmpty != null)
+            {
+                onWeaponEmpty();
+            }
+        }
 
 		// Stop firing
 		if (weaponData.firingMode == eWeaponFireMode.Burst && iBurstShots < weaponData.iShotsPerBurst)

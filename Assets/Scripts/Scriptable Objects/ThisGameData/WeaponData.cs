@@ -28,6 +28,13 @@ public class WeaponData : ScriptableObject
 	// Player Arm Animation Type
 	public string sPlayerAnimationType;
 
+    // UI Weapon Icon
+    public Sprite uiWeaponIcon;
+    // UI Ammo Icon
+    public Sprite uiAmmoIcon;
+    // UI Row Count for Ammo Icons
+    public int iUIRowCount = 1;
+
 	// Fire AudioEvent
 	public AudioEvent fireAudio;
 	// Fire Tail AudioEvent
@@ -114,6 +121,18 @@ public class WeaponData : ScriptableObject
 	public float fBeamAmmoRate;
 	// Beam Collision Audio Event
 	public AudioEvent beamCollisionAudio;
+
+    // Weapon Info Stat Variables
+
+    // Description Info
+    [TextArea]
+    public string sDescriptionInfo;
+    // Damage Info Stat
+    [Range(0, 10)]
+    public int iDamageInfoStat;
+    // Fire Rate Info Stat
+    [Range(0, 10)]
+    public int iFireRateInfoStat;
 
 	// Instantiates the weapon under a given parent transform and returns it
 	public GameObject GOInstantiateWeapon(Transform parent)

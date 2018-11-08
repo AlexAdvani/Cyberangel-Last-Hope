@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f205b6d623ad224791dee4c16353f59, type: 3}
+  m_Name: HandgunData
+  m_EditorClassIdentifier: 
+  sName: Handgun
+  goWeaponPrefab: {fileID: 1000011507701748, guid: 889fe33365ced2d418256d6fe186acb1,
+    type: 2}
+  goCasingPrefab: {fileID: 1000010658125732, guid: e62d80e586d1da043b65678a38c258ad,
+    type: 2}
+  iCasingPoolSize: 36
+  goClipPrefab: {fileID: 1448373747727568, guid: bd0e286362a2da1458869bd5ba2d92b9,
+    type: 2}
+  iClipPoolSize: 4
+  clipSprite: {fileID: 21300006, guid: ef1a9cc5b46254b4c9f1f4d9275039b5, type: 3}
+  v3WeaponOffset: {x: 0.025, y: -0.008, z: 0}
+  v3HolsterOffset: {x: 0.0048, y: 0, z: 0}
+  fAimIKOffset: 0.07265735
+  sPlayerAnimationType: Handgun
+  uiWeaponIcon: {fileID: 21300000, guid: 0c2374efd8454fc4c87c629cc8b9e5af, type: 3}
+  uiAmmoIcon: {fileID: 21300000, guid: 266b245757fef2a48843e04126f2ab64, type: 3}
+  iUIRowCount: 1
+  fireAudio: {fileID: 11400000, guid: 421b5ec812a85714eb97c1c1f396279e, type: 2}
+  fireTailAudio: {fileID: 0}
+  emptyAudio: {fileID: 11400000, guid: 7cfaa6cc8d89d8f438667540779bdd34, type: 2}
+  reloadUnloadAudio: {fileID: 11400000, guid: 55c8378b8bf5ade46a044cc138095acb, type: 2}
+  reloadLoadAudio: {fileID: 11400000, guid: 422bf3855f6d50d4e86bea72c09ce177, type: 2}
+  reloadSlideAudio: {fileID: 11400000, guid: 2273c58154454b745a321a870423ee3a, type: 2}
+  reloadBoltAudio: {fileID: 11400000, guid: 1f5fa2faaafb15f40bf4a5dc4b7a4a9a, type: 2}
+  weaponType: 0
+  fDamage: 50
+  iMaxAmmo: 84
+  iClipSize: 12
+  firingMode: 0
+  bBoltAction: 0
+  iShotsPerBurst: 3
+  fBurstShotTime: 0.075
+  fFireRate: 0.1
+  bClipReload: 1
+  bCanFullReload: 1
+  holdType: 1
+  fRecoilIncreaseRate: 0.5
+  fMaxRecoil: 1
+  fRecoilDecreaseRate: 4
+  fRecoilResetTime: 0.1
+  fAimRecoilIncreaseRate: 0.05
+  fMaxAimRecoil: 0.02
+  fAimRecoilDecreaseRate: 0.08
+  fAimRecoilResetTime: 0.1
+  v2CameraShakeStrength: {x: 0.25, y: 0.25}
+  fCameraShakeDuration: 0.1
+  fVibrationStrength: 0.1
+  fVibrationTime: 0.1
+  goBulletPrefab: {fileID: 129938, guid: f81849c26f7d618458e29c2fe3b45004, type: 2}
+  iBulletPoolSize: 20
+  iShotgunProjectiles: 0
+  fShotgunSpreadRadius: 0
+  fBeamAmmoRate: 0
+  beamCollisionAudio: {fileID: 0}
+  sDescriptionInfo: 'Standard police issue handgun. This model has been professionally
+    modified to be well balanced. '
+  iDamageInfoStat: 5
+  iFireRateInfoStat: 5

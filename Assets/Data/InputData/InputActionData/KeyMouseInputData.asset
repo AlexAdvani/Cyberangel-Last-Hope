@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5965fa266cb02445acb5958eec39ec4, type: 3}
+  m_Name: KeyMouseInputData
+  m_EditorClassIdentifier: 
+  aInputActions:
+  - sName: Left
+    iActionID: 25
+    axisRange: 2
+    axisDirection: 1
+  - sName: Right
+    iActionID: 25
+    axisRange: 1
+    axisDirection: 0
+  - sName: Up
+    iActionID: 26
+    axisRange: 1
+    axisDirection: 0
+  - sName: Down
+    iActionID: 26
+    axisRange: 2
+    axisDirection: 1
+  - sName: Jump
+    iActionID: 41
+    axisRange: 0
+    axisDirection: 0
+  - sName: Dash
+    iActionID: 27
+    axisRange: 0
+    axisDirection: 0
+  - sName: Fire
+    iActionID: 29
+    axisRange: 0
+    axisDirection: 0
+  - sName: Aim Mode
+    iActionID: 33
+    axisRange: 0
+    axisDirection: 0
+  - sName: Reload
+    iActionID: 30
+    axisRange: 0
+    axisDirection: 0
+  - sName: Switch Weapon
+    iActionID: 31
+    axisRange: 0
+    axisDirection: 0
+  - sName: Interact
+    iActionID: 35
+    axisRange: 0
+    axisDirection: 0
+  - sName: Walk
+    iActionID: 44
+    axisRange: 0
+    axisDirection: 0
+  - sName: Pause
+    iActionID: 36
+    axisRange: 0
+    axisDirection: 0

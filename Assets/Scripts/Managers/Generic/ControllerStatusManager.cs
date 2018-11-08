@@ -1,8 +1,4 @@
-﻿using System;
-
-using UnityEngine;
-
-using Rewired;
+﻿using Rewired;
 using Rewired.Data.Mapping;
 
 public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManager>
@@ -12,7 +8,8 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 	public static ControllerType currentControlType;
 	public static eGamepadButtonType currentGamepadType;
 	public static eGamepadButtonType nativeGamepadType;
-	public static int iGamepadID = 0;
+	public static int iGamepadNo = 0;
+    public static int iGamepadID = 0;
 
 	public HardwareJoystickMap[] aControllerGuids;
 
@@ -26,10 +23,15 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 		ReInput.ControllerConnectedEvent += SetPadXml;
 		ReInput.ControllerConnectedEvent += GamepadConnectEvent;
 
-		currentControlType = ControllerType.Keyboard;
-		currentGamepadType = eGamepadButtonType.Xbox360;
+#if UNITY_EDITOR || UNITY_STANDALONE
+        currentControlType = ControllerType.Keyboard;
+#else 
+        currentControlType = ControllerType.Joystick;
+#endif
 
-		CheckCurrentGamepadForType();
+        currentGamepadType = eGamepadButtonType.Xbox360;
+
+		CheckCurrentGamepadForType(-1);
 	}
 
 	// Update
@@ -75,7 +77,7 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 
 	private void GamepadConnectEvent(ControllerStatusChangedEventArgs args)
 	{
-		CheckCurrentGamepadForType();
+		CheckCurrentGamepadForType(args.controllerId);
 	}
 
 	public void CheckGamepadType(int padID)
@@ -90,7 +92,12 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 			playerInput = ReInput.players.GetPlayer(0);
 		}
 
-		Joystick gamepad = playerInput.controllers.GetController<Joystick>(padID - 1);
+        if (playerInput.controllers.joystickCount == 0)
+        {
+            return;
+        }
+
+		Joystick gamepad = playerInput.controllers.Joysticks[padID - 1];
 
 		if (gamepad == null)
 		{
@@ -99,6 +106,11 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 
 		for (int i = 0; i < aControllerGuids.Length; i++)
 		{
+            if (aControllerGuids[i] == null)
+            {
+                continue;
+            }
+
 			if (gamepad.hardwareTypeGuid != aControllerGuids[i].Guid)
 			{
 				continue;
@@ -113,14 +125,28 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 		nativeGamepadType = currentGamepadType;
 	}
 
-	private void CheckCurrentGamepadForType()
+	private void CheckCurrentGamepadForType(int controllerID)
 	{
 		if (playerInput.controllers.joystickCount == 0)
 		{
 			return;
 		}
 
-		Joystick gamepad = (Joystick)playerInput.controllers.GetController(ControllerType.Joystick, 0);
+        if (controllerID == -1)
+        {
+            if (iGamepadID == -1)
+            {
+                controllerID = playerInput.controllers.Joysticks[0].id;
+            }
+
+            controllerID = iGamepadID;
+        }
+        else if (iGamepadID != controllerID)
+        {
+            iGamepadID = controllerID;
+        }
+
+        Joystick gamepad = (Joystick)playerInput.controllers.GetController(ControllerType.Joystick, controllerID);
 
 		if (gamepad == null)
 		{
@@ -129,6 +155,11 @@ public class ControllerStatusManager : SingletonBehaviour<ControllerStatusManage
 
 		for (int i = 0; i < aControllerGuids.Length; i++)
 		{
+            if (aControllerGuids[i] == null)
+            {
+                continue;
+            }
+
 			if (gamepad.hardwareTypeGuid != aControllerGuids[i].Guid)
 			{
 				continue;

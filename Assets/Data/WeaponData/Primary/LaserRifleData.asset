@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f205b6d623ad224791dee4c16353f59, type: 3}
+  m_Name: LaserRifleData
+  m_EditorClassIdentifier: 
+  sName: Laser Rifle
+  goWeaponPrefab: {fileID: 1557916707308566, guid: 8313ea7e8cc8f844e9d43185626466a0,
+    type: 2}
+  goCasingPrefab: {fileID: 0}
+  iCasingPoolSize: 0
+  goClipPrefab: {fileID: 1924207556119402, guid: d14f4de88f3b3994b809eab4f0d6706e,
+    type: 2}
+  iClipPoolSize: 4
+  clipSprite: {fileID: 21300000, guid: a91d1b1c139d6ba4e8bbbb2e87acae1a, type: 3}
+  v3WeaponOffset: {x: 0.0125, y: 0.004, z: 0}
+  v3HolsterOffset: {x: -0.05, y: -0.08, z: 0}
+  fAimIKOffset: 0.1499705
+  sPlayerAnimationType: LaserRifle
+  uiWeaponIcon: {fileID: 21300000, guid: 41fd4877c30dfc64bb83021f60ca4076, type: 3}
+  uiAmmoIcon: {fileID: 0}
+  iUIRowCount: 1
+  fireAudio: {fileID: 11400000, guid: 8e0a4b6c3b4c52440acf535ac639df49, type: 2}
+  fireTailAudio: {fileID: 0}
+  emptyAudio: {fileID: 11400000, guid: 2e3c4fa672b474c4ab1507d5a4c4457e, type: 2}
+  reloadUnloadAudio: {fileID: 11400000, guid: cf7a16b28023b17488cd47956529b56f, type: 2}
+  reloadLoadAudio: {fileID: 11400000, guid: ea230a398be760845963b92496e3ba01, type: 2}
+  reloadSlideAudio: {fileID: 11400000, guid: 30535905dbaa56a4684aa70e97205a6f, type: 2}
+  reloadBoltAudio: {fileID: 0}
+  weaponType: 2
+  fDamage: 500
+  iMaxAmmo: 100
+  iClipSize: 100
+  firingMode: 1
+  bBoltAction: 0
+  iShotsPerBurst: 0
+  fBurstShotTime: 0
+  fFireRate: 0.04
+  bClipReload: 1
+  bCanFullReload: 0
+  holdType: 0
+  fRecoilIncreaseRate: 0.15
+  fMaxRecoil: 1
+  fRecoilDecreaseRate: 0.4
+  fRecoilResetTime: 0.1
+  fAimRecoilIncreaseRate: 1
+  fMaxAimRecoil: 4
+  fAimRecoilDecreaseRate: 2.5
+  fAimRecoilResetTime: 0.1
+  v2CameraShakeStrength: {x: 0.75, y: 0.75}
+  fCameraShakeDuration: 0.05
+  fVibrationStrength: 0.6
+  fVibrationTime: 0.1
+  goBulletPrefab: {fileID: 129938, guid: f81849c26f7d618458e29c2fe3b45004, type: 2}
+  iBulletPoolSize: 0
+  iShotgunProjectiles: 0
+  fShotgunSpreadRadius: 0
+  fBeamAmmoRate: 15
+  beamCollisionAudio: {fileID: 11400000, guid: e7cc3d213a8917841bf46ffbba006751, type: 2}
+  sDescriptionInfo: Beam firing energy weapon hastily created by the support team.
+    Prolonged fire makes the weapon hard to handle.
+  iDamageInfoStat: 7
+  iFireRateInfoStat: 10

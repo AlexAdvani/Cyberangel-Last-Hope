@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sLevelName: Target Test
   sSceneName: TargetTest
-  levelImage: {fileID: 0}
+  levelImage: {fileID: 21300000, guid: b7fc7826effb8cd4e8225033823700b6, type: 3}
   bHasTime: 1
   goldTime:
     iMinutes: 0
@@ -26,4 +26,12 @@ MonoBehaviour:
   bronzeTime:
     iMinutes: 0
     iSeconds: 20
+    iMilliseconds: 0
+  bHasScore: 0
+  iGoldScore: 0
+  iSilverScore: 0
+  iBronzeScore: 0
+  parTime:
+    iMinutes: 0
+    iSeconds: 0
     iMilliseconds: 0

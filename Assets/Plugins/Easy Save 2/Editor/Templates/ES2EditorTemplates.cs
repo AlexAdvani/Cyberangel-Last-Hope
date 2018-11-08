@@ -9,12 +9,6 @@ public class ES2EditorTemplates
 {
 	public static string GetTemplate(string templateName)
 	{
-		Assembly assembly = Assembly.GetExecutingAssembly();
-		
-		using (Stream stream = assembly.GetManifestResourceStream(templateName))
-			using (StreamReader reader = new StreamReader(stream))
-		{
-			return reader.ReadToEnd();
-		}
+		return File.ReadAllText (Application.dataPath + "/Plugins/Easy Save 2/Templates/" + templateName + ".bytes");
 	}
 }

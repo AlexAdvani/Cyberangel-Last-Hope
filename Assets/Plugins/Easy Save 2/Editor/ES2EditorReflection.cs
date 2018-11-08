@@ -29,8 +29,8 @@ public class ES2EditorReflection
 			return (_assemblies = assemblyList.ToArray());
 		}
 	}
-	public static string[] es2TypeAssemblies = new string[]{"ES2","Assembly-CSharp", "Assembly-UnityScript"};
-	public static string[] editorAssemblies = new string[]{"Assembly-CSharp-Editor", "Assembly-UnityScript-Editor", "ES2Editor"};
+	public static string[] es2TypeAssemblies = new string[]{"Assembly-CSharp", "Assembly-UnityScript", "Assembly-CSharp-firstpass"};
+	public static string[] editorAssemblies = new string[]{"Assembly-CSharp-Editor", "Assembly-CSharp-Editor-firstpass", "Assembly-UnityScript-Editor", "Assembly-UnityScript-Editor-firstpass"};
 
 	public static string[] _assemblies = null;
 

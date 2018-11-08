@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d25e59d76cd6a43a37aad2edd0fcef, type: 3}
+  m_Name: VRTargetHitData
+  m_EditorClassIdentifier: 
+  sAudioSlot: VRTargetHit
+  aacClips:
+  - {fileID: 8300000, guid: 063e99e10288e2f4d93932b7cb16f0b3, type: 3}
+  - {fileID: 8300000, guid: fb2fc6c7f005437439b893fcf36dca57, type: 3}
+  - {fileID: 8300000, guid: 56f67d49ea4233f4488ad8827f3e4a84, type: 3}
+  audioMixerGroup: {fileID: 243773026367871696, guid: 455a8042665eeec4c84fe72acd725fd7,
+    type: 2}
+  v2Volume: {x: 0.8, y: 1}
+  v2Pitch: {x: 1.2, y: 1.5}
+  bLoop: 0

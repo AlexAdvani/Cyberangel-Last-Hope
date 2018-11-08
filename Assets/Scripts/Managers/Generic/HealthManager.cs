@@ -12,8 +12,12 @@ public class HealthManager : MonoBehaviour
 	// Dead flag
 	bool bDead = false;
 
+    // On Health Changed
+    public Action<float> onHealthChanged;
 	// On Kill Action
 	public Action onKill;
+    // On Ray Collision Action
+    public Action onRayCollision;
 
 	#region Public Attributes
 
@@ -62,13 +66,23 @@ public class HealthManager : MonoBehaviour
 		{
 			fHealth = fMaxHealth;
 		}
+
+        if (onHealthChanged != null)
+        {
+            onHealthChanged(fHealth);
+        }
 	}
 
 	// Restores all health
 	public void GiveAllHealth()
 	{
 		fHealth = fMaxHealth;
-	}
+
+        if (onHealthChanged != null)
+        {
+            onHealthChanged(fHealth);
+        }
+    }
 
 	// Takes health by value
 	public void TakeHealth(float health)
@@ -79,13 +93,23 @@ public class HealthManager : MonoBehaviour
 		{
 			fHealth = 0;
 		}
-	}
+
+        if (onHealthChanged != null)
+        {
+            onHealthChanged(fHealth);
+        }
+    }
 
 	// Takes all health
 	public void TakeAllHealth()
 	{
 		fHealth = 0;
-	}
+
+        if (onHealthChanged != null)
+        {
+            onHealthChanged(fHealth);
+        }
+    }
 
 	// Kills Object
 	public void Kill()

@@ -9,6 +9,10 @@ public class VRMissionEndScreen : UIMenuScreenManager
 	public Button nextMissionButton;
 	// End Time Text
 	public TextMeshProUGUI endTimeText;
+    // Par Time Text
+    public TextMeshProUGUI parTimeText;
+    // Time Bonus Text
+    public TextMeshProUGUI timeBonusText;
 	// Best Time Text (End Screen)
 	public TextMeshProUGUI endBestTimeText;
 	// End Rank Text
@@ -27,7 +31,7 @@ public class VRMissionEndScreen : UIMenuScreenManager
 	protected override void Start()
 	{
 		VRMissionModeManager.Instance.goInGameUI.SetActive(false);
-		VRMissionModeManager.Instance.goTargetCounterUI.SetActive(false);
+        VRMissionModeManager.Instance.goMissionUI.SetActive(false);
 		GameManager.SetPause(true);
 		GameManager.DisablePause(true);
 		UIMenuManager.bMenuInputDisabled = false;
@@ -43,9 +47,25 @@ public class VRMissionEndScreen : UIMenuScreenManager
 			nextMissionButton.interactable = false;
 		}
 
-		endTimeText.text = "Time: " + LevelTime.SConvertToTimeString(VRMissionModeManager.Instance.missionTimer.CurrentTime);
-		endBestTimeText.text = "Best: " + LevelTime.SConvertToTimeString(VRMissionModeManager.Instance.BestTime);
-		endRankText.text = "Rank: " + VRMissionModeManager.Instance.EndRank;
+        if (VRMissionModeManager.Instance.levelData.bHasScore)
+        {
+            endTimeText.text = "Score: " + VRMissionModeManager.Instance.missionScore.Score.ToString();
+
+            parTimeText.gameObject.SetActive(true);
+            parTimeText.text = "Par Time: " + VRMissionModeManager.Instance.levelData.parTime.SGetTimeString();
+
+            timeBonusText.gameObject.SetActive(true);
+            timeBonusText.text = "Time Bonus: " + VRMissionModeManager.Instance.TimeBonus.ToString();
+
+            endBestTimeText.text = "Best: " + VRMissionModeManager.Instance.BestScore.ToString();
+            endRankText.text = "Rank: " + VRMissionModeManager.Instance.EndRank;
+        }
+        else
+        {
+            endTimeText.text = "Time: " + LevelTime.SConvertToTimeString(VRMissionModeManager.Instance.missionTimer.CurrentTime);
+            endBestTimeText.text = "Best: " + LevelTime.SConvertToTimeString(VRMissionModeManager.Instance.BestTime);
+            endRankText.text = "Rank: " + VRMissionModeManager.Instance.EndRank;
+        }
 
 		switch (VRMissionModeManager.Instance.EndRank)
 		{

@@ -13,9 +13,11 @@ public class CrosshairUIBehaviour : MonoBehaviour
     Player playerInput;
 
     // Current Target Colour
-    Color currentColour = Color.white;
-    // Highlight colour (When hovering over enemies/targets)
-    public Color cHighlightColour;
+    Color[] acCurrentColours;
+    // Standard Target Colours
+    public Color[] acStandardColours;
+    // Highlight colours (When hovering over enemies/targets)
+    public Color[] acHighlightColours;
     // Crosshair highlight layer mask
     public LayerMask highlightMask;
 
@@ -48,6 +50,8 @@ public class CrosshairUIBehaviour : MonoBehaviour
 
         GameManager.onPause += DisableCrosshair;
         GameManager.onUnpause += EnableCrosshair;
+
+        acCurrentColours = acStandardColours;
 
         if (GameManager.GamePaused || !GameManager.Instance.InGame)
         {
@@ -94,26 +98,30 @@ public class CrosshairUIBehaviour : MonoBehaviour
 
         if (hit.collider != null)
         {
-            SetColour(cHighlightColour);
+            SetColour(acHighlightColours);
         }
         else
         {
-            SetColour(Color.white);
+            SetColour(acStandardColours);
         }
     }
 
     // Sets the colour of the crosshair
-    private void SetColour(Color newColour)
+    private void SetColour(Color[] newColours)
     {
-        if (currentColour == newColour)
+        if (acCurrentColours == newColours)
         {
             return;
         }
 
-        currentColour = newColour;
+        Color colourTint = Color.white;
+        colourTint.a = bVisible ? 1 : fCurrentAlpha;
 
-        newColour.a = bVisible ? 1 : fCurrentAlpha;
-        image.color = newColour;
+        image.material.SetColor("_Colour1", newColours[0]);
+        image.material.SetColor("_Colour2", newColours[1]);
+        image.color = colourTint;
+
+        acCurrentColours = newColours;
     }
 
     // Handles the visibility of the crosshair based on player input
@@ -153,9 +161,11 @@ public class CrosshairUIBehaviour : MonoBehaviour
             return;
         }
 
+        Color colourTint = Color.white;
+
         if (visible)
         {
-            currentColour.a = 1;
+            colourTint.a = 1;
         }
         else
         {
@@ -174,10 +184,10 @@ public class CrosshairUIBehaviour : MonoBehaviour
                 break;
             }
 
-            currentColour.a = fCurrentAlpha;
+            colourTint.a = fCurrentAlpha;
         }
 
-        image.color = currentColour;
+        image.color = colourTint;
         bVisible = visible;
     }
 

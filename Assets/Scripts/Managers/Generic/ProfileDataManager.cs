@@ -116,6 +116,24 @@ public class ProfileDataManager : SingletonBehaviour<ProfileDataManager>
         }
     }
 
+    // Load VR Mission Score
+    public int LoadVRMissionScore(string missionID)
+    {
+        if (sCurrentFilePath == "" || sCurrentFilePath == null)
+        {
+            InitializeFile();
+        }
+
+        if (ES2.Exists(sCurrentFilePath + "?tag=" + "Profile" + iCurrentProfileID + " " + missionID + " Score"))
+        {
+            return ES2.Load<int>(sCurrentFilePath + "?tag=" + "Profile" + iCurrentProfileID + " " + missionID + " Score");
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
     #endregion
 
     #region Saving
@@ -155,6 +173,13 @@ public class ProfileDataManager : SingletonBehaviour<ProfileDataManager>
     public void SaveVRMissionTime(string missionID, float time)
     {
         ES2.Save(time, sCurrentFilePath + "?tag=" + "Profile" + iCurrentProfileID + " " + missionID + " Time");
+        SaveNotificationUI.OpenSaveNotification();
+    }
+
+    // Save VR Mission Time
+    public void SaveVRMissionScore(string missionID, int score)
+    {
+        ES2.Save(score, sCurrentFilePath + "?tag=" + "Profile" + iCurrentProfileID + " " + missionID + " Score");
         SaveNotificationUI.OpenSaveNotification();
     }
 

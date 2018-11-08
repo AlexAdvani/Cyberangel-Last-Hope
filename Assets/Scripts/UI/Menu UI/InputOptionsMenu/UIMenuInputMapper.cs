@@ -12,21 +12,38 @@ public class UIMenuInputMapper : MonoBehaviour
 {
 	// Player Input
 	Player playerInput;
+    // Tab Manager
+    public UITabManager tabManager;
+    // Tab Number
+    public int iTabNo;
 
+    // Input Actions Data
+    public InputMenuActionsData aInputActionsData;
 	// Primary Input Map for Current Control Type 
 	ControllerMap controlMap;
 	// Secondary Input Map for Current Control Type
 	ControllerMap altControlMap;
-	// Primary Action Element Maps
-	ActionElementMap[] aElementMaps;
-	// Secondary Action Element Maps
-	ActionElementMap[] aAltElementMaps;
+    // Element Map Array
+    ActionElementMap[] aElementMaps;
+    // Alt Element Map Array
+    ActionElementMap[] aAltElementMaps;
 
 	// Input Image Data
 	public InputElementToImageData buttonImageData;
+    // Input Row Prefab 
+    public GameObject goInputRowPrefab;
+    // Input Row Parent Transform
+    public RectTransform rtInputRowParent;
+    // Selectable UI underneath the input fields
+    public Selectable downSelectable;
 
 	// Controller Type - Keyboard, Mouse, Joystick, Custom
 	public ControllerType controlType;
+
+    // UI Input Rows
+    UIInputRow[] aUIInputRows;
+    // Current UI Input Row
+    UIInputRow currentUIInputRow;
 
 	// Input Assignment Panel
 	public GameObject goAssignPanel;
@@ -59,42 +76,57 @@ public class UIMenuInputMapper : MonoBehaviour
 	// Current Active Mapper Instance
 	public static UIMenuInputMapper currentActiveMapper;
 
-	// Array of UI Input Fields
-	public UIInputMapField[] aInputFields;
-	// Input Field that is currently being assigned to
-	UIInputMapField currentInputField;
-
 	// Current Gamepad Type
 	eGamepadButtonType currentGamepadType;
 
-	// Initialization
-	void Awake()
-	{
-		InitializeInputSettings();
-		InitializeFields();
+    // Initialization
+    void Awake()
+    {
+        aUIInputRows = null;
 
-		if (controlType == ControllerType.Joystick)
-		{
-			ReInput.ControllerConnectedEvent += ControllerConnectionChangedEvent;
-			ReInput.ControllerDisconnectedEvent += ControllerConnectionChangedEvent;
-		}
+        if (controlType == ControllerType.Joystick)
+        { 
+            ReInput.ControllerConnectedEvent += ControllerConnectionChangedEvent;
+            ReInput.ControllerDisconnectedEvent += ControllerConnectionChangedEvent;
+
+            if (ReInput.controllers.joystickCount == 0)
+            {
+                InitializeInputSettings();
+            }
+        }
+        else 
+        {
+            InitializeInputSettings();
+        }
+
+        tabManager.agoTabs[iTabNo].onTabActivate += SetInitialUISelection;
+        
 	}
 
-	// Update
-	void Update()
-	{
-		// If polling, then poll for input
-		if (bPolling)
-		{
-			PollForInput();
-		}
-	}
+    // Update
+    void Update()
+    {
+        // If polling, then poll for input
+        if (bPolling)
+        {
+            PollForInput();
+        }
+    }
 
-	// If controller is connected or disconnected, reinitialize the input fields
-	private void ControllerConnectionChangedEvent(ControllerStatusChangedEventArgs args)
+    // On Destroy
+    void OnDestroy()
+    {
+        if (controlType == ControllerType.Joystick)
+        {
+            ReInput.ControllerConnectedEvent -= ControllerConnectionChangedEvent;
+            ReInput.ControllerDisconnectedEvent -= ControllerConnectionChangedEvent;
+        }
+    }
+
+    // If controller is connected or disconnected, reinitialize the input fields
+    private void ControllerConnectionChangedEvent(ControllerStatusChangedEventArgs args)
 	{
-		InitializeInputSettings();
-		InitializeFields();
+        InitializeInputSettings();
 	}
 
 	#region Initialization
@@ -105,173 +137,141 @@ public class UIMenuInputMapper : MonoBehaviour
 		playerInput = ReInput.players.GetPlayer(0);
 		int controllerID = 0;
 
-		// Control Type Joystick
-		if (controlType == ControllerType.Joystick)
-		{
-			controllerID = ControllerStatusManager.iGamepadID;
+        // Control Type Joystick
+        if (controlType == ControllerType.Joystick)
+        {
+            controllerID = ControllerStatusManager.iGamepadID;
 
-			// If there are no controllers connected or no controller selected then set all gamepad fields to 'None'
-			if (playerInput.controllers.joystickCount == 0 || controllerID == -1)
-			{
-				bUnassigned = true;
+            // If there are no controllers connected or no controller selected then set all gamepad fields to 'None'
+            if (playerInput.controllers.joystickCount == 0 || controllerID == -1)
+            {
+                bUnassigned = true;
+            }
+            else
+            {
+                bUnassigned = false;
+            }
+        }
+        else
+        {
+            bUnassigned = false;
+        }
 
-				for (int i = 0; i < aInputFields.Length; i++)
-				{
-					UIInputMapField inputField = aInputFields[i];
+        if (!bUnassigned)
+        {
+            controlMap = playerInput.controllers.maps.GetFirstMapInCategory(controlType, controllerID, 3);
+            altControlMap = playerInput.controllers.maps.GetFirstMapInCategory(controlType, controllerID, 4);
 
-					inputField.buttonText.gameObject.SetActive(true);
-					inputField.altButtonText.gameObject.SetActive(true);
+            aElementMaps = controlMap.AllMaps.ToArray();
+            aAltElementMaps = altControlMap.AllMaps.ToArray();
+        }
 
-					if (inputField.buttonImage != null)
-					{
-						inputField.buttonImage.gameObject.SetActive(false);
-					}
+        if (aUIInputRows == null)
+        {
+            InitializeFields();
+        }
+        else
+        {
+            UpdateFields();
+        }
+    }
 
-					if (inputField.altButtonImage != null)
-					{
-						inputField.altButtonImage.gameObject.SetActive(false);
-					}
+    // Initialize Input Fields
+    public void InitializeFields()
+    {
+        aUIInputRows = new UIInputRow[aInputActionsData.aInputActions.Length];
 
-					inputField.buttonText.text = "None";
-					inputField.altButtonText.text = "None";
-				}
+        // Loop through each field and assign each field's text 
+        for (int i = 0; i < aUIInputRows.Length; i++)
+        {
+            InputAction inputData = aInputActionsData.aInputActions[i];
 
-				return;
-			}
-			else 
-			{
-				bUnassigned = false;
-			}
-		}
+            ActionElementMap map = null;
+            ActionElementMap altMap = null;
+            int mapID = -1;
+            int altMapID = -1;
 
-		// Get control maps and element maps for control type
-		controlMap = playerInput.controllers.maps.GetFirstMapInCategory(controlType, controllerID, 3);
-		altControlMap = playerInput.controllers.maps.GetFirstMapInCategory(controlType, controllerID, 4);
-		aElementMaps = controlMap.AllMaps.ToArray();
-		aAltElementMaps = altControlMap.AllMaps.ToArray();
-	}
+            if (!bUnassigned)
+            {
+                map = GetActionMap(inputData, false, out mapID);
+                altMap = GetActionMap(inputData, true, out altMapID);
+            }
 
-	// Initialize Input Button Text
-	public void InitializeFields()
-	{
-		// If Gamepad Unassigned
-		if (bUnassigned)
-		{
-			return;
-		}
+            int index = i;
 
-		// Loop through each field and assign each field's text 
-		for (int i = 0; i < aInputFields.Length; i++)
-		{
-			UIInputMapField inputField = aInputFields[i];
-			ActionElementMap map = GetActionMap(inputField.iActionID, inputField.axis, false);
-			ActionElementMap altMap = GetActionMap(inputField.iActionID, inputField.axis, true);
+            UIInputRow row = Instantiate(goInputRowPrefab, rtInputRowParent).GetComponent<UIInputRow>();
+            row.InitializeRow(inputData.sName, map, altMap, mapID, altMapID, controlType, buttonImageData, bUnassigned);
+            row.primaryButton.onClick.AddListener(() => { OpenWindowForPrimary(index); });
+            row.secondaryButton.onClick.AddListener(() => { OpenWindowForSecondary(index); });
 
-			if (controlType == ControllerType.Joystick)
-			{
-				if (ControllerStatusManager.currentGamepadType != eGamepadButtonType.Generic &&
-					ControllerStatusManager.nativeGamepadType != eGamepadButtonType.Generic)
-				{
-					if (map == null || map.elementIdentifierName == string.Empty)
-					{
-						inputField.buttonText.gameObject.SetActive(true);
-						inputField.buttonImage.gameObject.SetActive(false);
-						inputField.buttonText.text = "None";
-					}
-					else
-					{
-						inputField.buttonText.gameObject.SetActive(false);
-						inputField.buttonImage.gameObject.SetActive(true);
+            aUIInputRows[i] = row;
+        }
 
-						inputField.buttonImage.sprite = buttonImageData.GetImage(controlType, map.elementType, map.elementIdentifierId, map.axisRange, map.axisContribution);
-					}
+        // Loop through and add navigation
+        for (int j = 0; j < aUIInputRows.Length; j++)
+        {
+            Navigation primNav = new Navigation();
+            Navigation secNav = new Navigation();
 
-					if (inputField.buttonImage.sprite == null)
-					{
-						inputField.buttonText.gameObject.SetActive(true);
-						inputField.buttonImage.gameObject.SetActive(false);
-						inputField.buttonText.text = "None";
-					}
+            primNav.mode = Navigation.Mode.Explicit;
+            secNav.mode = Navigation.Mode.Explicit;
 
-					if (altMap == null || altMap.elementIdentifierName == string.Empty)
-					{
-						inputField.altButtonText.gameObject.SetActive(true);
-						inputField.altButtonImage.gameObject.SetActive(false);
-						inputField.altButtonText.text = "None";
-					}
-					else if (altMap.elementIdentifierId == map.elementIdentifierId)
-					{
-						inputField.altButtonText.gameObject.SetActive(true);
-						inputField.altButtonImage.gameObject.SetActive(false);
-						inputField.altButtonText.text = "None";
-					}
-					else
-					{
-						inputField.altButtonText.gameObject.SetActive(false);
-						inputField.altButtonImage.gameObject.SetActive(true);
-						inputField.altButtonImage.sprite = buttonImageData.GetImage(controlType, altMap.elementType, altMap.elementIdentifierId, altMap.axisRange, map.axisContribution);
-					}
+            if (j != 0)
+            {
+                primNav.selectOnUp = aUIInputRows[j - 1].primaryButton;
+                secNav.selectOnUp = aUIInputRows[j - 1].secondaryButton;
+            }
 
-					if (inputField.altButtonImage.sprite == null)
-					{
-						inputField.altButtonText.gameObject.SetActive(true);
-						inputField.altButtonImage.gameObject.SetActive(false);
-						inputField.altButtonText.text = "None";
-					}
+            if (j != aUIInputRows.Length - 1)
+            {
+                primNav.selectOnDown = aUIInputRows[j + 1].primaryButton;
+                secNav.selectOnDown = aUIInputRows[j + 1].secondaryButton;
+            }
+            else
+            {
+                primNav.selectOnDown = downSelectable;
+                secNav.selectOnDown = downSelectable;
+            }
 
-					continue;
-				}
-			}
+            primNav.selectOnRight = aUIInputRows[j].secondaryButton;
+            secNav.selectOnLeft = aUIInputRows[j].primaryButton;
 
-			inputField.buttonText.gameObject.SetActive(true);
-			inputField.altButtonText.gameObject.SetActive(true);
+            aUIInputRows[j].primaryButton.navigation = primNav;
+            aUIInputRows[j].secondaryButton.navigation = secNav;
+        }
 
-			if (inputField.buttonImage != null)
-			{
-				inputField.buttonImage.gameObject.SetActive(false);
-			}
+        Navigation nav = downSelectable.navigation;
+        nav.selectOnUp = aUIInputRows.Last().primaryButton;
+        downSelectable.navigation = nav;
+    }
 
-			if (inputField.altButtonImage != null)
-			{
-				inputField.altButtonImage.gameObject.SetActive(false);
-			}
+    // Update Input Fields
+    public void UpdateFields()
+    {
+        if (aUIInputRows == null)
+        {
+            return;
+        }
 
-			if (map == null || map.elementIdentifierName == string.Empty)
-			{
-				inputField.buttonText.text = "None";
-			}
-			else
-			{
-				inputField.buttonText.text = map.elementIdentifierName;
-			}
+        for (int i = 0; i < aUIInputRows.Length; i++)
+        {
+            UIInputRow row = aUIInputRows[i];
+            row.UpdateRow(aElementMaps[row.PrimaryActionID], aAltElementMaps[row.SecondaryActionID], bUnassigned);
+        }
+    }
 
-			if (altMap == null || altMap.elementIdentifierName == string.Empty)
-			{
-				inputField.altButtonText.text = "None";
-			}
-			else
-			{
-				if (controlType == ControllerType.Keyboard)
-				{
-					if (altMap.keyCode == map.keyCode)
-					{
-						inputField.altButtonText.text = "None";
-						continue;
-					}
-				}
-				else
-				{
-					if (altMap.elementIdentifierId == map.elementIdentifierId)
-					{
-						inputField.altButtonText.text = "None";
-						continue;
-					}
-				}
-
-				inputField.altButtonText.text = altMap.elementIdentifierName;
-			}
-		}
-	}
+    // Set the UI Selection to the first input field button
+    public void SetInitialUISelection()
+    {
+        if (aUIInputRows != null && !bUnassigned)
+        {
+            EventSystem.current.SetSelectedGameObject(aUIInputRows[0].primaryButton.gameObject);
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(downSelectable.gameObject);
+        }
+    }
 
 	#endregion
 
@@ -308,7 +308,7 @@ public class UIMenuInputMapper : MonoBehaviour
 		currentActiveMapper = this;
 
 		// Get the current input field and check if it needs to be replaced
-		currentInputField = aInputFields[fieldID];
+		currentUIInputRow = aUIInputRows[fieldID];
 		CheckReplaceInput();
 	}
 
@@ -324,7 +324,10 @@ public class UIMenuInputMapper : MonoBehaviour
 		StopAllCoroutines();
 		UIMenuManager.bOverrideCancelFunction = false;
 
-		bAltMap = false;
+        aElementMaps = controlMap.AllMaps.ToArray();
+        aAltElementMaps = altControlMap.AllMaps.ToArray();
+
+        bAltMap = false;
 		bAssignWindowOpen = false;
 		bActive = false;
 		currentActiveMapper = null;
@@ -335,20 +338,22 @@ public class UIMenuInputMapper : MonoBehaviour
 	// Checks the current action map for an existing input
 	private void CheckReplaceInput()
 	{
-		ActionElementMap map = GetActionMap(currentInputField.iActionID, currentInputField.axis, bAltMap);
+        // Current Map
+        ActionElementMap map = bAltMap ? aAltElementMaps[currentUIInputRow.PrimaryActionID] :
+            aElementMaps[currentUIInputRow.SecondaryActionID]; 
 
-		// If the map is empty, start polling for input
-		if (map.elementIdentifierName == "None" || map.elementIdentifierName == string.Empty ||
-			(!bAltMap && currentInputField.buttonText.gameObject.activeSelf && currentInputField.buttonText.text == "None") ||
-			(bAltMap && currentInputField.altButtonText.gameObject.activeSelf && currentInputField.altButtonText.text == "None"))
-		{
+        // If the map is empty, start polling for input
+        if (map.elementIdentifierName == "None" || map.elementIdentifierName == string.Empty ||
+            (!bAltMap && currentUIInputRow.primaryButtonText.gameObject.activeSelf && currentUIInputRow.primaryButtonText.text == "None") ||
+            (bAltMap && currentUIInputRow.secondaryButtonText.gameObject.activeSelf && currentUIInputRow.secondaryButtonText.text == "None"))
+        {
 			StartCoroutine(EnablePolling());
-			assignPanelText.text = "Please assign a new input for " + currentInputField.sInputName + ".";
+			assignPanelText.text = "Please assign a new input for " + currentUIInputRow.inputNameText.text + ".";
 			panelCountdownText.gameObject.SetActive(true);
 		}
 		else // Otherwise, ask player is they want to replace or remove the input or cancel the operation
 		{
-			assignPanelText.text = "There is already an input assigned to " + currentInputField.sInputName + ".";
+			assignPanelText.text = "There is already an input assigned to " + currentUIInputRow.inputNameText.text + ".";
 			goPanelButtons.SetActive(true);
 			EventSystem.current.SetSelectedGameObject(goAssignPanelCancelButton);
 		}
@@ -431,21 +436,20 @@ public class UIMenuInputMapper : MonoBehaviour
 		// Stop polling
 		bPolling = false;
 
-		// Current Action Map
-		ActionElementMap map = GetActionMap(currentInputField.iActionID, currentInputField.axis, bAltMap);
+        // Current Action Map
+        ActionElementMap map = bAltMap ? aAltElementMaps[currentUIInputRow.SecondaryActionID] :
+            aElementMaps[currentUIInputRow.PrimaryActionID];
 
 		// Replace Element based on which map is being assigned to
 		if (bAltMap)
 		{
 			altControlMap.ReplaceElementMap(map.id, map.actionId, map.axisContribution, pollingInfo.keyboardKey, ModifierKeyFlags.None);
-			currentInputField.altButtonText.text = pollingInfo.elementIdentifierName;
-			aAltElementMaps = altControlMap.AllMaps.ToArray();
+			currentUIInputRow.secondaryButtonText.text = pollingInfo.elementIdentifierName;
 		}
 		else
 		{
 			controlMap.ReplaceElementMap(map.id, map.actionId, map.axisContribution, pollingInfo.keyboardKey, ModifierKeyFlags.None);
-			currentInputField.buttonText.text = pollingInfo.elementIdentifierName;
-			aElementMaps = controlMap.AllMaps.ToArray();
+			currentUIInputRow.primaryButtonText.text = pollingInfo.elementIdentifierName;
 		}
 
 		SettingsManager.bOptionChanged = true;
@@ -481,24 +485,38 @@ public class UIMenuInputMapper : MonoBehaviour
 		// Stop Polling
 		bPolling = false;
 
-		// Current Action Map
-		ActionElementMap map = GetActionMap(currentInputField.iActionID, currentInputField.axis, bAltMap);
-		// Assignment Data 
-		ElementAssignment assignment = new ElementAssignment(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, currentInputField.axisRange,
-			pollingInfo.keyboardKey, ModifierKeyFlags.None, currentInputField.iActionID, map.axisContribution, false, map.id);
+        // Current Action Map
+        ActionElementMap map = bAltMap ? aAltElementMaps[currentUIInputRow.SecondaryActionID] :
+            aElementMaps[currentUIInputRow.PrimaryActionID];
+        
+        // Assignment Data 
+        ElementAssignment assignment = new ElementAssignment(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange,
+			pollingInfo.keyboardKey, ModifierKeyFlags.None, map.actionId, map.axisContribution, false, map.id);
 
-		// Replace element based on which map is being assigned to
-		if (bAltMap)
+        string elementName = pollingInfo.elementIdentifierName;
+
+        if (controlType == ControllerType.Mouse)
+        {
+            if (elementName == "Left Mouse Button")
+            {
+                elementName = "Left Click";
+            }
+            else if (elementName == "Right Mouse Button")
+            {
+                elementName = "Right Click";
+            }
+        }
+
+        // Replace element based on which map is being assigned to
+        if (bAltMap)
 		{
 			altControlMap.ReplaceElementMap(assignment);
-			currentInputField.altButtonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
-			aAltElementMaps = altControlMap.AllMaps.ToArray();
+			currentUIInputRow.secondaryButtonText.text = elementName + SGetAxisDir(pollingInfo);
 		}
 		else
 		{
 			controlMap.ReplaceElementMap(assignment);
-			currentInputField.buttonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
-			aElementMaps = controlMap.AllMaps.ToArray();
+			currentUIInputRow.primaryButtonText.text = elementName + SGetAxisDir(pollingInfo);
 		}
 
 		SettingsManager.bOptionChanged = true;
@@ -515,7 +533,8 @@ public class UIMenuInputMapper : MonoBehaviour
 		}
 
 		// Get current polling info in use
-		ControllerPollingInfo pollingInfo = ReInput.controllers.polling.PollControllerForFirstElementDown(ControllerType.Joystick, playerInput.controllers.GetLastActiveController().id);
+		ControllerPollingInfo pollingInfo = ReInput.controllers.polling.PollControllerForFirstElementDown(ControllerType.Joystick, 
+            playerInput.controllers.GetLastActiveController().id);
 
 		// If Guide or PS Button
 		if (pollingInfo.elementIdentifierName == "Guide" || pollingInfo.elementIdentifierName == "PS Button")
@@ -531,11 +550,12 @@ public class UIMenuInputMapper : MonoBehaviour
 
 		bPolling = false;
 
-		// Current Action Map
-		ActionElementMap map = GetActionMap(currentInputField.iActionID, currentInputField.axis, bAltMap);
-		// Assignment Data
-		ElementAssignment assignment = new ElementAssignment(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, currentInputField.axisRange,
-			pollingInfo.keyboardKey, ModifierKeyFlags.None, currentInputField.iActionID, map.axisContribution, false, map.id);
+        // Current Action Map
+        ActionElementMap map = bAltMap ? aAltElementMaps[currentUIInputRow.SecondaryActionID] :
+            aElementMaps[currentUIInputRow.PrimaryActionID];
+        // Assignment Data
+        ElementAssignment assignment = new ElementAssignment(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange,
+			pollingInfo.keyboardKey, ModifierKeyFlags.None, map.actionId, map.axisContribution, false, map.id);
 
 		// Replace element based on which map is being assigned to
 		if (bAltMap)
@@ -544,18 +564,17 @@ public class UIMenuInputMapper : MonoBehaviour
 
 			if (ControllerStatusManager.currentGamepadType != eGamepadButtonType.Generic)
 			{
-				currentInputField.altButtonText.gameObject.SetActive(false);
-				currentInputField.altButtonImage.gameObject.SetActive(true);
-				currentInputField.altButtonImage.sprite = buttonImageData.GetImage(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange, pollingInfo.axisPole);
-			}
+                currentUIInputRow.secondaryButtonText.gameObject.SetActive(false);
+                currentUIInputRow.secondaryButtonIcon.gameObject.SetActive(true);
+                currentUIInputRow.secondaryButtonIcon.sprite = 
+                    buttonImageData.GetImage(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange, pollingInfo.axisPole);
+            }
 			else
 			{
-				currentInputField.altButtonText.gameObject.SetActive(true);
-				currentInputField.altButtonImage.gameObject.SetActive(false);
-				currentInputField.altButtonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
-			}
-
-			aAltElementMaps = altControlMap.AllMaps.ToArray();
+                currentUIInputRow.secondaryButtonText.gameObject.SetActive(true);
+                currentUIInputRow.secondaryButtonIcon.gameObject.SetActive(false);
+                currentUIInputRow.secondaryButtonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
+            }
 		}
 		else
 		{
@@ -563,18 +582,17 @@ public class UIMenuInputMapper : MonoBehaviour
 
 			if (ControllerStatusManager.currentGamepadType != eGamepadButtonType.Generic)
 			{
-				currentInputField.buttonText.gameObject.SetActive(false);
-				currentInputField.buttonImage.gameObject.SetActive(true);
-				currentInputField.buttonImage.sprite = buttonImageData.GetImage(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange, pollingInfo.axisPole);
-			}
+                currentUIInputRow.primaryButtonText.gameObject.SetActive(false);
+                currentUIInputRow.primaryButtonIcon.gameObject.SetActive(true);
+                currentUIInputRow.primaryButtonIcon.sprite = 
+                    buttonImageData.GetImage(controlType, pollingInfo.elementType, pollingInfo.elementIdentifierId, map.axisRange, pollingInfo.axisPole);
+            }
 			else
 			{
-				currentInputField.buttonText.gameObject.SetActive(true);
-				currentInputField.buttonImage.gameObject.SetActive(false);
-				currentInputField.buttonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
-			}
-
-			aElementMaps = controlMap.AllMaps.ToArray();
+                currentUIInputRow.primaryButtonText.gameObject.SetActive(true);
+                currentUIInputRow.primaryButtonIcon.gameObject.SetActive(false);
+                currentUIInputRow.primaryButtonText.text = pollingInfo.elementIdentifierName + SGetAxisDir(pollingInfo);
+            }
 		}
 
 		SettingsManager.bOptionChanged = true;
@@ -584,43 +602,41 @@ public class UIMenuInputMapper : MonoBehaviour
 	// Removes an input from an action map
 	public void RemoveInput()
 	{
-		// Current Action Map
-		ActionElementMap map = GetActionMap(currentInputField.iActionID, currentInputField.axis, bAltMap);
-		// Assignment Data
-		ElementAssignment assignment = new ElementAssignment(controlType, ControllerElementType.Button, -1, currentInputField.axisRange,
-			KeyCode.None, ModifierKeyFlags.None, currentInputField.iActionID, map.axisContribution, false, map.id);
+        // Current Action Map
+        ActionElementMap map = bAltMap ? aAltElementMaps[currentUIInputRow.PrimaryActionID] :
+            aElementMaps[currentUIInputRow.SecondaryActionID];
+        // Assignment Data
+        ElementAssignment assignment = new ElementAssignment(controlType, ControllerElementType.Button, -1, map.axisRange,
+			KeyCode.None, ModifierKeyFlags.None, map.actionId, map.axisContribution, false, map.id);
 
 		// Remove element based on which map is being assigned to
 		if (bAltMap)
 		{
 			altControlMap.ReplaceElementMap(assignment);
 
-			currentInputField.altButtonText.gameObject.SetActive(true);
+			currentUIInputRow.secondaryButtonText.gameObject.SetActive(true);
 
 			if (controlType == ControllerType.Joystick)
 			{
-				currentInputField.altButtonImage.gameObject.SetActive(false);
-				currentInputField.altButtonImage.sprite = null;
+				currentUIInputRow.secondaryButtonIcon.gameObject.SetActive(false);
+				currentUIInputRow.secondaryButtonIcon.sprite = null;
 			}
-			currentInputField.altButtonText.text = "None";
 
-			aAltElementMaps = altControlMap.AllMaps.ToArray();
+			currentUIInputRow.secondaryButtonText.text = "None";
 		}
 		else
 		{
 			controlMap.ReplaceElementMap(assignment);
 
-			currentInputField.buttonText.gameObject.SetActive(true);
+			currentUIInputRow.primaryButtonText.gameObject.SetActive(true);
 
 			if (controlType == ControllerType.Joystick)
 			{
-				currentInputField.buttonImage.gameObject.SetActive(false);
-				currentInputField.buttonImage.sprite = null;
+				currentUIInputRow.primaryButtonIcon.gameObject.SetActive(false);
+				currentUIInputRow.primaryButtonIcon.sprite = null;
 			}
 
-			currentInputField.buttonText.text = "None";
-
-			aElementMaps = controlMap.AllMaps.ToArray();
+			currentUIInputRow.primaryButtonText.text = "None";
 		}
 
 		SettingsManager.bOptionChanged = true;
@@ -631,7 +647,7 @@ public class UIMenuInputMapper : MonoBehaviour
 	public void ReplaceInput()
 	{
 		goPanelButtons.SetActive(false);
-		assignPanelText.text = "Please assign a new input for " + currentInputField.sInputName + ".";
+		assignPanelText.text = "Please assign a new input for " + currentUIInputRow.inputNameText + ".";
 		panelCountdownText.gameObject.SetActive(true);
 
 		StartCoroutine(EnablePolling());
@@ -647,7 +663,6 @@ public class UIMenuInputMapper : MonoBehaviour
 
 		playerInput.controllers.maps.LoadDefaultMaps(controlType);
 		InitializeInputSettings();
-		InitializeFields();
 
 		SettingsManager.bOptionChanged = true;
 	}
@@ -657,7 +672,7 @@ public class UIMenuInputMapper : MonoBehaviour
 	{
 		if (info.elementType == ControllerElementType.Axis)
 		{
-			if (currentInputField.axisRange != AxisRange.Full)
+			if (aElementMaps[currentUIInputRow.PrimaryActionID].axisRange != AxisRange.Full)
 			{
 				if (info.axisPole == Pole.Positive)
 				{
@@ -671,25 +686,6 @@ public class UIMenuInputMapper : MonoBehaviour
 		}
 
 		return "";
-	}
-
-	// Checks the element array for a map based on Action ID
-	private ActionElementMap GetActionMap(int actionID, Pole axis, bool alt)
-	{
-		ActionElementMap[] elementArray = alt ? aAltElementMaps : aElementMaps;
-
-		for (int i = 0; i < elementArray.Length; i++)
-		{
-			if (elementArray[i].actionId == actionID)
-			{
-				if (elementArray[i].axisContribution == axis)
-				{
-					return elementArray[i];
-				}
-			}
-		}
-
-		return null;
 	}
 
 	#endregion
@@ -711,34 +707,57 @@ public class UIMenuInputMapper : MonoBehaviour
 		yield return null;
 	}
 
-	// Assigns a gamepad to Player 1 and reinitializes the input settings and fields
-	public void SetNewGamepad(int gamepad)
+    // Get Action Map from ActionID
+    private ActionElementMap GetActionMap(int actionID, Pole axis, bool alt, out int id)
+    {
+        ActionElementMap[] elementArray = alt ? aAltElementMaps : aElementMaps;
+
+        for (int i = 0; i < elementArray.Length; i++)
+        {
+            if (elementArray[i].actionId == actionID)
+            {
+                if (elementArray[i].axisContribution == axis)
+                {
+                    id = i;
+
+                    return elementArray[i];
+                }
+            }
+        }
+
+        id = -1;
+
+        return null; 
+    }
+
+    // Get Action Map from InputAction (With Map ID)
+    private ActionElementMap GetActionMap(InputAction inputData, bool alt, out int id)
+    {
+        ActionElementMap[] elementArray = alt ? aAltElementMaps : aElementMaps;
+
+        for (int i = 0; i < elementArray.Length; i++)
+        {
+            if (elementArray[i].actionId == inputData.iActionID)
+            {
+                if (elementArray[i].axisContribution == inputData.axisDirection)
+                {
+                    id = i;
+
+                    return elementArray[i];
+                }
+            }
+        }
+
+        id = -1;
+
+        return null;
+    }
+
+    // Assigns a gamepad to Player 1 and reinitializes the input settings and fields
+    public void SetNewGamepad(int gamepad)
 	{
-		ControllerStatusManager.iGamepadID = gamepad - 1;
+		ControllerStatusManager.iGamepadNo = gamepad - 1;
 
 		InitializeInputSettings();
-		InitializeFields();
 	}
-}
-
-// Input Map Field
-[System.Serializable]
-public class UIInputMapField
-{
-	// Input Name
-	public string sInputName;
-	// Action ID
-	public int iActionID;
-	// Button Text
-	public TextMeshProUGUI buttonText;
-	// Alt Button Text
-	public TextMeshProUGUI altButtonText;
-	// Button Image
-	public Image buttonImage;
-	// Alt Button Image
-	public Image altButtonImage;
-	// Axis Direction
-	public Pole axis;
-	// Axis Range
-	public AxisRange axisRange;
 }

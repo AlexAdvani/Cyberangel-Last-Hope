@@ -15,13 +15,35 @@ public class PlayerController : MonoBehaviour
 	PlatformerMotor2D motor;
 	// Animator
 	public PlayerAnimation animator;
+    // Health Manager
+    HealthManager healthManager;
 
 	// Rigidbody 2D
 	Rigidbody2D rigidbody2d;
 	// Collider 2D
-	Collider2D collider2d;
+	BoxCollider2D boxCollider;
 	// Environment Collision Filter
 	ContactFilter2D collisionFilter;
+
+    // Collision Shape
+    ePlayerCollisionShape collisionShape = ePlayerCollisionShape.Standard;
+    // Previous Frame Collision Frame
+    ePlayerCollisionShape prevCollisionShape;
+    // Motor Dash Easing Function
+    PC2D.EasingFunctions.Functions dashEasing;
+    // Motor Dash Time
+    float fDashTime;
+    // Motor Dash Distance
+    float fDashDistance;
+    // Dash Action
+    public Action onDash;
+
+    // Standing Bounding Box Rect
+    public Rect rStandBounds;
+    // Crouch Bounding Box Rect
+    public Rect rCrouchBounds;
+    // Sliding Bounding Box Rect
+    public Rect rSlideBounds;
 
 	// Player Input
 	Player playerInput;
@@ -37,7 +59,6 @@ public class PlayerController : MonoBehaviour
 
 	// Facing Left flag
 	bool bFacingLeft = false;
-
 	// Facing Left on Previous Frame flag
 	bool bPrevFacingLeft = false;
 
@@ -46,6 +67,10 @@ public class PlayerController : MonoBehaviour
 	// Movement Disabled flag
 	bool bMovementDisabled = false;
 
+    // Is Crouching flag
+    bool bCrouching = false;
+    // Is Sliding flag
+    bool bSliding = false;
 	// Force Walking Speed flag
 	bool bForceWalk = false;
 	// Double Jumping flag
@@ -74,6 +99,8 @@ public class PlayerController : MonoBehaviour
 	int iCurrentWeaponIndex = 0;
 	// On Wall Weapon Recoil for non Secondary weapons
 	public float fOnWallWeaponRecoil = 2f;
+    // On Weapon Swap Action
+    public Action<int, bool> aOnWeaponSwitch;
 
 	// Front Aiming Hand Bone
 	[SpineBone]
@@ -140,6 +167,18 @@ public class PlayerController : MonoBehaviour
 		get { return bAirJumping; }
 	}
 
+    // Crouching flag
+    public bool Crouching
+    {
+        get { return bCrouching; }
+    }
+
+    // Sliding flag
+    public bool Sliding
+    {
+        get { return bSliding; }
+    }
+
 	// On Wall flag
 	public bool OnWall
 	{
@@ -184,9 +223,15 @@ public class PlayerController : MonoBehaviour
 
 	// Weapon List
 	public List<WeaponBehaviour> Weapons
-	{
-		get { return lWeapons; }
-	}
+    {
+        get { return lWeapons; }
+    }
+
+    // Current Weapon Index
+    public int CurrentWeaponIndex
+    {
+        get { return iCurrentWeaponIndex; }
+    }
 
 	// Current Weapon Data
 	public WeaponData CurrentWeaponData
@@ -244,13 +289,14 @@ public class PlayerController : MonoBehaviour
 	void Awake()
 	{
 		motor = GetComponent<PlatformerMotor2D>();
-		motor.onAirJump += OnAirJump;
+        motor.onAirJump += OnAirJump;
 		motor.onWallJump += ActivateWallJump;
 		motor.onCornerJump += ActivateWallJump;
 		motor.onCornerClimb += animator.OnCornerClimb;
+        motor.onDashEnd += OnDashEnd;
 
 		rigidbody2d = GetComponent<Rigidbody2D>();
-		collider2d = GetComponent<Collider2D>();
+		boxCollider = GetComponent<BoxCollider2D>();
 		collisionFilter = new ContactFilter2D();
 		collisionFilter.SetLayerMask(motor.staticEnvLayerMask);
 
@@ -262,10 +308,15 @@ public class PlayerController : MonoBehaviour
 		cameraPointer = gameCamera.GetComponent<ProCameraPointerPlus>();
 
 		lWeapons = new List<WeaponBehaviour>();
+		
+        dashEasing = motor.dashEasingFunction;
+        fDashTime = motor.dashDuration;
+        fDashDistance = motor.dashDistance;
+        bFacingLeft = motor.facingLeft;
 
-		bFacingLeft = motor.facingLeft;
+        healthManager = GetComponent<HealthManager>();
 
-		InitializeWeapons();
+        InitializeWeapons();
 	}
 
     // Update
@@ -289,19 +340,53 @@ public class PlayerController : MonoBehaviour
 			HandleWeaponAimInput();
 		}
 
-		// If facing direction has changed by end of update, change weapon hand
-		if (bFacingLeft != bPrevFacingLeft)
+        // If collision shape has changed, change collider bounds
+        if (collisionShape != prevCollisionShape)
+        {
+            switch (collisionShape)
+            {
+                case ePlayerCollisionShape.Standard: // Standard bounds
+                    boxCollider.size = rStandBounds.size;
+                    boxCollider.offset = rStandBounds.position;
+                break;
+
+                case ePlayerCollisionShape.Crouch: // Crouch Bounds
+                    boxCollider.size = rCrouchBounds.size;
+                    boxCollider.offset = rCrouchBounds.position;
+                break;
+
+                case ePlayerCollisionShape.Slide: // Slide Bounds
+                    boxCollider.size = rSlideBounds.size;
+                    boxCollider.offset = rSlideBounds.position;
+                break;
+            }
+        }
+
+        // If facing direction has changed by end of update, change weapon hand
+        if (bFacingLeft != bPrevFacingLeft)
 		{
 			animator.FlipCharacter();
 			StartCoroutine(SwitchWeaponHand());
 		}
 
+        // TEMP - Display current aim angle difference to target
 		if (Input.GetKeyDown(KeyCode.B))
 		{
 			print(animator.weaponPivotIKBone.GetWorldPosition(animator.transform).x);
 		}
 
-		bPrevFacingLeft = bFacingLeft;
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            GetComponent<HealthManager>().TakeHealth(10);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GetComponent<HealthManager>().GiveHealth(10);
+        }
+
+        bPrevFacingLeft = bFacingLeft;
+        prevCollisionShape = collisionShape;
 	}
 
 	#region Movement
@@ -353,11 +438,40 @@ public class PlayerController : MonoBehaviour
 
 		if (!bWallJumping)
 		{
-			// Horizontal Axis
-			motor.normalizedXMovement = playerInput.GetAxis("Movement Horizontal");
-			// Vertical Axis
-			motor.normalizedYMovement = playerInput.GetAxis("Movement Vertical");
-		}
+            // Horizontal Axis
+            motor.normalizedXMovement = playerInput.GetAxis("Movement Horizontal");
+            // Vertical Axis
+            motor.normalizedYMovement = playerInput.GetAxis("Movement Vertical");
+        }
+
+        // Crouching
+        if (playerInput.GetAxis("Movement Vertical") < -0.8f)
+        {
+            if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
+            {
+                motor.normalizedXMovement = 0;
+                collisionShape = ePlayerCollisionShape.Crouch;
+                bCrouching = true;
+            }
+            else
+            {
+                if (!bSliding)
+                {
+                    collisionShape = ePlayerCollisionShape.Standard;
+                }
+
+                bCrouching = false;
+            }
+        }
+        else
+        {
+            if (!bSliding)
+            {
+                collisionShape = ePlayerCollisionShape.Standard;
+            }
+
+            bCrouching = false;
+        }
 
 		// If on wall or corner and conditions for walljumping is met then enable walljumpready
 		if (bOnWall || bOnCorner)
@@ -384,7 +498,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
                 {
-                    GhostJump();
+                    bool ghostJump = GhostJump();
+
+                    if (!ghostJump)
+                    {
+                        motor.Jump();
+                    }
                 }
                 else
                 {
@@ -400,29 +519,46 @@ public class PlayerController : MonoBehaviour
 		// Variable Jump Height
 		motor.jumpingHeld = playerInput.GetButton("Jump");
 
-		// Dashing
-		if (playerInput.GetButtonDown("Dash"))
-		{
-			if (motor.motorState != PlatformerMotor2D.MotorState.ClimbingCorner)
-			{
-				// If On Ground, Jumping or Falling
-				if (motor.motorState == PlatformerMotor2D.MotorState.OnGround ||
-					motor.motorState == PlatformerMotor2D.MotorState.Jumping ||
-					motor.motorState == PlatformerMotor2D.MotorState.Falling)
-				{
-					// Check velocity and aim direction 
-					if (Mathf.Abs(motor.velocity.x) < 0.1f && motor.canDash)
-					{
-						// If aiming then set motor direction to aiming direction
-						if (bAimState)
-						{
-							motor.facingLeft = v2PrevAimDiff.x >= 0 ? true : false;
-						}
-					}
-				}
+        // Dashing
+        if (playerInput.GetButtonDown("Dash"))
+        {
+            if (motor.canDash)
+            {
+                if (motor.motorState != PlatformerMotor2D.MotorState.ClimbingCorner)
+                {
+                    // If On Ground, Jumping or Falling
+                    if (motor.motorState == PlatformerMotor2D.MotorState.OnGround ||
+                        motor.motorState == PlatformerMotor2D.MotorState.Jumping ||
+                        motor.motorState == PlatformerMotor2D.MotorState.Falling)
+                    {
+                        // Check velocity and aim direction 
+                        if (Mathf.Abs(motor.velocity.x) < 0.1f && motor.canDash)
+                        {
+                            // If aiming then set motor direction to aiming direction
+                            if (bAimState)
+                            {
+                                motor.facingLeft = v2PrevAimDiff.x >= 0 ? true : false;
+                            }
+                        }
+                    }
 
-				motor.Dash();
-			}
+                    if (playerInput.GetAxis("Movement Vertical") < -0.4f)
+                    {
+                        if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
+                        {
+                            collisionShape = ePlayerCollisionShape.Slide;
+                            bSliding = true;
+                        }
+                    }
+
+                    motor.Dash();
+
+                    if (onDash != null)
+                    {
+                        onDash();
+                    }
+                }
+            }
 		}
 
 		// Walk
@@ -443,7 +579,7 @@ public class PlayerController : MonoBehaviour
 
 	// Checks the platform underneath the player if it is a one-way platform and 
 	// if it is then drop through it
-	private void GhostJump()
+	private bool GhostJump()
 	{
 		RaycastHit2D[] hits = new RaycastHit2D[2];
 		rigidbody2d.Cast(Vector2.down, collisionFilter, hits);
@@ -455,20 +591,22 @@ public class PlayerController : MonoBehaviour
 				if (hits[i].collider.GetComponent<PlatformEffector2D>() != null)
 				{
 					StartCoroutine(GhostJumpCoroutine(hits[i].collider));
-					break;
+                    return true;
 				}
 			}
 		}
+
+        return false;
 	}
 
 	// Sets the collision to be ignored briefly to fall through a oneway platform
 	private IEnumerator GhostJumpCoroutine(Collider2D platformCollider)
 	{
-		collider2d.enabled = false;
-		Physics2D.IgnoreCollision(collider2d, platformCollider, true);
+		boxCollider.enabled = false;
+		Physics2D.IgnoreCollision(boxCollider, platformCollider, true);
 		yield return new WaitForSeconds(0.05f);
-		collider2d.enabled = true;
-		Physics2D.IgnoreCollision(collider2d, platformCollider, false);
+		boxCollider.enabled = true;
+		Physics2D.IgnoreCollision(boxCollider, platformCollider, false);
 	}
 
 	// Activates double jump (Motor Action)
@@ -531,6 +669,46 @@ public class PlayerController : MonoBehaviour
 			StartCoroutine(SwitchWeaponHand());
 		}
 	}
+
+    // On Dash End
+    private void OnDashEnd()
+    {
+        // Ray to check if we are still sliding under something
+        RaycastHit2D ray = Physics2D.Raycast(new Vector2(boxCollider.bounds.center.x, boxCollider.bounds.min.y),
+            Vector2.up, rStandBounds.height, motor.staticEnvLayerMask | motor.movingPlatformLayerMask);
+
+        // If ray hits environment, slide until we are out of the tunnel
+        if (ray.collider != null)
+        {
+            motor.dashDuration = 0.05f;
+            motor.dashDistance = 1;
+            motor.dashEasingFunction = PC2D.EasingFunctions.Functions.Linear;
+            motor.ResetDashCooldown();
+            motor.Dash();
+            motor.ReupdateVelocity();
+
+            bSliding = true;
+
+            return;
+        }
+
+        // Reset dash variables
+        motor.dashEasingFunction = dashEasing;
+        motor.dashDuration = fDashTime;
+        motor.dashDistance = fDashDistance;
+        
+        // Change collision shape to match state
+        if (bCrouching)
+        {
+            collisionShape = ePlayerCollisionShape.Crouch;
+        }
+        else
+        { 
+            collisionShape = ePlayerCollisionShape.Standard;
+        }
+        
+        bSliding = false;
+    }
 
 	#endregion
 
@@ -987,26 +1165,13 @@ public class PlayerController : MonoBehaviour
 		if ((motor.motorState == PlatformerMotor2D.MotorState.OnGround && 
 			(motor.velocity.x > animator.fWalkSpeed && !bFacingLeft) ||
 			(motor.velocity.x < -animator.fWalkSpeed && bFacingLeft)) ||
-			bWallJumping)
+			bWallJumping || bCrouching)
 		{
 			if (bFacingLeft)
 			{
-				if (angle < 0 && angle > -160)
+				if (angle < 0 && angle > -165)
 				{
 					angle = -165;
-					angleChanged = true;
-				}
-				else if (angle > 0 && angle < 170)
-				{
-					angle = 170;
-					angleChanged = true;
-				}
-			}
-			else
-			{
-				if (angle < 0 && angle > -150)
-				{
-					angle = -150;
 					angleChanged = true;
 				}
 				else if (angle > 0 && angle < 165)
@@ -1015,17 +1180,30 @@ public class PlayerController : MonoBehaviour
 					angleChanged = true;
 				}
 			}
+			else
+			{
+				if (angle < 0 && angle > -165)
+				{
+					angle = -165;
+					angleChanged = true;
+				}
+				else if (angle > 0 && angle < 155)
+				{
+					angle = 155;
+					angleChanged = true;
+				}
+			}
 		}
 		else
 		{
-			if (angle < 0 && angle > -140)
+			if (angle < 0 && angle > -155)
 			{
-				angle = -140;
+				angle = -155;
 				angleChanged = true;
 			}
-			else if (angle > 0 && angle < 165)
+			else if (angle > 0 && angle < 160)
 			{
-				angle = 165;
+				angle = 160;
 				angleChanged = true;
 			}
 		}
@@ -1080,14 +1258,20 @@ public class PlayerController : MonoBehaviour
 		weapon.CancelReload();
 		weapon.CancelBolt();
 		weapon.StartCooldownTimers();
+        weapon.StopMuzzleFlash();
 		weapon.bActive = false;
 
 		bHolsteringWeapon = true;
 	}
 
 	// Holsters Weapon
-	public void HolsterWeapon(int index = -1)
+	public void HolsterWeapon(int index = -1, bool instantSwitch = false)
 	{
+        if (!bHoldingWeapon)
+        {
+            return;
+        }
+
 		BoneFollower follower = CurrentWeapon.GetComponent<BoneFollower>();
 		WeaponBehaviour weapon = CurrentWeapon;
 		string holsterBone = weapon.HoldType == eWeaponHoldType.Secondary 
@@ -1095,6 +1279,7 @@ public class PlayerController : MonoBehaviour
 		weapon.bHolstered = true;
 		follower.boneName = holsterBone;
 		follower.HandleRebuildRenderer(follower.SkeletonRenderer);
+        weapon.HandleVisualOffset();
 
 		if (index == -1)
 		{
@@ -1113,6 +1298,11 @@ public class PlayerController : MonoBehaviour
 			index = Mathf.Clamp(index, 0, lWeapons.Count - 1);
 			iCurrentWeaponIndex = index;
 		}
+
+        if (aOnWeaponSwitch != null)
+        {
+            aOnWeaponSwitch(iCurrentWeaponIndex, instantSwitch);
+        }
 
 		// Setup new current weapon
 		weapon = CurrentWeapon;
@@ -1171,22 +1361,23 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	// Equips a currently held weapon
-	public void EquipWeapon(int index, bool instantSwitch = false)
-	{
-		StartSwitchWeapon();
+    // Equips a currently held weapon
+    public void EquipWeapon(int index, bool instantSwitch = false)
+    {
+        StartSwitchWeapon();
 
-		if (instantSwitch)
-		{
-			HolsterWeapon(index);
-			UnholsterWeapon();
-			animator.GetCurrentWeaponAnimationType();
+        if (instantSwitch)
+        {
+            HolsterWeapon(index, true);
+            UnholsterWeapon();
+            animator.GetCurrentWeaponAnimationType();
+            CurrentWeapon.HandleVisualOffset(true);
 
-			bHolsteringWeapon = false;
-			bUnholsteringWeapon = false;
-			bHoldingWeapon = true;
-		}
-	}
+            bHolsteringWeapon = false;
+            bUnholsteringWeapon = false;
+            bHoldingWeapon = true;
+        }
+    }
 
 	// Adds a new weapon to the weapon list via Weapon ID
 	public void AddWeapon(WeaponData weaponData)
@@ -1346,12 +1537,24 @@ public class PlayerController : MonoBehaviour
 		SetAiming(false);
 		animator.SetArmBusy(false);
 
+        // Health
+        healthManager.GiveAllHealth();
+
 		// Weapons
 		EquipWeapon(0, true);
 
-		for (int i = 0; i < lWeapons.Count; i++)
-		{
-			lWeapons[i].RefillAllAmmo();
-		}
+        for (int i = 0; i < lWeapons.Count; i++)
+        {
+            lWeapons[i].RefillAllAmmo();
+            lWeapons[i].laserSight.SetLaserSightActive(false);
+        }
 	}
+}
+
+// Player Collider Sgape 
+public enum ePlayerCollisionShape
+{
+    Standard,
+    Crouch,
+    Slide
 }

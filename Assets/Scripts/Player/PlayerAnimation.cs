@@ -104,9 +104,31 @@ public class PlayerAnimation : SpineAnimatorBase
     // Corner Grab Audio Data
     public SimpleAudioEvent cornerGrabAudio;
 
-	#region Public Properties
+    [Space(5)]
+    [Header("Effects")]
 
-	public string AnimationState
+    // Body Thruster Trail Renderer
+    public TrailRenderer bodyThrusterTrail;
+    // Front LegThruster Trail Renderer
+    public TrailRenderer frontLegThrusterTrail;
+    // Rear Leg Thruster Trail Renderer
+    public TrailRenderer rearLegThrusterTrail;
+
+    // Front Hand Dust Particle System
+    public ParticleSystem frontHandDustParticle;
+    // Rear Hand Dust Particle System
+    public ParticleSystem rearHandDustParticle;
+    // Front Foot Dust Particle System
+    public ParticleSystem frontFootDustParticle;
+    // Rear Foot Dust Particle System
+    public ParticleSystem rearFootDustParticle;
+
+    // Are Wallsliding Effects playing flag
+    bool bWallslidingEffect = false;
+
+    #region Public Properties
+
+    public string AnimationState
 	{
 		get { return sBodyState; }
 	}
@@ -142,8 +164,9 @@ public class PlayerAnimation : SpineAnimatorBase
 		playerController.Motor.onLanded += PlayLandAudio;
 		playerController.Motor.onCornerGrab += PlayCornerGrabAudio;
         playerController.Motor.onWallStick += PlayWallStickAudio;
-        //playerController.Motor.onWallSlide += PlayWallSlideAudio;
+        playerController.Motor.onWallSlide += StartWallSlideEffects;
         playerController.Motor.onWallJump += PlayWallJumpAudio;
+        playerController.Motor.onDashEnd += EndDashEffects;
 
         // TEST - Focused Expression (Update with Game State)
         PlayAnimation("Expression-Focused", 3);
@@ -159,6 +182,7 @@ public class PlayerAnimation : SpineAnimatorBase
 		HandleBodyAnimation();
 		HandleArmAnimation();
 
+        // If player has stopped reloading and the clips are still active, then disable them
 		if (!playerController.CurrentWeapon.Reloading)
 		{
 			if (bClipInHand)
@@ -167,6 +191,15 @@ public class PlayerAnimation : SpineAnimatorBase
 				rearReloadClipRenderer.enabled = false;
 			}
 		}
+
+        // If the wallsliding effect is still active and the player is not wallsliding anymore, deactivate it
+        if (bWallslidingEffect)
+        {
+            if (playerController.Motor.motorState != PlatformerMotor2D.MotorState.WallSliding)
+            {
+                EndWallSlideEffects();
+            }
+        }
 	}
 
 	#region Spine Events
@@ -205,7 +238,7 @@ public class PlayerAnimation : SpineAnimatorBase
 			break;
 
 			case "ThrusterDash":
-				PlayDashThrusterAudio();
+				StartDashEffects();
 			break;
 
 			case "ThrusterJump":
@@ -314,99 +347,124 @@ public class PlayerAnimation : SpineAnimatorBase
 		float playPosition = 0;
 		float mix = -1;
 
-		// Check Motor State
-		switch (playerController.Motor.motorState)
-		{
-			// On Ground
-			case PlatformerMotor2D.MotorState.OnGround:
-				// Horizontal movement
-				float xMove = Mathf.Abs(playerController.Motor.normalizedXMovement);
-				// Horizontal velocity
-				float horVel = Mathf.Abs(playerController.Motor.velocity.x);
+        // Check Motor State
+        switch (playerController.Motor.motorState)
+        {
+            // On Ground
+            case PlatformerMotor2D.MotorState.OnGround:
+                // Horizontal movement
+                float xMove = Mathf.Abs(playerController.Motor.normalizedXMovement);
+                // Horizontal velocity
+                float horVel = Mathf.Abs(playerController.Motor.velocity.x);
 
-				// Set animation based on movement speed
-				if (xMove > 0.05f)
-				{
-					if (xMove <= fWalkSpeed)
-					{
-						sBodyState = "Walk";
+                // Set animation based on movement speed
+                if (xMove > 0.05f)
+                {
+                    if (sBodyState == "Crouch" || sBodyState == "Slide")
+                    {
+                        mix = 0.1f;
+                    }
 
-						playSpeed = (horVel / (playerController.Motor.groundSpeed * fWalkSpeed)) * (v2WalkAnimSpeed.y - v2WalkAnimSpeed.x) + v2WalkAnimSpeed.x;
-					}
-					else
-					{
-						sBodyState = "Run";
+                    if (xMove <= fWalkSpeed)
+                    {
+                        sBodyState = "Walk";
 
-						playSpeed = (horVel / playerController.Motor.groundSpeed) * (v2RunAnimSpeed.y - v2RunAnimSpeed.x) + v2RunAnimSpeed.x;
-					}
+                        playSpeed = (horVel / (playerController.Motor.groundSpeed * fWalkSpeed)) * (v2WalkAnimSpeed.y - v2WalkAnimSpeed.x) + v2WalkAnimSpeed.x;
+                    }
+                    else
+                    {
+                        sBodyState = "Run";
 
-					if (playerController.AimState || bArmBusy)
-					{
-						if ((bFacingLeft && playerController.Motor.velocity.x > 0.1f) ||
-							(!bFacingLeft && playerController.Motor.velocity.x < -0.1f))
-						{
-							sBodyState += "-Reverse";
-						}
-					} 
-				}
-				else // Otherwise, set animation based on if arms are in use
-				{
-					if (playerController.CurrentWeapon != null)
-					{
-						if (bArmBusy || playerController.CurrentWeapon.Reloading)
-						{
-							sBodyState = "Neutral";
-						}
-						else
-						{
-							sBodyState = "Idle";
-						}
-					}
-				}
+                        playSpeed = (horVel / playerController.Motor.groundSpeed) * (v2RunAnimSpeed.y - v2RunAnimSpeed.x) + v2RunAnimSpeed.x;
+                    }
 
-				looping = true;
-				break;
+                    if (playerController.AimState || bArmBusy)
+                    {
+                        if ((bFacingLeft && playerController.Motor.velocity.x > 0.1f) ||
+                            (!bFacingLeft && playerController.Motor.velocity.x < -0.1f))
+                        {
+                            sBodyState += "-Reverse";
+                        }
+                    }
+                }
+                else // Otherwise, set animation based on if arms are in use
+                {
+                    if (playerController.Crouching)
+                    {
+                        sBodyState = "Crouch";
+                        mix = 0.1f;
+                    }
+                    else
+                    {
+                        if (playerController.CurrentWeapon != null)
+                        {
+                            if (sBodyState == "Crouch" || sBodyState == "Slide")
+                            {
+                                mix = 0.1f;
+                            }
 
-			// Jumping
-			case PlatformerMotor2D.MotorState.Jumping:
-				// Set animation based on whether player is double jumping
-				if (playerController.AirJumping)
-				{
-					sBodyState = "Jump2";
-				}
-				else
-				{
-					// Set animation based on whether player is wall jumping
-					if (playerController.WallJumping)
-					{
-						if ((bFacingLeft && playerController.LastWallCollisionDirLeft) ||
-							(!bFacingLeft && !playerController.LastWallCollisionDirLeft))
-						{
-							sBodyState = "WallJump-Reverse";
-						}
-						else
-						{
-							sBodyState = "WallJump";
-						}
+                            if (bArmBusy || playerController.CurrentWeapon.Reloading)
+                            {
+                                sBodyState = "Neutral";
+                            }
+                            else
+                            {
+                                sBodyState = "Idle";
+                            }
+                        }
+                    }
+                }
 
-						skeleton.skeleton.SetBonesToSetupPose();
-						mix = 0;
-					}
-					else
-					{
-						sBodyState = "Jump";
-					}
-				}
-			break;
+                looping = true;
+                break;
 
-			// Falling
-			case PlatformerMotor2D.MotorState.Falling:
-				sBodyState = "Fall";
-			break;
+            // Jumping
+            case PlatformerMotor2D.MotorState.Jumping:
+                // Set animation based on whether player is double jumping
+                if (playerController.AirJumping)
+                {
+                    sBodyState = "Jump2";
+                }
+                else
+                {
+                    // Set animation based on whether player is wall jumping
+                    if (playerController.WallJumping)
+                    {
+                        if ((bFacingLeft && playerController.LastWallCollisionDirLeft) ||
+                            (!bFacingLeft && !playerController.LastWallCollisionDirLeft))
+                        {
+                            sBodyState = "WallJump-Reverse";
+                        }
+                        else
+                        {
+                            sBodyState = "WallJump";
+                        }
 
-			// Dashing
-			case PlatformerMotor2D.MotorState.Dashing:
-				sBodyState = "Dash";
+                        skeleton.skeleton.SetBonesToSetupPose();
+                        mix = 0;
+                    }
+                    else
+                    {
+                        sBodyState = "Jump";
+                    }
+                }
+                break;
+
+            // Falling
+            case PlatformerMotor2D.MotorState.Falling:
+                sBodyState = "Fall";
+                break;
+
+            // Dashing
+            case PlatformerMotor2D.MotorState.Dashing:
+                if (playerController.Sliding)
+                {
+                    sBodyState = "Slide";
+                }
+                else
+                {
+                    sBodyState = "Dash";
+                }
 
 				mix = 0.05f;
 			break;
@@ -703,7 +761,7 @@ public class PlayerAnimation : SpineAnimatorBase
 		bArmAnimWeaponExclusive = true;
 		string orientation = bFacingLeft ? "-Left" : "-Right";
 
-		PlayAnimation(sWeaponAnimationType + sArmState + orientation, 1, false, false, 0, 0.05f);
+        PlayAnimation(sWeaponAnimationType + sArmState + orientation, 1, false, false, 0, 0.05f);
 	}
 
 	// Triggers the reload animation for the current weapon
@@ -825,6 +883,11 @@ public class PlayerAnimation : SpineAnimatorBase
 			{
 				animationName = "SingleArmReadyRecoil";
 			}
+
+            if (playerController.CurrentWeapon.HoldType == eWeaponHoldType.Primary)
+            {
+                animationName += "Primary";
+            }
 
 			bArmAnimWeaponExclusive = false;
 		}
@@ -969,7 +1032,7 @@ public class PlayerAnimation : SpineAnimatorBase
 		}
 		else if (bArmAnimHolstering)
 		{
-			PlayAnimation(sWeaponHoldAnimationType + sArmState + orientation, 1, armTrack.Loop, false, playTime, 0);
+			PlayAnimation(sWeaponHoldAnimationType + sArmState + orientation, 1, armTrack.Loop, false, playTime, 0, 0);
 		}
 		else
 		{
@@ -1034,12 +1097,92 @@ public class PlayerAnimation : SpineAnimatorBase
 		skeleton.state.SetEmptyAnimation(1, 0);
 	}
 
-	#endregion
+    #endregion
 
-	#region Audio
+    #region Effects
 
-	// Plays Run Footstep audio event
-	private void PlayRunFootstepAudio()
+    // Start Dash Effects
+    private void StartDashEffects()
+    {
+        dashThrusterAudio.Play();
+
+        bodyThrusterTrail.emitting = true;
+
+        if (!playerController.Sliding)
+        {
+            frontLegThrusterTrail.emitting = true;
+            rearLegThrusterTrail.emitting = true;
+        }
+    }
+
+    // End Dash Effects
+    private void EndDashEffects()
+    {
+        bodyThrusterTrail.emitting = false;
+        frontLegThrusterTrail.emitting = false;
+        rearLegThrusterTrail.emitting = false;
+    }
+
+    // Start Wallslide Effects
+    private void StartWallSlideEffects()
+    {
+        if (bWallslidingEffect)
+        {
+            return;
+        }
+
+        wallSlideAudio.Play();
+
+        Vector3 dustRotation;
+
+        if (bFacingLeft)
+        {
+            frontHandDustParticle.Play();
+
+            dustRotation = new Vector3(-90, 0, 180);
+        }
+        else
+        {
+            rearHandDustParticle.Play();
+
+            dustRotation = new Vector3(-90, 0, 0);
+        }
+
+        frontFootDustParticle.Play();
+        rearFootDustParticle.Play();
+
+        frontHandDustParticle.transform.rotation = Quaternion.Euler(dustRotation);
+        rearHandDustParticle.transform.rotation = Quaternion.Euler(dustRotation);
+        frontFootDustParticle.transform.rotation = Quaternion.Euler(dustRotation);
+        rearFootDustParticle.transform.rotation = Quaternion.Euler(dustRotation);
+
+        bWallslidingEffect = true;
+    }
+
+    // End Wallslide Effects
+    private void EndWallSlideEffects()
+    {
+        if (!bWallslidingEffect)
+        {
+            return;
+        }
+
+        wallSlideAudio.Stop();
+
+        frontHandDustParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        rearHandDustParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        frontFootDustParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+        rearFootDustParticle.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        bWallslidingEffect = false;
+    }
+
+    #endregion
+
+    #region Audio
+
+    // Plays Run Footstep audio event
+    private void PlayRunFootstepAudio()
 	{
 		runFootstepAudio.Play();
 	}
@@ -1062,12 +1205,6 @@ public class PlayerAnimation : SpineAnimatorBase
         jumpAudio.Play();
     }
 
-	// Plays Dash Thruster audio event
-	private void PlayDashThrusterAudio()
-	{
-		dashThrusterAudio.Play();
-	}
-
 	// Plays Jump Thruster audio event
 	private void PlayJumpThrusterAudio()
 	{
@@ -1084,12 +1221,6 @@ public class PlayerAnimation : SpineAnimatorBase
     private void PlayWallStickAudio()
     {
         wallStickAudio.Play();
-    }
-
-    // Plays Wall Slide audio event
-    private void PlayWallSlideAudio()
-    {
-        wallSlideAudio.Play();
     }
 
     // Plays Wall Jump audio event

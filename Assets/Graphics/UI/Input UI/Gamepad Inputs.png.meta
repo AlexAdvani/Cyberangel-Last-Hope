@@ -1,63 +1,61 @@
 fileFormatVersion: 2
 guid: b65c72f55d72c254885557968d3ac9a2
-timeCreated: 1497983127
-licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Gamepad Inputs_0
-    21300002: Gamepad Inputs_1
-    21300004: Gamepad Inputs_2
-    21300006: Gamepad Inputs_3
-    21300008: Gamepad Inputs_4
-    21300010: Gamepad Inputs_6
-    21300012: Gamepad Inputs_7
-    21300014: Gamepad Inputs_8
-    21300016: Gamepad Inputs_10
-    21300018: Gamepad Inputs_13
-    21300020: Gamepad Inputs_14
-    21300022: Gamepad Inputs_15
-    21300024: Gamepad Inputs_16
-    21300026: Gamepad Inputs_20
-    21300028: Gamepad Inputs_21
-    21300030: Gamepad Inputs_26
-    21300032: Gamepad Inputs_27
-    21300034: Gamepad Inputs_28
-    21300036: Gamepad Inputs_32
-    21300038: Gamepad Inputs_34
-    21300040: Gamepad Inputs_35
-    21300042: Gamepad Inputs_36
-    21300044: Gamepad Inputs_37
-    21300046: Gamepad Inputs_38
-    21300048: Gamepad Inputs_43
-    21300050: Gamepad Inputs_51
-    21300052: Gamepad Inputs_56
-    21300054: Gamepad Inputs_9
-    21300056: Gamepad Inputs_11
-    21300058: Gamepad Inputs_12
-    21300060: Gamepad Inputs_18
-    21300062: Gamepad Inputs_22
-    21300064: Gamepad Inputs_24
-    21300066: Gamepad Inputs_25
-    21300068: Gamepad Inputs_29
-    21300070: Gamepad Inputs_30
-    21300072: Gamepad Inputs_31
-    21300074: Gamepad Inputs_33
-    21300076: Gamepad Inputs_39
-    21300078: Gamepad Inputs_40
-    21300080: Gamepad Inputs_41
-    21300082: Gamepad Inputs_42
-    21300084: Gamepad Inputs_45
-    21300086: Gamepad Inputs_46
-    21300088: Gamepad Inputs_47
-    21300090: Gamepad Inputs_48
-    21300092: Gamepad Inputs_49
-    21300094: Gamepad Inputs_50
-    21300096: Gamepad Inputs_52
-    21300098: Gamepad Inputs_53
-    21300100: Gamepad Inputs_54
-    21300102: Gamepad Inputs_57
-    21300104: Gamepad Inputs_58
-    21300106: Gamepad Inputs_59
+    21300000: GamepadXbox-A
+    21300002: GamepadXbox-B
+    21300004: GamepadXbox-X
+    21300006: GamepadXbox-Y
+    21300008: GamepadXbox-LB
+    21300010: GamepadXbox-LSClick
+    21300012: GamepadXbox-RSClick
+    21300014: GamepadXbox-View
+    21300016: GamepadXbox-LSXFull
+    21300018: GamepadXbox-LSYFull
+    21300020: GamepadXbox-LSYPos
+    21300022: GamepadXbox-LSYNeg
+    21300024: GamepadXbox-RSXFull
+    21300026: GamepadXbox-RSYPos
+    21300028: GamepadXbox-RSYNeg
+    21300030: GamepadXbox-LT
+    21300032: GamepadXbox-RT
+    21300034: GamepadPS-X
+    21300036: GamepadPS-L1
+    21300038: GamepadPS-L3
+    21300040: GamepadPS-R3
+    21300042: GamepadPS-Share
+    21300044: GamepadPS-Options
+    21300046: GamepadPS-Touchpad
+    21300048: GamepadPS-LYPos
+    21300050: GamepadPS-DPadLeft
+    21300052: GamepadPS-R2
+    21300054: GamepadXbox-Menu
+    21300056: GamepadXbox-LSXPos
+    21300058: GamepadXbox-LSXNeg
+    21300060: GamepadXbox-RSXNeg
+    21300062: GamepadXbox-DPadLeft
+    21300064: GamepadXbox-DPadUp
+    21300066: GamepadXbox-DPadDown
+    21300068: GamepadPS-Circle
+    21300070: GamepadPS-Square
+    21300072: GamepadPS-Triangle
+    21300074: GamepadPS-R1
+    21300076: GamepadPS-LXFull
+    21300078: GamepadPS-LXPos
+    21300080: GamepadPS-LXNeg
+    21300082: GamepadPS-LYFull
+    21300084: GamepadPS-RXFull
+    21300086: GamepadPS-RXPos
+    21300088: GamepadPS-RXNeg
+    21300090: GamepadPS-RYFull
+    21300092: GamepadPS-RYPos
+    21300094: GamepadPS-RYNeg
+    21300096: GamepadPS-DPadRight
+    21300098: GamepadPS-DPadUp
+    21300100: GamepadPS-DPadDown
+    21300102: GamepadPS-L
+    21300104: GamepadPS-R
+    21300106: GamepadXbox-LS
     21300108: Gamepad Inputs_61
     21300110: Gamepad Inputs_63
     21300112: Gamepad Inputs_65
@@ -72,7 +70,7 @@ TextureImporter:
     21300130: Gamepad Inputs_77
     21300132: Gamepad Inputs_78
     21300134: Gamepad Inputs_79
-    21300136: Gamepad Inputs_8
+    21300136: GamepadXbox-View
     21300138: Gamepad Inputs_81
     21300140: Gamepad Inputs_82
     21300142: Gamepad Inputs_83
@@ -82,7 +80,7 @@ TextureImporter:
     21300150: Gamepad Inputs_87
     21300152: Gamepad Inputs_88
     21300154: Gamepad Inputs_89
-    21300156: Gamepad Inputs_9
+    21300156: GamepadXbox-Menu
     21300158: Gamepad Inputs_91
     21300160: Gamepad Inputs_92
     21300162: Gamepad Inputs_93
@@ -92,21 +90,21 @@ TextureImporter:
     21300170: Gamepad Inputs_97
     21300172: Gamepad Inputs_98
     21300174: Gamepad Inputs_99
-    21300176: Gamepad Inputs_10
+    21300176: GamepadXbox-LSXFull
     21300178: Gamepad Inputs_101
     21300180: Gamepad Inputs_102
     21300182: Gamepad Inputs_104
     21300184: Gamepad Inputs_106
     21300186: Gamepad Inputs_108
     21300188: Gamepad Inputs_109
-    21300190: Gamepad Inputs_11
+    21300190: GamepadXbox-LSXPos
     21300192: Gamepad Inputs_111
     21300194: Gamepad Inputs_113
     21300196: Gamepad Inputs_115
     21300198: Gamepad Inputs_117
     21300200: Gamepad Inputs_118
     21300202: Gamepad Inputs_119
-    21300204: Gamepad Inputs_12
+    21300204: GamepadXbox-LSXNeg
     21300206: Gamepad Inputs_121
     21300208: Gamepad Inputs_122
     21300210: Gamepad Inputs_123
@@ -139,8 +137,8 @@ TextureImporter:
     21300264: Gamepad Inputs_156
     21300266: Gamepad Inputs_157
     21300268: Gamepad Inputs_158
-    21300270: Gamepad Inputs_60
-    21300272: Gamepad Inputs_44
+    21300270: GamepadXbox-RS
+    21300272: GamepadPS-LYNeg
     21300274: Gamepad Inputs_550
     21300276: Gamepad Inputs_29
     21300278: Gamepad Inputs_170
@@ -160,7 +158,13 @@ TextureImporter:
     21300306: Gamepad Inputs_17
     21300308: Gamepad Inputs_19
     21300310: Gamepad Inputs_23
-  serializedVersion: 4
+    21300312: GamepadPS-L2
+    21300314: GamepadXbox-RB
+    21300316: GamepadXbox-RSXPos
+    21300318: GamepadXbox-RSYFull
+    21300320: GamepadXbox-DPadRight
+  externalObjects: {}
+  serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -168,6 +172,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -176,6 +182,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -183,10 +191,13 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 1
     aniso: 16
-    mipBias: -1
-    wrapMode: 1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -195,600 +206,908 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 4096
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
     maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: 12
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
-  - buildTarget: Android
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
     maxTextureSize: 4096
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: WebGL
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
     maxTextureSize: 4096
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gamepad Inputs_0
+      name: GamepadXbox-A
       rect:
         serializedVersion: 2
         x: 0
         y: 3918
         width: 172
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 53a32d88553e73d4eb4e13f2ff75ffff
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_1
+      name: GamepadXbox-B
       rect:
         serializedVersion: 2
-        x: 184
-        y: 3918
+        x: 185
+        y: 3917
         width: 178
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: abe96cef5c29f054e9e314a5765c8435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_2
+      name: GamepadXbox-X
       rect:
         serializedVersion: 2
         x: 374
         y: 3918
         width: 177
         height: 177
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 25fa5e4f3b97fa24fb56caab945234c9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_3
+      name: GamepadXbox-Y
       rect:
         serializedVersion: 2
         x: 564
         y: 3918
         width: 177
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 8afec90ffe32c574c909fc13b19c23de
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_4
+      name: GamepadXbox-LB
       rect:
         serializedVersion: 2
         x: 756
         y: 3940
         width: 232
         height: 134
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: b6a4fb307bb492742b29bf269430f3fa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_6
+      name: GamepadXbox-LSClick
       rect:
         serializedVersion: 2
-        x: 1240
+        x: 1241
         y: 3905
         width: 134
         height: 191
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 4ac417deafd564545ade0608fc9c8380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_7
+      name: GamepadXbox-RSClick
       rect:
         serializedVersion: 2
-        x: 1382
-        y: 3904
+        x: 1384
+        y: 3903
         width: 134
         height: 192
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 0abc2c4c3ffeaa145b702ca8f316771c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_8
+      name: GamepadXbox-View
       rect:
         serializedVersion: 2
         x: 1557
         y: 3918
         width: 176
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: d4630f6970d20a44284136fdd0921149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_10
+      name: GamepadXbox-LSXFull
       rect:
         serializedVersion: 2
         x: 5
         y: 3735
         width: 234
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 9dcc7cc539d37724ca3a9d4973a92fdf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_13
+      name: GamepadXbox-LSYFull
       rect:
         serializedVersion: 2
-        x: 694
+        x: 695
         y: 3734
         width: 203
         height: 179
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 7d6df401b186562478917814177e841d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_14
+      name: GamepadXbox-LSYPos
       rect:
         serializedVersion: 2
         x: 903
         y: 3734
         width: 204
         height: 179
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 495b242da97a5ea4aa36aa780baca35e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_15
+      name: GamepadXbox-LSYNeg
       rect:
         serializedVersion: 2
-        x: 1107
+        x: 1108
         y: 3734
         width: 205
-        height: 179
-      alignment: 6
-      pivot: {x: 0, y: 0}
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 011cb1ee72f6a1148b9a158078174130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_16
+      name: GamepadXbox-RSXFull
       rect:
         serializedVersion: 2
-        x: 5
+        x: 6
         y: 3552
         width: 231
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 56a9c7031a81eff4eb63f39d9a3c93dc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_20
+      name: GamepadXbox-RSYPos
       rect:
         serializedVersion: 2
         x: 903
-        y: 3552
+        y: 3554
         width: 204
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 23c1338cd931e2c48a7257509f9a0519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_21
+      name: GamepadXbox-RSYNeg
       rect:
         serializedVersion: 2
-        x: 1107
-        y: 3552
+        x: 1108
+        y: 3550
         width: 205
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e0592e8b008feba48af7609ab078f002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_26
+      name: GamepadXbox-LT
       rect:
         serializedVersion: 2
         x: 712
         y: 3399
         width: 216
         height: 134
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 1a969f617b0fc134a873ed0edff1b6a6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_27
+      name: GamepadXbox-RT
       rect:
         serializedVersion: 2
         x: 934
         y: 3399
         width: 214
         height: 134
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ea0743a6ad379324391ffe39d7d8daf4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_28
+      name: GamepadPS-X
       rect:
         serializedVersion: 2
         x: 0
-        y: 3185
+        y: 3186
         width: 171
         height: 173
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: f51b31ad1cfd94140a9a91ac77f2e689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_32
+      name: GamepadPS-L1
       rect:
         serializedVersion: 2
         x: 756
-        y: 3201
+        y: 3200
         width: 233
         height: 136
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c15d326f93418314b8d5e838ff791ed5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_34
+      name: GamepadPS-L3
       rect:
         serializedVersion: 2
         x: 1220
         y: 3180
         width: 178
         height: 177
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 56b578645d0552540a5c79ddb4d2b440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_35
+      name: GamepadPS-R3
       rect:
         serializedVersion: 2
         x: 1403
-        y: 3180
+        y: 3179
         width: 176
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 070819a1b1cdf43478f3e3bc09b20ce8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_36
+      name: GamepadPS-Share
       rect:
         serializedVersion: 2
-        x: 1606
-        y: 3180
+        x: 1607
+        y: 3179
         width: 92
         height: 167
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 21f706d2e681cb547844168119351d83
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_37
+      name: GamepadPS-Options
       rect:
         serializedVersion: 2
-        x: 1723
+        x: 1724
         y: 3180
         width: 104
         height: 167
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 224b26950a499ff4189d4243f0d1c1cb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_38
+      name: GamepadPS-Touchpad
       rect:
         serializedVersion: 2
         x: 1854
         y: 3201
         width: 193
         height: 136
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2fa9cb3b91e47274884b841c683c813f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_43
+      name: GamepadPS-LYPos
       rect:
         serializedVersion: 2
         x: 904
         y: 3007
         width: 203
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 71f88fc1f8ac5394285b2f4547d12e4a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_44
+      name: GamepadPS-LYNeg
       rect:
         serializedVersion: 2
         x: 1107
         y: 3007
         width: 202
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82e06874a9f7c7f45819c7f032893918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_51
+      name: GamepadPS-DPadLeft
       rect:
         serializedVersion: 2
         x: 0
-        y: 2636
+        y: 2637
         width: 169
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: ff6feb18a7c61d5428b545a224da6ae2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_55
+      name: GamepadPS-L2
       rect:
         serializedVersion: 2
         x: 779
-        y: 2657
+        y: 2655
         width: 214
         height: 136
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 9fc5e9315d9424743af20c4f5bb74bd9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_56
+      name: GamepadPS-R2
       rect:
         serializedVersion: 2
         x: 1000
-        y: 2657
+        y: 2656
         width: 213
         height: 136
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e226cec0a142e2c479a71007bd5f07f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_5
+      name: GamepadXbox-RB
       rect:
         serializedVersion: 2
         x: 988
         y: 3940
         width: 223
         height: 134
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e7ea6931ae1c1af4ba494eb3871b30a4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_9
+      name: GamepadXbox-Menu
       rect:
         serializedVersion: 2
         x: 1733
         y: 3918
         width: 176
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: b770660595446b142b6f0b6527e07a7c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_11
+      name: GamepadXbox-LSXPos
       rect:
         serializedVersion: 2
-        x: 241
-        y: 3735
+        x: 240
+        y: 3734
         width: 225
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 244fd43703afae84abec4875f35de156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_12
+      name: GamepadXbox-LSXNeg
       rect:
         serializedVersion: 2
         x: 468
         y: 3736
         width: 228
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: d0d145dd6b554844c9c6cde92905d382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_17
+      name: GamepadXbox-RSXPos
       rect:
         serializedVersion: 2
         x: 236
         y: 3552
         width: 228
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 3ac6366da6bb0d449bcf840a9d8652c1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_18
+      name: GamepadXbox-RSXNeg
       rect:
         serializedVersion: 2
-        x: 463
-        y: 3552
+        x: 461
+        y: 3553
         width: 234
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a9a185bc06209a248b01f6a87fd22c17
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_19
+      name: GamepadXbox-RSYFull
       rect:
         serializedVersion: 2
         x: 695
-        y: 3552
+        y: 3551
         width: 205
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6236ee80d68ba5841931c0e74065bed3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_22
+      name: GamepadXbox-DPadLeft
       rect:
         serializedVersion: 2
-        x: 2
+        x: 4
         y: 3386
         width: 166
         height: 170
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e70631e04d2ace44ea13ccb94c6663d2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_23
+      name: GamepadXbox-DPadRight
       rect:
         serializedVersion: 2
-        x: 173
+        x: 171
         y: 3386
         width: 170
         height: 170
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 9d1617c9284b3514093dad508d18b443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_24
+      name: GamepadXbox-DPadUp
       rect:
         serializedVersion: 2
         x: 347
-        y: 3384
+        y: 3383
         width: 171
         height: 170
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 5e2a6fd7882f6c841b294e4a5ed99857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_25
+      name: GamepadXbox-DPadDown
       rect:
         serializedVersion: 2
-        x: 519
+        x: 520
         y: 3386
         width: 173
         height: 170
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: acfcafe24a1a11043bf79fe708fbcaa5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_29
+      name: GamepadPS-Circle
       rect:
         serializedVersion: 2
         x: 187
-        y: 3185
+        y: 3186
         width: 173
         height: 173
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 39e76eeb0aebfc6448b2e07b9ec113c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_30
+      name: GamepadPS-Square
       rect:
         serializedVersion: 2
         x: 377
         y: 3185
         width: 174
         height: 173
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 12d65a23c4c2a7c43bfe8cbb8edc4726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_31
+      name: GamepadPS-Triangle
       rect:
         serializedVersion: 2
         x: 565
@@ -799,191 +1118,385 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c3f5d7ef9d2e23245a431cdb5299dda9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_33
+      name: GamepadPS-R1
       rect:
         serializedVersion: 2
         x: 986
         y: 3201
         width: 229
         height: 136
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 972ab1615eb158e45bf1cb7d9d618a15
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_39
+      name: GamepadPS-LXFull
       rect:
         serializedVersion: 2
         x: 0
         y: 3007
         width: 236
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 5dafea98ac7af184eb784d6d6164b1fb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_40
+      name: GamepadPS-LXPos
       rect:
         serializedVersion: 2
         x: 236
         y: 3007
         width: 227
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 9fcd273681a1da941a0609c63f1aed17
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_41
+      name: GamepadPS-LXNeg
       rect:
         serializedVersion: 2
         x: 466
         y: 3007
         width: 231
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 7d050016ec18a9c4e855327d90dfc6ff
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_42
+      name: GamepadPS-LYFull
       rect:
         serializedVersion: 2
         x: 699
         y: 3007
         width: 200
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: affe7538782a79d4c8c7689fe113f4a8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_45
+      name: GamepadPS-RXFull
       rect:
         serializedVersion: 2
         x: 0
         y: 2829
         width: 239
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6861f85131190724793f2d933ed692ee
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_46
+      name: GamepadPS-RXPos
       rect:
         serializedVersion: 2
         x: 242
         y: 2829
         width: 221
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 2d08816982de88f448734922564a2983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_47
+      name: GamepadPS-RXNeg
       rect:
         serializedVersion: 2
         x: 465
         y: 2829
         width: 233
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 73a0c64076bad674ca20f7c42afb6f4f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_48
+      name: GamepadPS-RYFull
       rect:
         serializedVersion: 2
         x: 698
         y: 2829
         width: 207
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e25d1066d25d26f4183e1df86e3b5ee5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_49
+      name: GamepadPS-RYPos
       rect:
         serializedVersion: 2
         x: 905
-        y: 2829
+        y: 2828
         width: 203
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 45241f9e50bd1414cae07e4b4fcb5166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_50
+      name: GamepadPS-RYNeg
       rect:
         serializedVersion: 2
         x: 1108
         y: 2830
         width: 201
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 573bb3aa0ae652a43b18da84bd2a61b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_52
+      name: GamepadPS-DPadRight
       rect:
         serializedVersion: 2
         x: 169
         y: 2636
         width: 170
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: db5985aaa8aca014c9e0ee56ed0b196f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_53
+      name: GamepadPS-DPadUp
       rect:
         serializedVersion: 2
         x: 339
         y: 2636
         width: 171
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: abb90fd0159fafe4a823c52d2e488377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
-      name: Gamepad Inputs_54
+      name: GamepadPS-DPadDown
       rect:
         serializedVersion: 2
         x: 508
-        y: 2636
+        y: 2635
         width: 171
         height: 178
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 6420431f04123e846b904734cbdb9053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GamepadPS-L
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 3006
+        width: 178
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c10d85233f008b84b93b5d6c3a8ac579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GamepadPS-R
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 2831
+        width: 178
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f48e3d568b9424189c520e9cc82208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GamepadXbox-LS
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 3733
+        width: 178
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 890aaa2543be9cb44a001209de54bf06
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GamepadXbox-RS
+      rect:
+        serializedVersion: 2
+        x: 1317
+        y: 3552
+        width: 178
+        height: 178
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18516868603fccb40ad595117632f1a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: fd117401848d77d418cbd979f9089adc
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -9,142 +9,149 @@ using TMPro;
 
 public class UIInputGamepadCalibrator : MonoBehaviour
 {
-	// Calibration Menu Panel
-	public GameObject goMenuPanel;
-	// Axis Test Panel
-	public GameObject goAxisPanel;
+    // Calibration Menu Panel
+    public GameObject goMenuPanel;
+    // Axis Test Panel
+    public GameObject goAxisPanel;
 
-	// Axis Marker Zone
-	public RectTransform rtMarkerZone;
-	// Axis Position Marker
-	public RectTransform rtAxisPositionMarker;
-	// Calibrated Position Marker
-	public RectTransform rtCalibratedPositionMarker;
-	// Zero Marker
-	public RectTransform rtZeroMarker;
-	// Deadzone Area
-	public RectTransform rtDeadZoneArea;
+    // Axis Marker Zone
+    public RectTransform rtMarkerZone;
+    // Axis Position Marker
+    public RectTransform rtAxisPositionMarker;
+    // Calibrated Position Marker
+    public RectTransform rtCalibratedPositionMarker;
+    // Zero Marker
+    public RectTransform rtZeroMarker;
+    // Deadzone Area
+    public RectTransform rtDeadZoneArea;
 
-	// Scroll View 
-	public Transform tScrollView;
-	// Axis Selection Button Prefab
-	public GameObject goAxisSelectButtonPrefab;
+    // Scroll View 
+    public Transform tScrollView;
+    // Axis Selection Button Prefab
+    public GameObject goAxisSelectButtonPrefab;
 
-	// Deadzone Slider 
-	public Slider deadzoneSlider;
-	// Zero Slider
-	public Slider zeroSlider;
-	// Sensitivity Slider
-	public Slider sensitivitySlider;
-	// Deadzone Value Text
-	public TextMeshProUGUI deadzoneValueText;
-	// Zero Value Text
-	public TextMeshProUGUI zeroValueText;
-	// Sensitivity Value Text
-	public TextMeshProUGUI sensitivityValueText;
-	// Invert Toggle
-	public Toggle invertToggle;
+    // Deadzone Slider 
+    public Slider deadzoneSlider;
+    // Zero Slider
+    public Slider zeroSlider;
+    // Sensitivity Slider
+    public Slider sensitivitySlider;
+    // Deadzone Value Text
+    public TextMeshProUGUI deadzoneValueText;
+    // Zero Value Text
+    public TextMeshProUGUI zeroValueText;
+    // Sensitivity Value Text
+    public TextMeshProUGUI sensitivityValueText;
+    // Invert Toggle
+    public Toggle invertToggle;
+    // Calibrate Menu Back Button
+    public Button goCalibrateMenuBackButton;
 
-	// Calibrate Menu Button
-	public Button calibrateMenuButton;
-	public Button[] aGamepadInputButtons;
-	public TMP_Dropdown gamepadSelectDropdown;
-	public Toggle rumbleToggle;
-	// Calibration Controls Parent
-	public GameObject goCalibrationControlsParent;
-	// No Axis Selected Text
-	public GameObject goNoAxisSelectedText;
-	// Test Axis Menu Button
-	public Button testAxisMenuButton;
-	// Current Selected Axis Text
-	public TextMeshProUGUI currentSelectedAxisText;
+    // Calibrate Menu Button
+    public Button calibrateMenuButton;
+    // Calibration Controls Parent
+    public GameObject goCalibrationControlsParent;
+    // No Axis Selected Text
+    public GameObject goNoAxisSelectedText;
+    // Default Axis Settings Button
+    public Button defaultAxisButton;
+    // Test Axis Menu Button
+    public Button testAxisMenuButton;
+    // Current Selected Axis Text
+    public TextMeshProUGUI currentSelectedAxisText;
 
-	// Calibration Panel Back Button
-	public GameObject goCalibrationPanelBackButton;
-	// Axis Test Panel Back Button
-	public GameObject goAxisBackButton;
+    // Calibration Panel Back Button
+    public GameObject goCalibrationPanelBackButton;
+    // Axis Test Panel Back Button
+    public GameObject goAxisBackButton;
 
-	// Player Input
-	Player playerInput;
+    // Player Input
+    Player playerInput;
 
-	// Current Gamepad
-	Joystick gamepad;
-	// Calibration Map
-	CalibrationMap calibrationMap;
-	// Current Axis Calibration
-	AxisCalibration axisCalibration;
-	// Currently Selected Axis
-	int iSelectedAxis = -1;
+    // Current Gamepad
+    Joystick gamepad;
+    // Calibration Map
+    CalibrationMap calibrationMap;
+    // Current Axis Calibration
+    AxisCalibration axisCalibration;
+    // Currently Selected Axis
+    int iSelectedAxis = -1;
 
-	// List of Axis Buttons
-	List<Button> lAxisButtons;
+    // List of Axis Buttons
+    List<Button> lAxisButtons;
 
-	// Is Active flag
-	[HideInInspector]
-	public bool bActive = false;
-	// Calibration Panel Open flag
-	[HideInInspector]
-	public bool bCalibrationOpen = false;
-	// Test Axis Panel Open flag
-	[HideInInspector]
-	public bool bAxisOpen = false;
+    // Is Active flag
+    [HideInInspector]
+    public bool bActive = false;
+    // Calibration Panel Open flag
+    [HideInInspector]
+    public bool bCalibrationOpen = false;
+    // Test Axis Panel Open flag
+    [HideInInspector]
+    public bool bAxisOpen = false;
 
-	// Initialization
-	void Awake()
-	{
-		playerInput = ReInput.players.GetPlayer(0);
-		lAxisButtons = new List<Button>();
+    // Initialization
+    void Awake()
+    {
+        playerInput = ReInput.players.GetPlayer(0);
+        lAxisButtons = new List<Button>();
 
-		// Assign to Controller Predisconnect Event
-		ReInput.ControllerPreDisconnectEvent += GamepadDisconnectEvent;
-	}
+        // Assign to Controller Event
+        ReInput.ControllerPreDisconnectEvent += GamepadDisconnectEvent;
+    }
 
-	// Update
-	void Update()
-	{
-		// If there controllers connected then set Calibrate button to interactable
-		if (ReInput.controllers.joystickCount > 0)
-		{
-			calibrateMenuButton.interactable = true;
-			gamepadSelectDropdown.interactable = true;
-			rumbleToggle.interactable = true;
+    // Update
+    void Update()
+    {
+        HandleCancelInput();
 
-			for (int i = 0; i < aGamepadInputButtons.Length; i++)
-			{
-				aGamepadInputButtons[i].interactable = true;
-			}
-		}
-		else // Otherwise, set to inactive
-		{
-			calibrateMenuButton.interactable = false;
-			gamepadSelectDropdown.interactable = false;
-			rumbleToggle.interactable = false;
+        if (bActive)
+        {
+            UpdateAxisMarkers();
+        }
+    }
 
-			for (int i = 0; i < aGamepadInputButtons.Length; i++)
-			{
-				aGamepadInputButtons[i].interactable = false;
-			}
-		}
+    // Closes the window if a controller is being disconnected
+    private void GamepadDisconnectEvent(ControllerStatusChangedEventArgs args)
+    {
+        CloseCalibrationWindow();
+        CloseAxisWindow();
+        gamepad = null;
+    }
 
-		if (bActive)
-		{
-			UpdateAxisMarkers();
-		}
-	}
+    // Handle Cancel Input
+    private void HandleCancelInput()
+    {
+        if (playerInput.GetButtonDown("UICancel"))
+        {
+            if (bAxisOpen)
+            {
+                CloseAxisWindow();
+            }
+            else if (bCalibrationOpen)
+            {
+                GameObject currentObj = EventSystem.current.currentSelectedGameObject;
 
-	// Closes the window if a controller is being disconnected
-	private void GamepadDisconnectEvent(ControllerStatusChangedEventArgs args)
-	{
-		CloseCalibrationWindow();
-		CloseAxisWindow();
-		gamepad = null;
-	}
+                if (currentObj == deadzoneSlider.gameObject ||
+                    currentObj == zeroSlider.gameObject ||
+                    currentObj == sensitivitySlider.gameObject ||
+                    currentObj == invertToggle.gameObject)
+                {
+                    EventSystem.current.SetSelectedGameObject(lAxisButtons[0].gameObject);
+                }
+                else
+                {
+                    CloseCalibrationWindow();
+                }
+            }
+        }
+    }
 
 	// Opens the Calibration Window
 	public void OpenCalibrationWindow()
 	{
 		// If there are no gamepads connected or no gamepad is selected
-		if (ControllerStatusManager.iGamepadID == -1 || playerInput.controllers.joystickCount == 0)
+		if (ControllerStatusManager.iGamepadNo == -1 || playerInput.controllers.joystickCount == 0)
 		{
 			return;
 		}
@@ -155,7 +162,7 @@ public class UIInputGamepadCalibrator : MonoBehaviour
 		goCalibrationControlsParent.SetActive(false);
 		goNoAxisSelectedText.SetActive(true);
 
-		gamepad = ReInput.controllers.GetController<Joystick>(ControllerStatusManager.iGamepadID);
+		gamepad = ReInput.controllers.GetController<Joystick>(ControllerStatusManager.iGamepadNo);
 		calibrationMap = gamepad.calibrationMap;
 		SetupAxisButtons();
 		ResetUIValues();
@@ -274,30 +281,125 @@ public class UIInputGamepadCalibrator : MonoBehaviour
 		backButton.navigation = backNav;
 	}
 
-	// Selects a gamepad axis to calibrate
-	public void SelectAxis(int axis)
-	{
-		// If a prev axis was selected then set that button back to interactable
-		if (iSelectedAxis != -1)
-		{
-			lAxisButtons[iSelectedAxis].interactable = true;
-		}
+    // Selects a gamepad axis to calibrate
+    public void SelectAxis(int axis)
+    {
+        // If a prev axis was selected then set that button back to interactable
+        if (iSelectedAxis != -1)
+        {
+            lAxisButtons[iSelectedAxis].interactable = true;
+            SetAxisButtonNavigation(iSelectedAxis, false);
+        }
 
-		// Set the current axis and set the corresponding axis button to inactive
-		iSelectedAxis = axis;
-		lAxisButtons[axis].interactable = false;
+        // Set the current axis and set the corresponding axis button to inactive
+        iSelectedAxis = axis;
+        lAxisButtons[axis].interactable = false;
+        SetAxisButtonNavigation(axis, true);
 
-		// Set up the calibration controls
-		goCalibrationControlsParent.SetActive(true);
-		goNoAxisSelectedText.SetActive(false);
-		currentSelectedAxisText.text = "Selected Axis: " + gamepad.AxisElementIdentifiers[axis].name;
+        // Set up the calibration controls
+        goCalibrationControlsParent.SetActive(true);
+        goNoAxisSelectedText.SetActive(false);
+        currentSelectedAxisText.text = "Selected Axis: " + gamepad.AxisElementIdentifiers[axis].name;
 
-		axisCalibration = calibrationMap.GetAxis(axis);
-		SetupUIValues(axis);
+        axisCalibration = calibrationMap.GetAxis(axis);
+        SetupUIValues(axis);
 
-		EventSystem.current.SetSelectedGameObject(deadzoneSlider.gameObject);
-		testAxisMenuButton.interactable = true;
-	}
+        EventSystem.current.SetSelectedGameObject(deadzoneSlider.gameObject);
+
+        if (!testAxisMenuButton.interactable)
+        {
+            Navigation nav = defaultAxisButton.navigation;
+            nav.selectOnRight = testAxisMenuButton;
+            defaultAxisButton.navigation = nav;
+        }
+
+        testAxisMenuButton.interactable = true;
+    }
+
+    // Sets the Nacigation for the axis button based on if it selected or not
+    private void SetAxisButtonNavigation(int axis, bool selected)
+    {
+        // Back Button 
+        Button backButton = goCalibrateMenuBackButton.GetComponent<Button>();
+
+        // Selected Button
+        if (selected)
+        {
+            // If button is not at the top
+            if (axis > 0)
+            {
+                Navigation prevNav = lAxisButtons[axis - 1].navigation;
+
+                if (axis < lAxisButtons.Count - 1)
+                {
+                    prevNav.selectOnDown = lAxisButtons[axis + 1];
+                }
+                else
+                {
+                    prevNav.selectOnDown = backButton;
+                }
+
+                lAxisButtons[axis - 1].navigation = prevNav;
+            }
+
+            // If the button is not at the bottom
+            if (axis < lAxisButtons.Count - 1)
+            {
+                Navigation nextNav = lAxisButtons[axis + 1].navigation;
+
+                if (axis > 0)
+                {
+                    nextNav.selectOnUp = lAxisButtons[axis - 1];
+                }
+                else
+                {
+                    nextNav.selectOnUp = null;
+                }
+
+                lAxisButtons[axis + 1].navigation = nextNav;
+            }
+            else // If we are at the bottom
+            {
+                Navigation nextNav = backButton.navigation;
+
+                if (axis > 0)
+                {
+                    nextNav.selectOnUp = lAxisButtons[axis - 1];
+                }
+                else
+                {
+                    nextNav.selectOnUp = null;
+                }
+
+                backButton.navigation = nextNav;
+            }
+        }
+        else
+        {
+            if (axis > 0)
+            {
+                Navigation prevNav = lAxisButtons[axis - 1].navigation;
+                prevNav.selectOnDown = lAxisButtons[axis];
+
+                lAxisButtons[axis - 1].navigation = prevNav;
+            }
+
+            if (axis < lAxisButtons.Count - 1)
+            {
+                Navigation nextNav = lAxisButtons[axis + 1].navigation;
+                nextNav.selectOnUp = lAxisButtons[axis];
+
+                lAxisButtons[axis + 1].navigation = nextNav;
+            }
+            else
+            {
+                Navigation nextNav = backButton.navigation;
+                nextNav.selectOnUp = lAxisButtons[axis];
+
+                backButton.navigation = nextNav;
+            }
+        }
+    }
 
 	// Updates the Axis Markers based on the value of the current axis
 	private void UpdateAxisMarkers()

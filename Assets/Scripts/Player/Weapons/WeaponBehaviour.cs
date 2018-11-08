@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using UnityEngine;
 
@@ -8,101 +9,103 @@ using Spine.Unity;
 [SelectionBase]
 public class WeaponBehaviour : SpineAnimatorBase
 {
-	// Player Controller
-	protected PlayerController playerController;
-	// Player Input
-	protected Player playerInput;
-	// Mesh Renderer
-	protected MeshRenderer meshRenderer;
-	// Facing Left flag
-	protected bool bFacingLeft = false;
+    // Player Controller
+    protected PlayerController playerController;
+    // Player Input
+    protected Player playerInput;
+    // Mesh Renderer
+    protected MeshRenderer meshRenderer;
+    // Facing Left flag
+    protected bool bFacingLeft = false;
 
-	// Weapon Data
-	public WeaponData weaponData;
+    // Weapon Data
+    public WeaponData weaponData;
 
-	// Ammo in clip
-	protected int iClipAmmo;
-	// Ammo held outside of clip
-	protected int iHeldAmmo;
+    // Ammo in clip
+    protected int iClipAmmo;
+    // Ammo held outside of clip
+    protected int iHeldAmmo;
 
-	// Recoil (Degrees)
-	protected float fRecoil = 0f;
-	// Aim Recoil (Degrees)
-	protected float fAimRecoil = 0f;
-	// Recoil Multiplier
-	protected float fRecoilMultiplier = 1f;
+    // Recoil (Degrees)
+    protected float fRecoil = 0f;
+    // Aim Recoil (Degrees)
+    protected float fAimRecoil = 0f;
+    // Recoil Multiplier
+    protected float fRecoilMultiplier = 1f;
 
-	// Is Reloading flag
-	protected bool bReloading = false;
-	// Is Start Reload flag (In Pre Reload player animation for weapons with per bullet reloading)
-	protected bool bStartReload = false;
-	// Is Full Reload flag
-	protected bool bFullReload = false;
-	// Reload Coroutine
-	protected Coroutine reloadCoroutine;
-	// Can Fire flag
-	protected bool bCanFire = true;
-	// Firing flag
-	protected bool bFiring = false;
-	// Can Reduce Recoil flag
-	protected bool bReduceRecoil = false;
-	// Can Reduce Aim Recoil flag
-	protected bool bReduceAimRecoil = false;
+    // Is Reloading flag
+    protected bool bReloading = false;
+    // Is Start Reload flag (In Pre Reload player animation for weapons with per bullet reloading)
+    protected bool bStartReload = false;
+    // Is Full Reload flag
+    protected bool bFullReload = false;
+    // Reload Coroutine
+    protected Coroutine reloadCoroutine;
+    // Can Fire flag
+    protected bool bCanFire = true;
+    // Firing flag
+    protected bool bFiring = false;
+    // Can Reduce Recoil flag
+    protected bool bReduceRecoil = false;
+    // Can Reduce Aim Recoil flag
+    protected bool bReduceAimRecoil = false;
 
-	// Point to Fire Bullet From
-	public Transform tFirePoint;
-	// Weapon Visual Offset
-	protected Vector3 v3VisualOffset = Vector3.zero;
-	// Weapon Visual Object
-	protected Transform tVisualObject;
+    // Point to Fire Bullet From
+    public Transform tFirePoint;
+    // Weapon Visual Offset
+    protected Vector3 v3VisualOffset = Vector3.zero;
+    // Weapon Visual Object
+    protected Transform tVisualObject;
+    // Muzzle Flash Particle System
+    public ParticleSystem muzzleFlash;
 
-	// Is Weapon Disabled flag
-	protected bool bWeaponDisabled;
-	// Is Reload Disabled flag
-	protected bool bReloadDisabled;
-	// Reload Timer
-	protected float fReloadTimer = 0;
-	// Last Time That the Weapon Was Active
-	protected float fLastActiveTime;
-	// Weapon Active flag
-	[HideInInspector]
-	public bool bActive;
-	// Weapon Holstered flag
-	[HideInInspector]
-	public bool bHolstered;
-	// Weapon Holstered on Previous Frame flag
-	protected bool bPrevHolstered = true;
+    // Is Weapon Disabled flag
+    protected bool bWeaponDisabled;
+    // Is Reload Disabled flag
+    protected bool bReloadDisabled;
+    // Reload Timer
+    protected float fReloadTimer = 0;
+    // Last Time That the Weapon Was Active
+    protected float fLastActiveTime;
+    // Weapon Active flag
+    [HideInInspector]
+    public bool bActive;
+    // Weapon Holstered flag
+    [HideInInspector]
+    public bool bHolstered;
+    // Weapon Holstered on Previous Frame flag
+    protected bool bPrevHolstered = true;
 
-	// Recoil Coroutine
-	protected Coroutine recoilCoroutine;
-	// Aim Recoil Coroutine
-	protected Coroutine aimRecoilCoroutine;
+    // Recoil Coroutine
+    protected Coroutine recoilCoroutine;
+    // Aim Recoil Coroutine
+    protected Coroutine aimRecoilCoroutine;
 
-	// Shell Casing Eject Point
-	public Transform tCasingPoint;
-	// Clip Eject Point
-	public Transform tClipPoint;
-	// Laser Sight Behaviour
-	public LaserSightBehaviour laserSight;
+    // Shell Casing Eject Point
+    public Transform tCasingPoint;
+    // Clip Eject Point
+    public Transform tClipPoint;
+    // Laser Sight Behaviour
+    public LaserSightBehaviour laserSight;
 
-	// Camera Distance from Player when Aiming
-	protected float fAimDistance;
+    // Camera Distance from Player when Aiming
+    protected float fAimDistance;
 
-	// Number of Shots fired in a burst
-	protected int iBurstShots = 0;
+    // Number of Shots fired in a burst
+    protected int iBurstShots = 0;
 
-	// Bolted flag
-	protected bool bBolted = true;
-	// Bolting flag
-	protected bool bBolting = false;
-	// Bolt Timer
-	protected float fBoltTimer = 0;
-	// Bolt Coroutine
-	protected Coroutine boltCoroutine;
+    // Bolted flag
+    protected bool bBolted = true;
+    // Bolting flag
+    protected bool bBolting = false;
+    // Bolt Timer
+    protected float fBoltTimer = 0;
+    // Bolt Coroutine
+    protected Coroutine boltCoroutine;
 
-	// TEMP - Remove Public once I have stopped testing Infinite Ammo during game modes ------------------------------------------------------------------
-	// Infinite Ammo flag
-	public bool bInfiniteAmmo = false;
+    // TEMP - Remove Public once I have stopped testing Infinite Ammo during game modes ------------------------------------------------------------------
+    // Infinite Ammo flag
+    public bool bInfiniteAmmo = false;
 
     // Bullet Object Pool Name
     protected string sBulletPoolName = "";
@@ -114,145 +117,154 @@ public class WeaponBehaviour : SpineAnimatorBase
     // Projectile Behaviour Array
     protected ProjectileBehaviour[] aProjectileBehaviours;
 
+    // On Weapon Fire
+    public Action<int> onWeaponFire;
+    // On Weapon Empty
+    public Action onWeaponEmpty;
+    // On Weapon Refill
+    public Action onWeaponRefill;
+    // On Weapon Reload
+    public Action<int> onWeaponReload;
+
     #region Public Attributes 
 
     // Name
     public string Name
-	{
-		get { return weaponData.sName; }
-	}
+    {
+        get { return weaponData.sName; }
+    }
 
-	// Player Animation Type
-	public string PlayerAnimationType
-	{
-		get { return weaponData.sPlayerAnimationType; }
-	}
+    // Player Animation Type
+    public string PlayerAnimationType
+    {
+        get { return weaponData.sPlayerAnimationType; }
+    }
 
-	// Clip Ammo
-	public int ClipAmmo
-	{
-		get { return iClipAmmo; }
-	}
+    // Clip Ammo
+    public int ClipAmmo
+    {
+        get { return iClipAmmo; }
+    }
 
-	// Held Ammo
-	public int HeldAmmo
-	{
-		get { return iHeldAmmo; }
-	}
+    // Held Ammo
+    public int HeldAmmo
+    {
+        get { return iHeldAmmo; }
+    }
 
-	// Max Ammo
-	public int MaxAmmo
-	{
-		get { return weaponData.iMaxAmmo; }
-	}
+    // Max Ammo
+    public int MaxAmmo
+    {
+        get { return weaponData.iMaxAmmo; }
+    }
 
-	// Total Ammo
-	public int TotalAmmo
-	{
-		get { return iHeldAmmo + iClipAmmo; }
-	}
+    // Total Ammo
+    public int TotalAmmo
+    {
+        get { return iHeldAmmo + iClipAmmo; }
+    }
 
-	// Fire Rate
-	public float FireRate
-	{
-		get { return weaponData.fFireRate; }
-	}
+    // Fire Rate
+    public float FireRate
+    {
+        get { return weaponData.fFireRate; }
+    }
 
-	// Damage
-	public float Damage
-	{
-		get { return weaponData.fDamage; }
-	}
+    // Damage
+    public float Damage
+    {
+        get { return weaponData.fDamage; }
+    }
 
-	// Reloading flag
-	public bool Reloading
-	{
-		get { return bReloading; }
-	}
+    // Reloading flag
+    public bool Reloading
+    {
+        get { return bReloading; }
+    }
 
-	// Full Reload flag
-	public bool FullReload
-	{
-		get { return bFullReload; }
-	}
+    // Full Reload flag
+    public bool FullReload
+    {
+        get { return bFullReload; }
+    }
 
-	// IK Offset
-	public float IKOffset
-	{
-		get { return weaponData.fAimIKOffset; }
-	}
+    // IK Offset
+    public float IKOffset
+    {
+        get { return weaponData.fAimIKOffset; }
+    }
 
-	// Recoil
-	public float Recoil
-	{
-		get { return fRecoil; }
-	}
+    // Recoil
+    public float Recoil
+    {
+        get { return fRecoil; }
+    }
 
-	// Aim Recoil
-	public float AimRecoil
-	{
-		get { return fAimRecoil; }
-	}
+    // Aim Recoil
+    public float AimRecoil
+    {
+        get { return fAimRecoil; }
+    }
 
-	// Recoil Multiplier
-	public float RecoilMultiplier
-	{
-		get { return fRecoilMultiplier; }
-	}
+    // Recoil Multiplier
+    public float RecoilMultiplier
+    {
+        get { return fRecoilMultiplier; }
+    }
 
-	// Can Fire
-	public bool CanFire
-	{
-		get { return bCanFire; }
-	}
+    // Can Fire
+    public bool CanFire
+    {
+        get { return bCanFire; }
+    }
 
-	// Firing
-	public bool Firing
-	{
-		get { return bFiring; }
-	}
+    // Firing
+    public bool Firing
+    {
+        get { return bFiring; }
+    }
 
-	// Two-Handed flag
-	public eWeaponHoldType HoldType
-	{
-		get { return weaponData.holdType; }
-	}
+    // Two-Handed flag
+    public eWeaponHoldType HoldType
+    {
+        get { return weaponData.holdType; }
+    }
 
-	// Aim Distance
-	public float AimDistance
-	{
-		get { return fAimDistance; }
-	}
+    // Aim Distance
+    public float AimDistance
+    {
+        get { return fAimDistance; }
+    }
 
-	// Firing Mode
-	public eWeaponFireMode FiringMode
-	{
-		get { return weaponData.firingMode; }
-	}
+    // Firing Mode
+    public eWeaponFireMode FiringMode
+    {
+        get { return weaponData.firingMode; }
+    }
 
-	// Weapon Disabled flag
-	public bool WeaponDisabled 
-	{
-		get{ return bWeaponDisabled; }
-	}
+    // Weapon Disabled flag
+    public bool WeaponDisabled
+    {
+        get { return bWeaponDisabled; }
+    }
 
-	// Reload Disabled flag
-	public bool ReloadDisabled
-	{
-		get{ return bReloadDisabled; }
-	}
+    // Reload Disabled flag
+    public bool ReloadDisabled
+    {
+        get { return bReloadDisabled; }
+    }
 
-	// Bolting flag
-	public bool Bolting
-	{
-		get{ return bBolting; }
-	}
+    // Bolting flag
+    public bool Bolting
+    {
+        get { return bBolting; }
+    }
 
-	// Infinite Ammo flag
-	public bool InfiniteAmmo
-	{
-		get { return bInfiniteAmmo; }
-	}
+    // Infinite Ammo flag
+    public bool InfiniteAmmo
+    {
+        get { return bInfiniteAmmo; }
+    }
 
     #endregion
 
@@ -267,12 +279,17 @@ public class WeaponBehaviour : SpineAnimatorBase
 
     // Initialization
     protected override void Start()
-	{
-		base.Start();
+    {
+        base.Start();
 
-		playerInput = ReInput.players.GetPlayer(0);
-		meshRenderer = skeleton.GetComponent<MeshRenderer>();
-		tVisualObject = transform.GetChild(0);
+        playerInput = ReInput.players.GetPlayer(0);
+        meshRenderer = skeleton.GetComponent<MeshRenderer>();
+        tVisualObject = transform.GetChild(0);
+
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.gameObject.SetActive(false);
+        }
 
         if (bHolstered)
         {
@@ -283,93 +300,97 @@ public class WeaponBehaviour : SpineAnimatorBase
             tVisualObject.localPosition = weaponData.v3WeaponOffset;
         }
 
-		skeleton.state.Event += OnSpineEvent;
-		skeleton.state.End += OnAnimationEnd;
+        skeleton.state.Event += OnSpineEvent;
+        skeleton.state.End += OnAnimationEnd;
 
-		RefillAllAmmo();
-	}
+        RefillAllAmmo();
+    }
 
-	// Update
-	protected virtual void Update()
-	{
-		// Handle Animation
-		HandleAnimation();
-		// Handle Facing
-		HandleFacing();
-		//  Handle Visual Offset
-		HandleVisualOffset();
+    // Update
+    protected virtual void Update()
+    {
+        // Handle Animation
+        HandleAnimation();
+        // Handle Facing
+        HandleFacing();
+        // Handle Visual Offset
+        HandleVisualOffset();
 
-		// If game paused, return
-		if (GameManager.GamePaused)
-		{
-			return;
-		}
+        bPrevHolstered = bHolstered;
 
-		// Fire Input
-		HandleFireInput();
-		// Handle Reload Input
-		HandleReloadInput();
-		// Handle Bolting
-		HandleBolting();
-		// Handle Laser Sight
-		HandleLaserSight();
+        // If game paused, return
+        if (GameManager.GamePaused)
+        {
+            return;
+        }
 
-		bPrevHolstered = bHolstered;
+        // Fire Input
+        HandleFireInput();
+        // Handle Reload Input
+        HandleReloadInput();
+        // Handle Bolting
+        HandleBolting();
+        // Handle Laser Sight
+        HandleLaserSight();
 
-		///// TEST ///////////////// Use for finding firepoint ik offset
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			if (playerController.CurrentWeapon == this)
-			{
-				print(tFirePoint.position.y - playerController.animator.weaponPivotIKBone.GetWorldPosition(playerController.animator.transform).y);
-			}
-		}
-	}
+        ///// TEST ///////////////// Use for finding firepoint ik offset
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (playerController.CurrentWeapon == this)
+            {
+                print(tFirePoint.position.y - playerController.animator.weaponPivotIKBone.GetWorldPosition(playerController.animator.transform).y);
+            }
+        }
+    }
 
-	// On Spine Event
-	protected virtual void OnSpineEvent(Spine.TrackEntry trackEntry, Spine.Event e)
-	{
-		switch (e.Data.Name)
-		{
-			case "CasingEject":
-				EjectCasing();
-			break;
-				
-			case "ClipEjected":
-				EjectClip();
-			break;
+    // On Spine Event
+    protected virtual void OnSpineEvent(Spine.TrackEntry trackEntry, Spine.Event e)
+    {
+        switch (e.Data.Name)
+        {
+            case "EmptyGunshot":
+                EmptyGunshot();
+                break;
 
-			case "ReloadUnload":
-				PlayReloadUnloadAudio();
-			break;
+            case "CasingEject":
+                EjectCasing();
+                break;
 
-			case "ReloadLoad":
-				PlayReloadLoadAudio();
-			break;
+            case "ClipEjected":
+                EjectClip();
+                break;
 
-			case "ReloadSlide":
-				PlayReloadSlideAudio();
-			break;
+            case "ReloadUnload":
+                PlayReloadUnloadAudio();
+                break;
 
-			case "ReloadBolt":
-				PlayReloadBoltAudio();
-			break;
-		}
-	}
+            case "ReloadLoad":
+                PlayReloadLoadAudio();
+                break;
 
-	// On Spine Completed
-	protected virtual void OnAnimationEnd(Spine.TrackEntry trackEntry)
-	{
-		switch (trackEntry.Animation.Name)
-		{
-			case "Fire":
-				if (weaponData.firingMode == eWeaponFireMode.Single && weaponData.bBoltAction)
-				{
-					bBolted = false;
-				}
-			break;
-		}
-	}
+            case "ReloadSlide":
+                PlayReloadSlideAudio();
+                break;
+
+            case "ReloadBolt":
+                PlayReloadBoltAudio();
+                break;
+        }
+    }
+
+    // On Spine Completed
+    protected virtual void OnAnimationEnd(Spine.TrackEntry trackEntry)
+    {
+        switch (trackEntry.Animation.Name)
+        {
+            case "Fire":
+                if (weaponData.firingMode == eWeaponFireMode.Single && weaponData.bBoltAction)
+                {
+                    bBolted = false;
+                }
+                break;
+        }
+    }
 
     // Creates Object Pools for the Bullets, Casings and Clip
     private void CreateObjectPools()
@@ -441,404 +462,425 @@ public class WeaponBehaviour : SpineAnimatorBase
 
     // Remove Weapon 
     public void RemoveWeapon()
-	{
+    {
         DestroyObjectPools();
-	}
-	
-	#region Update
+    }
 
-	// Handles Animation
-	protected virtual void HandleAnimation()
-	{
-		if (bActive)
-		{
-			if (bFiring || bReloading || bBolting)
-			{
-				return;
-			}
-		}
+    #region Update
 
-		if (iClipAmmo == 0)
-		{
-			PlayAnimation("Empty");
-		}
-		else
-		{
-			PlayAnimation("Idle");
-		}
-	}
+    // Handles Animation
+    protected virtual void HandleAnimation()
+    {
+        if (bActive)
+        {
+            if (bFiring || bReloading || bBolting)
+            {
+                return;
+            }
+        }
 
-	// Checks player facing and plays animation to match
-	private void HandleFacing()
-	{
-		if (bFacingLeft != playerController.FacingLeft)
-		{
-			bFacingLeft = !bFacingLeft;
+        if (iClipAmmo <= 0)
+        {
+            PlayAnimation("Empty");
+        }
+        else
+        {
+            PlayAnimation("Idle");
+        }
+    }
 
-			if (bFacingLeft)
-			{
-				PlayAnimation("FaceLeft", 1);
-			}
-			else
-			{
-				PlayAnimation("FaceRight", 1);
-			}
-		}
+    // Checks player facing and plays animation to match
+    public void HandleFacing()
+    {
+        if (bFacingLeft != playerController.FacingLeft)
+        {
+            bFacingLeft = !bFacingLeft;
 
-		if (weaponData.holdType == eWeaponHoldType.Primary)
-		{
-			if (playerController.bHolsteringWeapon || playerController.bUnholsteringWeapon)
-			{
-				if (playerController.HoldingWeapon && playerController.CurrentWeapon == this)
-				{
-					if (bFacingLeft)
-					{
-						meshRenderer.sortingOrder = 7;
-					}
-					else
-					{
-						if (playerController.OnWall || playerController.OnCorner)
-						{
-							meshRenderer.sortingOrder = 22;
-						}
-						else
-						{
-							meshRenderer.sortingOrder = 12;
-						}
-					}
-				}
-				else 
-				{
-					meshRenderer.sortingOrder = 7;
-				}
-			}
-			else
-			{
-				if (playerController.CurrentWeapon == this)
-				{
-					if (!bFacingLeft && (playerController.OnWall || playerController.OnCorner))
-					{
-						meshRenderer.sortingOrder = 22;
-					}
-					else
-					{
-						meshRenderer.sortingOrder = 7;
-					}
-				}
-				else
-				{
-					meshRenderer.sortingOrder = 2;
-				}
-			}
-		}
-		else if (weaponData.holdType == eWeaponHoldType.Secondary)
-		{
-			if (playerController.bHolsteringWeapon || playerController.bUnholsteringWeapon)
-			{
-				if (bFacingLeft)
-				{
-					meshRenderer.sortingOrder = -5;
-				}
-				else
-				{
-					meshRenderer.sortingOrder = 17;
-				}
-			}
-			else if (bHolstered)
-			{
-				if (bFacingLeft)
-				{
-					meshRenderer.sortingOrder = -5;
-				}
-				else
-				{
-					if (playerController.OnWall || playerController.OnCorner || playerController.CurrentWeapon.Reloading)
-					{
-						meshRenderer.sortingOrder = 17;
-					}
-					else
-					{
-						meshRenderer.sortingOrder = 22;
-					}
-				}
-			}
-			else
-			{
-				if (!bFacingLeft && (playerController.OnWall || playerController.OnCorner))
-				{
-					meshRenderer.sortingOrder = 22;
-				}
-				else
-				{
-					meshRenderer.sortingOrder = 7;
-				}
-			}
-		}
-	}
+            if (bFacingLeft)
+            {
+                PlayAnimation("FaceLeft", 1);
+            }
+            else
+            {
+                PlayAnimation("FaceRight", 1);
+            }
+        }
 
-	// Handles visual object transform offset when weapon activates and deactivates
-	protected void HandleVisualOffset()
-	{
-		if (bHolstered == bPrevHolstered)
-		{
-			return;
-		}
+        if (weaponData.holdType == eWeaponHoldType.Primary)
+        {
+            if (playerController.bHolsteringWeapon || playerController.bUnholsteringWeapon)
+            {
+                if (playerController.HoldingWeapon && playerController.CurrentWeapon == this)
+                {
+                    if (bFacingLeft)
+                    {
+                        meshRenderer.sortingOrder = 7;
+                    }
+                    else
+                    {
+                        if (playerController.OnWall || playerController.OnCorner)
+                        {
+                            meshRenderer.sortingOrder = 22;
+                        }
+                        else
+                        {
+                            meshRenderer.sortingOrder = 12;
+                        }
+                    }
+                }
+                else
+                {
+                    meshRenderer.sortingOrder = 7;
+                }
+            }
+            else
+            {
+                if (playerController.CurrentWeapon == this)
+                {
+                    if (!bFacingLeft && (playerController.OnWall || playerController.OnCorner))
+                    {
+                        meshRenderer.sortingOrder = 22;
+                    }
+                    else
+                    {
+                        if (bFacingLeft)
+                        {
+                            meshRenderer.sortingOrder = 7;
+                        }
+                        else
+                        {
+                            meshRenderer.sortingOrder = 12;
+                        }
+                    }
+                }
+                else
+                {
+                    meshRenderer.sortingOrder = 7;
+                }
+            }
+        }
+        else if (weaponData.holdType == eWeaponHoldType.Secondary)
+        {
+            if (playerController.bHolsteringWeapon || playerController.bUnholsteringWeapon)
+            {
+                if (bFacingLeft)
+                {
+                    meshRenderer.sortingOrder = -5;
+                }
+                else
+                {
+                    meshRenderer.sortingOrder = 17;
+                }
+            }
+            else if (bHolstered)
+            {
+                if (bFacingLeft)
+                {
+                    meshRenderer.sortingOrder = -5;
+                }
+                else
+                {
+                    if (playerController.OnWall || playerController.OnCorner)
+                    {
+                        meshRenderer.sortingOrder = 17;
+                    }
+                    else
+                    {
+                        meshRenderer.sortingOrder = 22;
+                    }
+                }
+            }
+            else
+            {
+                if (!bFacingLeft && (playerController.OnWall || playerController.OnCorner))
+                {
+                    meshRenderer.sortingOrder = 22;
+                }
+                else
+                {
+                    if (bFacingLeft)
+                    {
+                        meshRenderer.sortingOrder = 7;
+                    }
+                    else
+                    {
+                        meshRenderer.sortingOrder = 12;
+                    }
+                }
+            }
+        }
+    }
 
-		if (bHolstered)
-		{
-			tVisualObject.localPosition = weaponData.v3HolsterOffset;
-		}
-		else
-		{
-			tVisualObject.localPosition = weaponData.v3WeaponOffset;
-		}
-	}
+    // Handles visual object transform offset when weapon activates and deactivates
+    public void HandleVisualOffset(bool force = false)
+    {
+        if (!force && bHolstered == bPrevHolstered)
+        {
+            return;
+        }
 
-	// Handles Input for Reloading
-	protected virtual void HandleReloadInput()
-	{
-		if (!bActive || bWeaponDisabled)
-		{
-			return;
-		}
+        if (bHolstered)
+        {
+            tVisualObject.localPosition = weaponData.v3HolsterOffset;
+        }
+        else
+        {
+            tVisualObject.localPosition = weaponData.v3WeaponOffset;
+        }
+    }
 
-		// If reloading and reload is disabled or reload animation not triggered, cancel reload
-		if (bReloading)
-		{
-			// Reload Disabled
-			if (bReloadDisabled)
-			{
-				CancelReload();
-			}
+    // Handles Input for Reloading
+    protected virtual void HandleReloadInput()
+    {
+        if (!bActive || bWeaponDisabled)
+        {
+            return;
+        }
 
-			// Not using Reload animation
-			if (!lsCurrentAnimations[0].Contains("Reload") && !bStartReload)
-			{
-				CancelReload();
-			}
+        // If reloading and reload is disabled or reload animation not triggered, cancel reload
+        if (bReloading)
+        {
+            // Reload Disabled
+            if (bReloadDisabled)
+            {
+                CancelReload();
+            }
 
-			// Firing to cancel per bullet reload
-			if (weaponData.firingMode == eWeaponFireMode.Single && weaponData.bBoltAction)
-			{
-				if (iClipAmmo > 0)
-				{
-					if (playerInput.GetButtonDown("Fire"))
-					{
-						CancelReload();
-					}
-				}
-			}
-		}
+            // Not using Reload animation
+            if (!lsCurrentAnimations[0].Contains("Reload") && !bStartReload)
+            {
+                CancelReload();
+            }
 
-		// Reload if ammo left and button pressed or no bullets in clip
-		if (!bReloadDisabled)
-		{
-			if (iHeldAmmo > 0)
-			{
-				if (playerInput.GetButtonDown("Reload") || iClipAmmo == 0)
-				{
-					if (!bReloading)
-					{
-						StartReload();
-					}
-				}
-			}
-		}
-	}
+            // Firing to cancel per bullet reload
+            if (weaponData.firingMode == eWeaponFireMode.Single && weaponData.bBoltAction)
+            {
+                if (iClipAmmo > 0)
+                {
+                    if (playerInput.GetButtonDown("Fire"))
+                    {
+                        CancelReload();
+                    }
+                }
+            }
+        }
 
-	// Handles input for firing
-	protected virtual void HandleFireInput()
-	{
-		if (!bActive) 
-		{
-			return;
-		}
+        // Reload if ammo left and button pressed or no bullets in clip
+        if (!bReloadDisabled)
+        {
+            if (iHeldAmmo > 0)
+            {
+                if (playerInput.GetButtonDown("Reload") || iClipAmmo <= 0)
+                {
+                    if (!bReloading)
+                    {
+                        StartReload();
+                    }
+                }
+            }
+        }
+    }
 
-		bool fire = false;
+    // Handles input for firing
+    protected virtual void HandleFireInput()
+    {
+        if (!bActive)
+        {
+            return;
+        }
 
-		// If can fire and not reloading, then fire weapon based on fire mode type
-		if (bCanFire && !bReloading && !bWeaponDisabled)
-		{
-			switch (weaponData.firingMode)
-			{
-				case eWeaponFireMode.Automatic:
-					if (playerInput.GetButton("Fire"))
-					{
-						fire = true;
-					}
-				break;
+        bool fire = false;
 
-				case eWeaponFireMode.Burst:
-					if (playerInput.GetButtonDown("Fire"))
-					{
-						fire = true;
-					}
-				break;
+        // If can fire and not reloading, then fire weapon based on fire mode type
+        if (bCanFire && !bReloading && !bWeaponDisabled)
+        {
+            switch (weaponData.firingMode)
+            {
+                case eWeaponFireMode.Automatic:
+                    if (playerInput.GetButton("Fire"))
+                    {
+                        fire = true;
+                    }
+                    break;
 
-				case eWeaponFireMode.Single:
-					if (playerInput.GetButtonDown("Fire"))
-					{
-						fire = true;
-					}
-				break;
-			}
+                case eWeaponFireMode.Burst:
+                    if (playerInput.GetButtonDown("Fire"))
+                    {
+                        fire = true;
+                    }
+                    break;
 
-			if (fire)
-			{
-				if (iClipAmmo > 0)
-				{
-					if (weaponData.firingMode == eWeaponFireMode.Burst)
-					{
-						StartCoroutine(FireBurst());
-					}
-					else
-					{
-						Fire();
-					}
-				}
-				else
-				{
-					if (weaponData.firingMode == eWeaponFireMode.Burst)
-					{
-						StartCoroutine(FireBurstEmpty());
-					}
-					else
-					{
-						FireEmpty();
-					}
-				}
+                case eWeaponFireMode.Single:
+                    if (playerInput.GetButtonDown("Fire"))
+                    {
+                        fire = true;
+                    }
+                    break;
+            }
 
-				playerController.animator.SetArmBusy(true);
-				bFiring = true;
-			}
-		}
-	}
+            if (fire)
+            {
+                if (iClipAmmo > 0)
+                {
+                    if (weaponData.firingMode == eWeaponFireMode.Burst)
+                    {
+                        StartCoroutine(FireBurst());
+                    }
+                    else
+                    {
+                        Fire();
+                    }
+                }
+                else
+                {
+                    if (weaponData.firingMode == eWeaponFireMode.Burst)
+                    {
+                        StartCoroutine(FireBurstEmpty());
+                    }
+                    else
+                    {
+                        FireEmpty();
+                    }
+                }
 
-	// Handles Bolting
-	private void HandleBolting()
-	{
-		// If not a bolt action weapon or single shot, return
-		if (!weaponData.bBoltAction || weaponData.firingMode != eWeaponFireMode.Single)
-		{
-			return;
-		}
+                playerController.animator.SetArmBusy(true);
+                bFiring = true;
+            }
+        }
+    }
 
-		if (bWeaponDisabled)
-		{
-			CancelBolt();
-			return;
-		}
+    // Handles Bolting
+    private void HandleBolting()
+    {
+        // If not a bolt action weapon or single shot, return
+        if (!weaponData.bBoltAction || weaponData.firingMode != eWeaponFireMode.Single)
+        {
+            return;
+        }
 
-		if (bFiring || bBolted || bReloading)
-		{
-			return;
-		}
+        if (bWeaponDisabled)
+        {
+            CancelBolt();
+            return;
+        }
 
-		if (!bBolting)
-		{
-			StartBolting();
-		}
-	}
+        if (bFiring || bBolted || bReloading)
+        {
+            return;
+        }
 
-	// Handle Laser Sight
-	private void HandleLaserSight()
-	{
-		if (laserSight == null)
-		{
-			return;
-		}
+        if (!bBolting)
+        {
+            StartBolting();
+        }
+    }
 
-		if (playerController.CurrentWeapon == this)
-		{
-			if (!playerController.animator.ArmBusy || bReloading || bBolting || bWeaponDisabled || iClipAmmo == 0)
-			{
-				laserSight.SetLaserSightActive(false);
-			}
-			else
-			{
-				laserSight.SetLaserSightActive(true);
-			}
-		}
-		else
-		{
-			laserSight.SetLaserSightActive(false);
-		}
-	}
+    // Handle Laser Sight
+    private void HandleLaserSight()
+    {
+        if (laserSight == null)
+        {
+            return;
+        }
 
-	#endregion
+        if (playerController.CurrentWeapon == this)
+        {
+            if (!playerController.animator.ArmBusy || bReloading || bBolting || bWeaponDisabled || iClipAmmo == 0)
+            {
+                laserSight.SetLaserSightActive(false);
+            }
+            else
+            {
+                laserSight.SetLaserSightActive(true);
+            }
+        }
+        else
+        {
+            laserSight.SetLaserSightActive(false);
+        }
+    }
 
-	// Sets the link to the player instance
-	public void SetPlayerController(PlayerController player)
-	{
-		playerController = player;
-	}
+    #endregion
 
-	// Set Weapon Disabled
-	public virtual void SetWeaponDisabled(bool disabled)
-	{
-		bWeaponDisabled = disabled;
-	}
+    // Sets the link to the player instance
+    public void SetPlayerController(PlayerController player)
+    {
+        playerController = player;
+    }
 
-	// Set Reload Disabled
-	public virtual void SetReloadDisabled(bool disabled)
-	{
-		bReloadDisabled = disabled;
-	}
+    // Set Weapon Disabled
+    public virtual void SetWeaponDisabled(bool disabled)
+    {
+        bWeaponDisabled = disabled;
+    }
 
-	// Start Vibrating the gamepad continuously
-	protected void StartVibrateGamepad()
-	{
-		if (!GlobalSettings.bVibration)
-		{
-			playerInput.SetVibration(0, 0);
-			playerInput.SetVibration(1, 0);
+    // Set Reload Disabled
+    public virtual void SetReloadDisabled(bool disabled)
+    {
+        bReloadDisabled = disabled;
+    }
 
-			return;
-		}
+    // Start Vibrating the gamepad continuously
+    protected void StartVibrateGamepad()
+    {
+        if (!GlobalSettings.bVibration)
+        {
+            playerInput.SetVibration(0, 0);
+            playerInput.SetVibration(1, 0);
 
-		playerInput.SetVibration(0, weaponData.fVibrationStrength);
-		playerInput.SetVibration(1, weaponData.fVibrationStrength);
-	}
+            return;
+        }
 
-	// Stop vibrating the gamepad continuously
-	protected void StopVibrateGamepad()
-	{
-		if (!GlobalSettings.bVibration)
-		{
-			playerInput.SetVibration(0, 0);
-			playerInput.SetVibration(1, 0);
+        playerInput.SetVibration(0, weaponData.fVibrationStrength);
+        playerInput.SetVibration(1, weaponData.fVibrationStrength);
+    }
 
-			return;
-		}
+    // Stop vibrating the gamepad continuously
+    protected void StopVibrateGamepad()
+    {
+        if (!GlobalSettings.bVibration)
+        {
+            playerInput.SetVibration(0, 0);
+            playerInput.SetVibration(1, 0);
 
-		playerInput.SetVibration(0, 0);
-		playerInput.SetVibration(1, 0);
-	}
+            return;
+        }
 
-	// Vibrates the gamepad by the amount set in the Weapon Data
-	protected void VibrateGamepadTimed()
-	{
-		if (!GlobalSettings.bVibration)
-		{
-			playerInput.SetVibration(0, 0);
-			playerInput.SetVibration(1, 0);
+        playerInput.SetVibration(0, 0);
+        playerInput.SetVibration(1, 0);
+    }
 
-			return;
-		}
+    // Vibrates the gamepad by the amount set in the Weapon Data
+    protected void VibrateGamepadTimed()
+    {
+        if (!GlobalSettings.bVibration)
+        {
+            playerInput.SetVibration(0, 0);
+            playerInput.SetVibration(1, 0);
 
-		playerInput.SetVibration(0, weaponData.fVibrationStrength, weaponData.fVibrationTime);
-		playerInput.SetVibration(1, weaponData.fVibrationStrength, weaponData.fVibrationTime);
-	}
+            return;
+        }
 
-	#region Firing
+        playerInput.SetVibration(0, weaponData.fVibrationStrength, weaponData.fVibrationTime);
+        playerInput.SetVibration(1, weaponData.fVibrationStrength, weaponData.fVibrationTime);
+    }
 
-	// Fire Weapon
-	protected virtual void Fire()
-	{
+    #region Firing
+
+    // Fire Weapon
+    protected virtual void Fire()
+    {
+        if (iClipAmmo <= 0)
+        {
+            return;
+        }
+
 		// Play Player Animation
 		playerController.animator.FireWeaponAnimation();
-		// Play Animation
-		PlayAnimation("Fire", 0, false, true);
+        // Play Muzzle Flash
+        PlayMuzzleFlash();
+        // Play Animation
+        PlayAnimation("Fire", 0, false, true);
 		bCanFire = false;
 
 		if (weaponData.firingMode != eWeaponFireMode.Single || !weaponData.bBoltAction)
@@ -850,10 +892,17 @@ public class WeaponBehaviour : SpineAnimatorBase
 	// Fire Weapon Burst
 	protected virtual IEnumerator FireBurst()
 	{
-		// Play Player Animation
-		playerController.animator.FireWeaponAnimation();
-		// Play Animation
-		PlayAnimation("Fire", 0, false, true, 0, 0);
+        if (iClipAmmo <= 0)
+        {
+            yield return null;
+        }
+
+        // Play Player Animation
+        playerController.animator.FireWeaponAnimation();
+        // Play Muzzle Flash
+        PlayMuzzleFlash();
+        // Play Animation
+        PlayAnimation("Fire", 0, false, true, 0, 0);
 
 		bReloadDisabled = true;
 		iBurstShots++;
@@ -885,13 +934,14 @@ public class WeaponBehaviour : SpineAnimatorBase
 	// Fire Empty
 	protected virtual void FireEmpty()
 	{
-		if (weaponData.emptyAudio != null)
-		{
-			weaponData.emptyAudio.Play();
-		}
-
-		playerController.animator.ResetArmTimer();
+        playerController.animator.ResetArmTimer();
 		StartCoroutine(ReenableFiring());
+
+        // Loop empty animation if the weapon is not a beam weapon and if the weapon is automatic
+        bool animLoop = weaponData.weaponType != eWeaponType.Beam && 
+            weaponData.firingMode == eWeaponFireMode.Automatic;
+
+        PlayAnimation("EmptyFire", 0, animLoop, !animLoop);
 
 		// Stop firing
 		if (weaponData.firingMode == eWeaponFireMode.Burst && iBurstShots < weaponData.iShotsPerBurst)
@@ -934,8 +984,17 @@ public class WeaponBehaviour : SpineAnimatorBase
 		yield return null;
 	}
 
-	// Reenables the ability to fire
-	protected IEnumerator ReenableFiring()
+    // Plays empty gunshot sound
+    protected void EmptyGunshot()
+    {
+        if (weaponData.emptyAudio != null)
+        {
+            weaponData.emptyAudio.Play();
+        }
+    }
+
+    // Reenables the ability to fire
+    protected IEnumerator ReenableFiring()
 	{
 		yield return new WaitForSeconds(weaponData.fFireRate);
 
@@ -975,12 +1034,35 @@ public class WeaponBehaviour : SpineAnimatorBase
         }
 	}
 
-	#endregion
+    // Plays the Muzzle Flash Effect
+    protected void PlayMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            if (muzzleFlash.gameObject.activeSelf)
+            {
+                muzzleFlash.gameObject.SetActive(false);
+            }
 
-	#region Recoil
+            muzzleFlash.gameObject.SetActive(true);
+        }
+    }
 
-	// Enables Recoil Reduction
-	protected IEnumerator BeginRecoilCooldown()
+    // Stops the Muzzle Flash Effect
+    public void StopMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
+
+    #region Recoil
+
+    // Enables Recoil Reduction
+    protected IEnumerator BeginRecoilCooldown()
 	{
 		yield return new WaitForSeconds(weaponData.fRecoilResetTime);
 
@@ -998,7 +1080,7 @@ public class WeaponBehaviour : SpineAnimatorBase
 			fRecoil = Mathf.Sign(fRecoil) * weaponData.fMaxRecoil;
 		}
 
-		fAimRecoil += weaponData.fAimRecoilIncreaseRate * fRecoilMultiplier * Mathf.Sign(Random.Range(-1,1));
+		fAimRecoil += weaponData.fAimRecoilIncreaseRate * fRecoilMultiplier * Mathf.Sign(UnityEngine.Random.Range(-1,1));
 
 		if (Mathf.Abs(fAimRecoil) > weaponData.fMaxAimRecoil * fRecoilMultiplier)
 		{
@@ -1085,8 +1167,6 @@ public class WeaponBehaviour : SpineAnimatorBase
 		fLastActiveTime = Time.time;
 	}
 
-
-
 	#endregion
 
 	#region Ammo Management
@@ -1117,6 +1197,7 @@ public class WeaponBehaviour : SpineAnimatorBase
 			return;
 		}
 
+        StopMuzzleFlash();
 		bReloading = true;
 
 		if (weaponData.bCanFullReload && iClipAmmo == 0)
@@ -1194,14 +1275,20 @@ public class WeaponBehaviour : SpineAnimatorBase
 			playerController.animator.TriggerReloadAnimation(true);
 			PlayAnimation("Reload", 0, false, true, 0, 0);
 		}
-	}
+
+        // Reload Event
+        if (onWeaponReload != null)
+        {
+            onWeaponReload(iClipAmmo);
+        }
+    }
 
 	// Ends reload
 	protected virtual void EndReload()
 	{
 		bool chamberReload = false;
 
-		// If can full reload and there's a 
+		// If can full reload 
 		if (weaponData.bCanFullReload)
 		{
 			if (bFullReload)
@@ -1247,6 +1334,12 @@ public class WeaponBehaviour : SpineAnimatorBase
 			}
 		}
 
+        // Reload Event
+        if (onWeaponReload != null)
+        {
+            onWeaponReload(iClipAmmo);
+        }
+
 		bReloading = false;
 		bFullReload = false;
 	}
@@ -1290,6 +1383,11 @@ public class WeaponBehaviour : SpineAnimatorBase
 		{
 			iHeldAmmo = weaponData.iMaxAmmo - iClipAmmo;
 		}
+
+        if (onWeaponRefill != null)
+        {
+            onWeaponRefill();
+        }
     }
 
 	// Sets ammo to maximum
@@ -1297,7 +1395,12 @@ public class WeaponBehaviour : SpineAnimatorBase
 	{
 		iClipAmmo = weaponData.iClipSize;
 		iHeldAmmo = weaponData.iMaxAmmo;
-	}
+
+        if (onWeaponRefill != null)
+        {
+            onWeaponRefill();
+        }
+    }
 
 	// Takes ammo from the weapon
 	public void TakeAmmo(int ammo)
@@ -1459,7 +1562,8 @@ public enum eWeaponHoldType
 {
 	Primary,
 	Secondary,
-	ArmMounted
+	Heavy, 
+    Temporary
 }
 
 // Weapon Fire Modes

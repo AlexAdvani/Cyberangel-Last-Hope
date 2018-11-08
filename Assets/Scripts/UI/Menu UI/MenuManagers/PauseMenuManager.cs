@@ -8,6 +8,8 @@ public class PauseMenuManager : UIMenuManager
 	public GameObject goInGameUI;
 	// Pause Menu UI
 	public GameObject goPauseUI;
+    // Input Buttons UI
+    public GameObject goInputButtonsUI;
 	// Is Paused flag
 	bool bPaused = false;
 
@@ -30,6 +32,7 @@ public class PauseMenuManager : UIMenuManager
         SettingsManager.CheckInstanceExists();
 
 		goPauseUI.SetActive(false);
+        goInputButtonsUI.SetActive(false);
 	}
 
 	// Update
@@ -106,8 +109,9 @@ public class PauseMenuManager : UIMenuManager
 		Time.timeScale = 0;
 		goInGameUI.SetActive(false);
 		goPauseUI.SetActive(true);
+        goInputButtonsUI.SetActive(true);
 
-		bMenuInputDisabled = false;
+        bMenuInputDisabled = false;
 		AudioManager.Instance.PauseAllSounds();
 		MusicManager.Instance.PauseMusic();
 		GoToScreen("PauseMenu");
@@ -124,8 +128,9 @@ public class PauseMenuManager : UIMenuManager
 		StartCoroutine(ReenablePlayerControl());
 		Time.timeScale = 1;
 		goInGameUI.SetActive(true);
+        goInputButtonsUI.SetActive(false);
 
-		if (currentScreenManager != null)
+        if (currentScreenManager != null)
 		{
 			currentScreenManager.CloseScreen(null);
 
@@ -137,7 +142,7 @@ public class PauseMenuManager : UIMenuManager
 		yield return new WaitForSeconds(0.1f);
 
 		goPauseUI.SetActive(false);
-		bMenuInputDisabled = true;
+        bMenuInputDisabled = true;
 		AudioManager.Instance.UnpauseAllSounds();
 		MusicManager.Instance.UnpauseMusic();
 

@@ -26,20 +26,21 @@ public class InputElementToImageData : ScriptableObject
 				return null;
 			}
 
-			if (ControllerStatusManager.currentGamepadType != eGamepadButtonType.Generic)
-			{
-				if (ControllerStatusManager.nativeGamepadType == eGamepadButtonType.PlayStation3 ||
-					ControllerStatusManager.nativeGamepadType == eGamepadButtonType.PlayStation4)
-				{
-					elementID = dPS4InputConverts[elementID];
-				}
-			}
+            if (ControllerStatusManager.currentGamepadType != eGamepadButtonType.Generic)
+            {
+                if (ControllerStatusManager.nativeGamepadType == eGamepadButtonType.PlayStation3 ||
+                    ControllerStatusManager.nativeGamepadType == eGamepadButtonType.PlayStation4)
+                {
+                    elementID = dPS4InputConverts[elementID];
+                }
+            }
 
-			if ((int)ControllerStatusManager.currentGamepadType <= 2)
+            // Xbox Controls
+            if ((int)ControllerStatusManager.currentGamepadType <= 2)
 			{
 				controllerPlatform = 0;
 			}
-			else if ((int)ControllerStatusManager.currentGamepadType < 5)
+			else if ((int)ControllerStatusManager.currentGamepadType < 5) // PS Controls
 			{
 				controllerPlatform = 1;
 			}
@@ -62,6 +63,33 @@ public class InputElementToImageData : ScriptableObject
 
 		return image;
 	}
+
+    public Sprite GetImageAxis2D(ControllerType controlType, int elementID)
+    {
+        if (controlType != ControllerType.Joystick)
+        {
+            return null;
+        }
+
+        int controllerPlatform = -1;
+        
+        // Xbox Controls
+        if ((int)ControllerStatusManager.currentGamepadType <= 2)
+        {
+            controllerPlatform = 0;
+        }
+        else if ((int)ControllerStatusManager.currentGamepadType < 5) // PS Controls
+        {
+            controllerPlatform = 1;
+        }
+
+        if (controllerPlatform == -1)
+        {
+            return null;
+        }
+
+        return lPadInputs[controllerPlatform].GetAxis2D(elementID);
+    }
 }
 
 [System.Serializable]
@@ -74,6 +102,8 @@ public class InputElementGroup
 	public InputButtonSpriteDictionary dButtons;
 	[Inspectionary("Element Identifier", "Axis")]
 	public InputAxisDictionary dAxes;
+    [Inspectionary("Element Identifier", "Axis 2D")]
+    public InputButtonSpriteDictionary dAxes2D;
 
 	public Sprite GetElement(ControllerElementType elementType, int elementID, AxisRange range = AxisRange.Full, Pole axis = Pole.Positive)
 	{
@@ -108,10 +138,20 @@ public class InputElementGroup
 
 		return dAxes[elementID].GetImage(range, axis);
 	}
+
+    public Sprite GetAxis2D(int elementID)
+    {
+        if (!dAxes2D.ContainsKey(elementID))
+        {
+            return null;
+        }
+
+        return dAxes2D[elementID];
+    }
 }
 
 [System.Serializable]
-public class InputElementAxis
+public struct InputElementAxis
 {
 	public Sprite fullAxis;
 	public Sprite posAxis;

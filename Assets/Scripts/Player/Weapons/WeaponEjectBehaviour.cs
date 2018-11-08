@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+
+using UnityEngine;
 
 public class WeaponEjectBehaviour : MonoBehaviour
 {
@@ -6,9 +8,13 @@ public class WeaponEjectBehaviour : MonoBehaviour
 	SpriteRenderer spriteRenderer;
 	// Rigidbody 2D
 	Rigidbody2D rigidbody2d;
+    // Trail Renderer
+    TrailRenderer trailRenderer;
+    // Activate Trail Coroutine 
+    Coroutine trailCoroutine;
 
-	// Eject Force
-	public Vector2 v2EjectForce;
+    // Eject Force
+    public Vector2 v2EjectForce;
 
 	// Eject Torque
 	public float fEjectTorque;
@@ -21,6 +27,12 @@ public class WeaponEjectBehaviour : MonoBehaviour
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		rigidbody2d = GetComponent<Rigidbody2D>();
+        trailRenderer = GetComponent<TrailRenderer>();
+
+        if (trailRenderer != null)
+        {
+            trailRenderer.enabled = false;
+        }
 	}
 
 	// On Enable
@@ -35,17 +47,44 @@ public class WeaponEjectBehaviour : MonoBehaviour
             spriteRenderer.sortingOrder = -5;
         }
 
+        if (trailRenderer != null)
+        {
+            if (trailCoroutine != null)
+            {
+                StopCoroutine(trailCoroutine);
+            }
+
+            trailCoroutine = StartCoroutine(ActivateTrail());
+        }
+
         ApplyEjectForce();
     }
 
-	// Collision Enter 2D
-	void OnCollisionEnter2D(Collision2D other)
+    // On Disable
+    void OnDisable()
+    {
+        if (trailRenderer != null)
+        {
+            trailRenderer.enabled = false;
+        }
+    }
+
+    // Collision Enter 2D
+    void OnCollisionEnter2D(Collision2D other)
 	{
 		if (impactAudio != null)
 		{
 			impactAudio.Play();
 		}
 	}
+
+    // Activate Trail Renderer
+    private IEnumerator ActivateTrail()
+    {
+        yield return new WaitForSeconds(0.05f);
+
+        trailRenderer.enabled = true;
+    }
 
 	// Applies the Eject Force to the rigidbody
 	private void ApplyEjectForce()

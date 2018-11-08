@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 using BeautifulTransitions.Scripts.Transitions.Components;
 using BeautifulTransitions.Scripts.Transitions.TransitionSteps.AbstractClasses;
+using Rewired;
 
 public class UIMenuScreenManager : MonoBehaviour
 {
 	// UI Menu Manager
-	protected UIMenuManager menuManager;
+	UIMenuManager menuManager;
 
 	// Transition
 	public TransitionBase transition;
@@ -19,8 +20,26 @@ public class UIMenuScreenManager : MonoBehaviour
 
 	Selectable[] aSelectableUI;
 
-	// Initialization
-	protected virtual void Start ()
+    #region Public Properties
+
+    // UI Menu Manager
+    public UIMenuManager MenuManager
+    {
+        get
+        {
+            if (menuManager == null)
+            {
+                return transform.parent.parent.GetComponent<UIMenuManager>();
+            }
+            
+            return menuManager;
+        }
+    }
+
+    #endregion
+
+    // Initialization
+    protected virtual void Start ()
 	{
 	}
 
@@ -35,7 +54,10 @@ public class UIMenuScreenManager : MonoBehaviour
 	{
 		if (lastSelectionName == null)
 		{
-			EventSystem.current.SetSelectedGameObject(goFirstSelectedUI);
+            if (goFirstSelectedUI != null)
+            {
+                EventSystem.current.SetSelectedGameObject(goFirstSelectedUI);
+            }
 		}
 		else
 		{
@@ -44,6 +66,18 @@ public class UIMenuScreenManager : MonoBehaviour
 		menuManager.bScreenTransition = false;
 	}
 
+    // Handles a menu specific cancel function and returns if it needs to 
+    // override the overall cancel function
+    public virtual bool HandleCancelFunction()
+    {
+        return false;
+    }
+
+    // Handles extra screen specific inputs
+    public virtual void HandleExtraInput(Player input)
+    { 
+    }
+
 	#region Screen Management
 
 	// Opens the Screen and transitions in
@@ -51,7 +85,8 @@ public class UIMenuScreenManager : MonoBehaviour
 	{
         if (transition != null)
         {
-			transition.TransitionInConfig.OnTransitionComplete.AddListener((TransitionStep transitionStep) => { SetMenuSelection(lastSelectionName); });
+			transition.TransitionInConfig.OnTransitionComplete.AddListener(
+                (TransitionStep transitionStep) => { SetMenuSelection(lastSelectionName); });
             transition.TransitionIn();
             menuManager.bScreenTransition = true;
         }

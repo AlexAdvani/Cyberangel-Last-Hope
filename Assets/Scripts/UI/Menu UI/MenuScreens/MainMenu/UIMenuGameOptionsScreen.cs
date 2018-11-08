@@ -14,13 +14,38 @@ public class UIMenuGameOptionsScreen : UIMenuScreenManager
 
         bool settingsChanged = SettingsManager.bOptionChanged;
 
-        crosshairDropdown.value = GlobalSettings.iCrosshairVisibility;
-        crosshairDropdown.RefreshShownValue();
+        if (crosshairDropdown != null)
+        {
+            crosshairDropdown.value = GlobalSettings.iCrosshairVisibility;
+            crosshairDropdown.RefreshShownValue();
+        }
+
         laserSightDropdown.value = GlobalSettings.iLaserVisible;
         laserSightDropdown.RefreshShownValue();
 
         SettingsManager.bOptionChanged = settingsChanged;
 	}
+
+    // Cancel Function
+    public override bool HandleCancelFunction()
+    {
+        if (crosshairDropdown != null)
+        {
+            if (crosshairDropdown.transform.Find("Dropdown List") != null)
+            {
+                crosshairDropdown.Hide();
+                return true;
+            }
+        }
+
+        if (laserSightDropdown.transform.Find("Dropdown List") != null)
+        {
+            laserSightDropdown.Hide();
+            return true;
+        }
+
+        return false;
+    }
 
     // Set Crosshair Visibility
     public void SetCrosshairVisibility(int value)

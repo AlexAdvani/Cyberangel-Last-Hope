@@ -102,7 +102,7 @@ public class ES2EditorManageTypes : EditorWindow
 		}
 		catch(System.Exception e)
 		{
-			Debug.LogError(e.Message);
+			Debug.LogError(e);
 		}
 	}
 	
@@ -378,7 +378,7 @@ public class ES2EditorManageTypes : EditorWindow
 				continue;
 			
 			// Add ES2Types built in to ES2 to the list first, and then the user ones later.
-			if(es2Type.Value.GetType().Assembly.GetName().Name == "ES2")
+			if(es2Type.Value.GetType().Assembly.GetName().Name == "Assembly-CSharp-firstpass")
 				es2TypeList += @"		ES2TypeManager.types[typeof("+GetTypeName(es2Type.Key)+")] = new "+es2Type.Value.GetType ().Name+"();\n";
 			else
 				userTypeList += @"		ES2TypeManager.types[typeof("+GetTypeName(es2Type.Key)+")] = new "+es2Type.Value.GetType ().Name+"();\n";

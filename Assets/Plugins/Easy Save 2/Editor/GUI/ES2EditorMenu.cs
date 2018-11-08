@@ -34,9 +34,11 @@ public class ES2EditorMenu
 		
 		GUI.BeginGroup(rect, style.menuStyle);
 		
-		for(int i=0; i<mainButtons.Length; i++)
-			if(GUI.Button(new Rect((rect.width/mainButtons.Length)*i, rect.y, rect.width/mainButtons.Length, mainButtonHeight),new GUIContent(mainButtons[i],style.windowIcon), style.menuMainButtonStyle))
+		for (int i = 0; i < mainButtons.Length; i++)
+			if (GUI.Button (new Rect ((rect.width / mainButtons.Length) * i, rect.y, rect.width / mainButtons.Length, mainButtonHeight), new GUIContent (mainButtons [i], style.windowIcon), style.menuMainButtonStyle)) {
+				selectedSubMenuItemIndex = 0;
 				selectedMenuItemIndex = i;
+			}
 		
 		string[] activeSubButtons = subButtons[selectedMenuItemIndex];
 		

@@ -7,6 +7,8 @@ public class ProjectileBehaviour : MonoBehaviour
 {
 	// Rigidbody 2D
 	Rigidbody2D rigidbody2d;
+    // Collider 2D
+    Collider2D collider2d;
 
 	// Speed
 	public float fSpeed;
@@ -18,47 +20,49 @@ public class ProjectileBehaviour : MonoBehaviour
 
     // Collision Layer Mask
     public LayerMask collisionMask;
+    // Previous Position
+    Vector3 v3PrevPosition;
+
+    // Max Length for the Bullet Trail
+    public float fMaxBulletTrailLength;
 
 	// Impact Audio
 	public SimpleAudioEvent impactAudio;
+
+    // Bullet Impact Prefab
+    public GameObject goBulletImpact;
 
 	// Initialization
 	void Awake()
 	{
 		rigidbody2d = GetComponent<Rigidbody2D>();
-	}
+        collider2d = GetComponent<Collider2D>();
+
+        v3PrevPosition = transform.position;
+    }
 
 	// On Enable
 	void OnEnable ()
 	{
 		StartCoroutine(LifetimeDestroy());
-	}
 
-    // Fixed Update
-    private void FixedUpdate()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.forward, rigidbody2d.velocity.magnitude, collisionMask, 0);
-
-        if (hit.collider != null)
-        {
-            CollisionResult(hit.collider.gameObject);
-        }
+        v3PrevPosition = transform.position;
     }
 
-    // On Collision Enter
+    // On Trigger Enter
+    void OnTriggerEnter2D(Collider2D other)
+	{
+		CollisionResult(other.gameObject, other);
+	}
+
     void OnCollisionEnter2D(Collision2D other)
-	{
-		CollisionResult(other.gameObject);
-	}
+    {
+        ContactPoint2D contact = other.contacts[0];
+        CollisionResult(other.gameObject, contact.point, contact.normal);
+    }
 
-	// Trigger Enter 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		CollisionResult(other.gameObject);
-	}
-
-	// Launches Projectile
-	public virtual void LaunchProjectile(float speedMultiplier = 1)
+    // Launches Projectile
+    public virtual void LaunchProjectile(float speedMultiplier = 1)
 	{
 		rigidbody2d.velocity = transform.up * fSpeed * speedMultiplier;
 	}
@@ -69,26 +73,36 @@ public class ProjectileBehaviour : MonoBehaviour
         fDamage = damage;
     }
 
-	// Looks for Health Manager on collided object to take health then destroys this gameobject
-	private void CollisionResult(GameObject other)
-	{
-		HealthManager healthManager = other.GetComponent<HealthManager>();
+    // Looks for Health Manager on collided object to take health then destroys this gameobject
+    private void CollisionResult(GameObject other, Vector3 point, Vector3 normal)
+    { 
+        HealthManager healthManager = other.GetComponent<HealthManager>();
 
-		if (healthManager != null)
-		{
-			healthManager.TakeHealth(fDamage);
-		}
+        if (healthManager != null)
+        {
+            healthManager.TakeHealth(fDamage);
+        }
 
-		if (other.layer == LayerMask.NameToLayer("Environment"))
-		{
-			impactAudio.Play();
-		}
+        if (other.layer == LayerMask.NameToLayer("Environment") ||
+            other.layer == LayerMask.NameToLayer("MovingPlatform"))
+        {
+            impactAudio.Play();
 
-		DestroyProjectile();
+            Instantiate(goBulletImpact, point, Quaternion.Euler(normal));
+        }
+
+        DestroyProjectile();
 	}
 
-	// Destroy Bullet After Set Time
-	private IEnumerator LifetimeDestroy()
+    // Collision Result Overload that takes a Collision2D
+    private void CollisionResult(GameObject other, Collider2D collision)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 0.01f, collisionMask, 0);
+        CollisionResult(other, hit.point, hit.normal);
+    }
+
+    // Destroy Bullet After Set Time
+    private IEnumerator LifetimeDestroy()
 	{
 		yield return new WaitForSeconds(fLifeTime);
 
@@ -99,6 +113,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	private void DestroyProjectile()
 	{
 		StopAllCoroutines();
+
         gameObject.SetActive(false);
 	}
 }

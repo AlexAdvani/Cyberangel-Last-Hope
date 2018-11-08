@@ -31,6 +31,15 @@ public class WeaponDataInspector : Editor
 	// Player Animation Type - String
 	SerializedProperty playerAnimationType;
 
+    // UI Variables
+
+    // UI Weapon Icon - Sprite
+    SerializedProperty uiWeaponIcon;
+    // UI Ammo Icon - Sprite
+    SerializedProperty uiAmmoIcon;
+    // UI Row Count - Int
+    SerializedProperty uiRowCount;
+
 	// Audio Variables
 
 	// Fire - AudioEvent
@@ -116,6 +125,15 @@ public class WeaponDataInspector : Editor
 	// Beam Collision Audio - Audio Event
 	SerializedProperty beamCollisionAudio;
 
+    // Weapon Info Stats Variables
+
+    // Description Info
+    SerializedProperty descriptionInfo;
+    // Damage Info Stat
+    SerializedProperty damageInfoStat;
+    // Fire Rate Info Stat
+    SerializedProperty fireRateInfoStat;
+
 	#endregion
 
 	// Show Audio Foldout flag
@@ -143,8 +161,13 @@ public class WeaponDataInspector : Editor
 		aimIKOffset = serializedObject.FindProperty("fAimIKOffset");
 		playerAnimationType = serializedObject.FindProperty("sPlayerAnimationType");
 
-		// Audio Properties
-		fireAudio = serializedObject.FindProperty("fireAudio");
+        // UI Properties
+        uiWeaponIcon = serializedObject.FindProperty("uiWeaponIcon");
+        uiAmmoIcon = serializedObject.FindProperty("uiAmmoIcon");
+        uiRowCount = serializedObject.FindProperty("iUIRowCount");
+
+        // Audio Properties
+        fireAudio = serializedObject.FindProperty("fireAudio");
 		fireTailAudio = serializedObject.FindProperty("fireTailAudio");
 		emptyAudio = serializedObject.FindProperty("emptyAudio");
 		reloadUnloadAudio = serializedObject.FindProperty("reloadUnloadAudio");
@@ -191,7 +214,12 @@ public class WeaponDataInspector : Editor
 		// Beam Weapon Properties
 		beamAmmoRate = serializedObject.FindProperty("fBeamAmmoRate");
 		beamCollisionAudio = serializedObject.FindProperty("beamCollisionAudio");
-	}
+
+        // Weapon Info Stats Properties
+        descriptionInfo = serializedObject.FindProperty("sDescriptionInfo");
+        damageInfoStat = serializedObject.FindProperty("iDamageInfoStat");
+        fireRateInfoStat = serializedObject.FindProperty("iFireRateInfoStat");
+    }
 
 	// Inspector GUI Update
 	public override void OnInspectorGUI()
@@ -215,7 +243,9 @@ public class WeaponDataInspector : Editor
 				DrawBeamWeaponFields();
 			break;
 		}
-	
+
+        DrawWeaponInfoFields();
+
 		serializedObject.ApplyModifiedProperties();
 	}
 
@@ -236,7 +266,15 @@ public class WeaponDataInspector : Editor
 		EditorGUILayout.PropertyField(aimIKOffset, new GUIContent("Aim IK Offset"));
 		EditorGUILayout.PropertyField(playerAnimationType, new GUIContent("Animation Type"));
 
-		bShowAudio = EditorGUILayout.Foldout(bShowAudio, new GUIContent("Audio"));
+        EditorGUILayout.Space();
+
+        EditorGUILayout.PropertyField(uiWeaponIcon, new GUIContent("UI Weapon Icon"));
+        EditorGUILayout.PropertyField(uiAmmoIcon, new GUIContent("UI Ammo Icon"));
+        EditorGUILayout.PropertyField(uiRowCount, new GUIContent("UI Row Count"));
+
+        EditorGUILayout.Space();
+
+        bShowAudio = EditorGUILayout.Foldout(bShowAudio, new GUIContent("Audio"));
 
 		if (bShowAudio)
 		{
@@ -329,4 +367,15 @@ public class WeaponDataInspector : Editor
 		EditorGUILayout.PropertyField(beamAmmoRate, new GUIContent("Beam Ammo Rate"));
 		EditorGUILayout.PropertyField(beamCollisionAudio, new GUIContent("Beam Collision Audio"));
 	}
+
+    // Draw Weapon Info Fields
+    private void DrawWeaponInfoFields()
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField(new GUIContent("Weapon Info Settings"), EditorStyles.boldLabel);
+
+        EditorGUILayout.PropertyField(descriptionInfo, new GUIContent("Description Info"));
+        EditorGUILayout.PropertyField(damageInfoStat, new GUIContent("Damage Info Stat"));
+        EditorGUILayout.PropertyField(fireRateInfoStat, new GUIContent("Fire Rate Info Stat"));
+    }
 }

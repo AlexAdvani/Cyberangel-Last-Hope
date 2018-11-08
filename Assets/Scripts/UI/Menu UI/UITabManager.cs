@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 using Rewired;
 
@@ -22,12 +23,6 @@ public class UITabManager : MonoBehaviour
 		playerInput = ReInput.players.GetPlayer(0);
 	}
 
-	// On Enable
-	void OnEnable()
-	{
-		SetTabActive(0);
-	}
-
 	// Update
 	void Update()
 	{
@@ -41,14 +36,19 @@ public class UITabManager : MonoBehaviour
 		{
 			if (i == 0)
 			{
-				agoTabs[i].buttonImage.color = new Color(1, 1, 1, 1);
-				agoTabs[i].goPanel.SetActive(true);
-				continue;
+                agoTabs[i].buttonAnimator.SetTrigger("Active");
+                agoTabs[i].goPanel.SetActive(true);
+
+                if (agoTabs[i].onTabActivate != null)
+                {
+                    agoTabs[i].onTabActivate();
+                }
+
+                continue;
 			}
 
-			agoTabs[i].buttonImage.color = new Color(1, 1, 1, 0.4f);
-			agoTabs[i].goPanel.SetActive(false);
-		}
+            agoTabs[i].goPanel.SetActive(false);
+        }
 	}
 
 	// Handles Input for Switching Tabs
@@ -73,36 +73,46 @@ public class UITabManager : MonoBehaviour
 	// Set Previous Tab to Active
 	private void SetPreviousTab()
 	{
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 0.4f);
-		agoTabs[iCurrentTab].goPanel.SetActive(false);
-		iCurrentTab--;
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Inactive");
+        agoTabs[iCurrentTab].goPanel.SetActive(false);
+        iCurrentTab--;
 
 		if (iCurrentTab < 0)
 		{
 			iCurrentTab = agoTabs.Length - 1;
 		}
 
-		agoTabs[iCurrentTab].goPanel.SetActive(true);
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 1);
-		EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Active");
+        agoTabs[iCurrentTab].goPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
+
+        if (agoTabs[iCurrentTab].onTabActivate != null)
+        {
+            agoTabs[iCurrentTab].onTabActivate();
+        }
 	}
 
 	// Set Next Tab to Active
 	private void SetNextTab()
 	{
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 0.4f);
-		agoTabs[iCurrentTab].goPanel.SetActive(false);
-		iCurrentTab++;
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Inactive");
+        agoTabs[iCurrentTab].goPanel.SetActive(false);
+        iCurrentTab++;
 
 		if (iCurrentTab >= agoTabs.Length)
 		{
 			iCurrentTab = 0;
 		}
 
-		agoTabs[iCurrentTab].goPanel.SetActive(true);
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 1);
-		EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
-	}
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Active");
+        agoTabs[iCurrentTab].goPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
+
+        if (agoTabs[iCurrentTab].onTabActivate != null)
+        {
+            agoTabs[iCurrentTab].onTabActivate();
+        }
+    }
 
 	// Sets a specific numbered tab to active
 	public void SetTabActive(int tabNo)
@@ -118,22 +128,54 @@ public class UITabManager : MonoBehaviour
 			return;
 		}
 
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 0.4f);
-		agoTabs[iCurrentTab].goPanel.SetActive(false);
-		iCurrentTab = tabNo;
-		agoTabs[iCurrentTab].goPanel.SetActive(true);
-		agoTabs[iCurrentTab].buttonImage.color = new Color(1, 1, 1, 1);
-		EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
-	}
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Inactive");
+        agoTabs[iCurrentTab].goPanel.SetActive(false);
+        iCurrentTab = tabNo;
+        agoTabs[iCurrentTab].buttonAnimator.SetTrigger("Active");
+        agoTabs[iCurrentTab].goPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(agoTabs[iCurrentTab].goFirstSelectedUI);
+
+        if (agoTabs[iCurrentTab].onTabActivate != null)
+        {
+            agoTabs[iCurrentTab].onTabActivate();
+        }
+    }
+
+    // Mouse Enter event
+    public void MouseEnter(int tabID)
+    {
+        if (tabID == iCurrentTab)
+        {
+            return;
+        }
+
+        agoTabs[tabID].buttonAnimator.SetTrigger("Hovered");
+    }
+
+    // Mouse Exit event
+    public void MouseExit(int tabID)
+    {
+        if (tabID == iCurrentTab)
+        {
+            agoTabs[tabID].buttonAnimator.SetTrigger("Active");
+        }
+        else
+        {
+            agoTabs[tabID].buttonAnimator.SetTrigger("Inactive");
+        }
+    }
 }
 
 [System.Serializable]
 public class UITab
 {
-	// Panel GameObject
-	public GameObject goPanel;
-	// Button Image
-	public Image buttonImage;
+    // Tab Panel GameObject
+    public GameObject goPanel;
+	// Button Animator
+	public Animator buttonAnimator;
 	// First Selected UI GameObject
 	public GameObject goFirstSelectedUI;
+
+    // On Tab Activate Action
+    public Action onTabActivate;
 }

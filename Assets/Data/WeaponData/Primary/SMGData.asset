@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f205b6d623ad224791dee4c16353f59, type: 3}
+  m_Name: SMGData
+  m_EditorClassIdentifier: 
+  sName: SMG
+  goWeaponPrefab: {fileID: 1818774235546826, guid: 5fa91862f660886489c24ddefaa7c21b,
+    type: 2}
+  goCasingPrefab: {fileID: 1000010658125732, guid: 7e50c1c595f602c468552a13bf398038,
+    type: 2}
+  iCasingPoolSize: 60
+  goClipPrefab: {fileID: 1716768991880214, guid: f397fdaca08dbae42a2165d9983b7db2,
+    type: 2}
+  iClipPoolSize: 4
+  clipSprite: {fileID: 21300014, guid: 95f47946795c5164c88cec8ee8307d39, type: 3}
+  v3WeaponOffset: {x: 0.045, y: 0.025, z: 0}
+  v3HolsterOffset: {x: -0.05, y: -0.02, z: 0}
+  fAimIKOffset: 0.1989193
+  sPlayerAnimationType: SMG
+  uiWeaponIcon: {fileID: 21300000, guid: 9f8893abe44d91d46af760e37133189b, type: 3}
+  uiAmmoIcon: {fileID: 21300000, guid: 9b68cdd9d136c2a4eb2b013a18a1a11c, type: 3}
+  iUIRowCount: 3
+  fireAudio: {fileID: 11400000, guid: 22a47ecc6d22cbf468cae894500bd2dd, type: 2}
+  fireTailAudio: {fileID: 11400000, guid: 0e0be499a114d064cb4f7c2e31a45903, type: 2}
+  emptyAudio: {fileID: 11400000, guid: 1771ccc865c16684594444bc68585fc6, type: 2}
+  reloadUnloadAudio: {fileID: 11400000, guid: 8d78fb2eedb94604cb699207585943a6, type: 2}
+  reloadLoadAudio: {fileID: 11400000, guid: ef603eaf832476344ae9a0f4725b0ebd, type: 2}
+  reloadSlideAudio: {fileID: 0}
+  reloadBoltAudio: {fileID: 11400000, guid: a1c9f159eec4bb242a5cd796faff18af, type: 2}
+  weaponType: 0
+  fDamage: 40
+  iMaxAmmo: 225
+  iClipSize: 45
+  firingMode: 1
+  bBoltAction: 0
+  iShotsPerBurst: 4
+  fBurstShotTime: 0.05
+  fFireRate: 0.036
+  bClipReload: 1
+  bCanFullReload: 0
+  holdType: 0
+  fRecoilIncreaseRate: 0.4
+  fMaxRecoil: 3
+  fRecoilDecreaseRate: 2
+  fRecoilResetTime: 0
+  fAimRecoilIncreaseRate: 0.01
+  fMaxAimRecoil: 0.04
+  fAimRecoilDecreaseRate: 0.016
+  fAimRecoilResetTime: 0.1
+  v2CameraShakeStrength: {x: 0.35, y: 0.35}
+  fCameraShakeDuration: 0.05
+  fVibrationStrength: 0.15
+  fVibrationTime: 0.1
+  goBulletPrefab: {fileID: 129938, guid: f81849c26f7d618458e29c2fe3b45004, type: 2}
+  iBulletPoolSize: 30
+  iShotgunProjectiles: 0
+  fShotgunSpreadRadius: 0
+  fBeamAmmoRate: 0
+  beamCollisionAudio: {fileID: 0}
+  sDescriptionInfo: Submachine gun with a high fire rate and strong recoil. Specialized
+    for close quarters operations.
+  iDamageInfoStat: 5
+  iFireRateInfoStat: 10

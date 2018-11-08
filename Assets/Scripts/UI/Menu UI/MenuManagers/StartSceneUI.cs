@@ -10,6 +10,8 @@ public class StartSceneUI : MonoBehaviour
 	public GameObject goScreenFadeUI;
 	int iCurrentRenderer = 0;
 
+    public Texture2D mouseCursor;
+
 	// Initialization
 	void Start()
 	{
@@ -24,6 +26,7 @@ public class StartSceneUI : MonoBehaviour
 			aCanvasRenderers[i].gameObject.SetActive(false);
 		}
 
+        Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.ForceSoftware);
 		FadeIn();
 	}
 

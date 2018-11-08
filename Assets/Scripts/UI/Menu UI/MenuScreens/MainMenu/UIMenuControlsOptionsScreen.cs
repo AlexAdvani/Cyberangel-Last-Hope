@@ -7,14 +7,16 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 {
 	// Player Input
 	Player playerInput;
-
+    
 	// Gamepad Selection Dropdown
 	public TMP_Dropdown gamepadDropdown;
 	// Vibration Toggle
 	public Toggle vibrationToggle;
+    // Calibrate Gamepad Button
+    public Button calibrateGamepadButton;
 
-	// Gamepad Calibrator
-	public UIInputGamepadCalibrator padCalibrator;
+    // Gamepad Calibrator
+    public UIInputGamepadCalibrator padCalibrator;
 
 	// Initialization
 	protected override void Start ()
@@ -25,42 +27,46 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 		ReInput.ControllerConnectedEvent += ControllerEventChange;
 		ReInput.ControllerDisconnectedEvent += ControllerEventChange;
 
-		GetGamepads();
+        GetGamepads();
 
 		vibrationToggle.isOn = GlobalSettings.bVibration;
 	}
 
-	// Update
-	void Update ()
-	{
-		if (UIMenuManager.bOverrideCancelFunction)
-		{
-			HandleCancelInput();
-		}
-	}
+    // On Destroy
+    private void OnDestroy()
+    {
+        ReInput.ControllerConnectedEvent -= ControllerEventChange;
+        ReInput.ControllerDisconnectedEvent -= ControllerEventChange;
+    }
 
-	// Handle Cancel Input
-	private void HandleCancelInput()
-	{
-		if (playerInput.GetButtonDown("Cancel"))
-		{
-			if (UIMenuInputMapper.bAssignWindowOpen && UIMenuInputMapper.currentActiveMapper != null)
-			{
-				if (!UIMenuInputMapper.bPolling)
-				{
-					UIMenuInputMapper.currentActiveMapper.CloseAssignmentWindow();
-				}
-			}
-			else if (padCalibrator.bAxisOpen)
-			{
-				padCalibrator.CloseAxisWindow();
-			}
-			else if (padCalibrator.bCalibrationOpen)
-			{
-				padCalibrator.CloseCalibrationWindow();
-			}
-		}
-	}
+    // Handle Cancel Input
+    public override bool HandleCancelFunction()
+    {
+        if (padCalibrator.bCalibrationOpen || padCalibrator.bAxisOpen)
+        {
+            return true;
+        }
+
+        if (UIMenuInputMapper.bAssignWindowOpen && UIMenuInputMapper.currentActiveMapper != null)
+        {
+            if (!UIMenuInputMapper.bPolling)
+            {
+                UIMenuInputMapper.currentActiveMapper.CloseAssignmentWindow();
+                return true;
+            }
+        }
+
+        if (gamepadDropdown != null)
+        {
+            if (gamepadDropdown.transform.Find("Dropdown List") != null)
+            {
+                gamepadDropdown.Hide();
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 	// Get the current connected gamepads when a controller is connected or disconnected
 	private void ControllerEventChange(ControllerStatusChangedEventArgs args)
@@ -71,23 +77,26 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 	// Gets the Currently Connected Gamepads 
 	private void GetGamepads()
 	{
-		gamepadDropdown.ClearOptions();
-		gamepadDropdown.options.Add(new TMP_Dropdown.OptionData("None"));
-		gamepadDropdown.RefreshShownValue();
+        if (gamepadDropdown != null)
+        {
+            gamepadDropdown.ClearOptions();
+            gamepadDropdown.options.Add(new TMP_Dropdown.OptionData("None"));
+            gamepadDropdown.RefreshShownValue();
 
-		if (gamepadDropdown.options.Count == 1)
-		{
-			Toggle option = gamepadDropdown.GetComponentInChildren<Toggle>(true);
+            if (gamepadDropdown.options.Count == 1)
+            {
+                Toggle option = gamepadDropdown.GetComponentInChildren<Toggle>(true);
 
-			if (option != null)
-			{
-				Navigation nav = new Navigation()
-				{
-					mode = Navigation.Mode.None
-				};
-				option.navigation = nav;
-			}
-		}
+                if (option != null)
+                {
+                    Navigation nav = new Navigation()
+                    {
+                        mode = Navigation.Mode.None
+                    };
+                    option.navigation = nav;
+                }
+            }
+        }
 
 		Joystick[] gamepads = ReInput.controllers.GetJoysticks();
 
@@ -97,7 +106,12 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 
 			if (playerInput.controllers.joystickCount > 0)
 			{
-				playerPad = ReInput.controllers.GetController<Joystick>(playerInput.controllers.GetController<Joystick>(0).id);
+                Joystick currentAssignedPad = playerInput.controllers.GetController<Joystick>(0);
+
+                if (currentAssignedPad != null)
+                {
+                    playerPad = ReInput.controllers.GetController<Joystick>(currentAssignedPad.id);
+                }
 			}
 
 			int padArrayPos = 0;
@@ -107,7 +121,10 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 			{
 				Joystick gamepad = gamepads[i];
 
-				gamepadDropdown.options.Add(new TMP_Dropdown.OptionData(gamepad.name));
+                if (gamepadDropdown != null)
+                {
+                    gamepadDropdown.options.Add(new TMP_Dropdown.OptionData(gamepad.name));
+                }
 
 				if (gamepad.isConnected)
 				{
@@ -120,20 +137,42 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 				}
 			}
 
-			if (connectedPads > 0)
-			{
-				if (ReInput.configuration.autoAssignJoysticks)
-				{
-					gamepadDropdown.value = padArrayPos + 1;
-				}
-				else
-				{
-					gamepadDropdown.value = 0;
-				}
+            if (connectedPads > 0)
+            {
+                if (gamepadDropdown != null)
+                {
+                    if (ReInput.configuration.autoAssignJoysticks)
+                    {
+                        gamepadDropdown.value = padArrayPos + 1;
+                    }
+                    else
+                    {
+                        gamepadDropdown.value = 0;
+                    }
 
-				gamepadDropdown.RefreshShownValue();
-			}
+                    gamepadDropdown.RefreshShownValue();
+                }
+
+                if (ControllerStatusManager.iGamepadID != -1)
+                {
+                    calibrateGamepadButton.interactable = true;
+                }
+                else
+                {
+
+                    calibrateGamepadButton.interactable = false;
+                }
+            }
+            else
+            {
+                calibrateGamepadButton.interactable = false;
+            }
 		}
+        else
+        {
+
+            calibrateGamepadButton.interactable = false;
+        }
 	}
 
 	// Assigns a gamepad to Player 1 based on Gamepad ID
@@ -141,15 +180,30 @@ public class UIMenuControlsOptionsScreen : UIMenuScreenManager
 	{
 		playerInput.controllers.RemoveController<Joystick>(0);
 
-		if (gamepad > 0)
-		{
-			Controller newGamepad = ReInput.controllers.GetController(ControllerType.Joystick, gamepad - 1);
+        if (gamepad > 0)
+        {
+            Controller newGamepad = ReInput.controllers.GetController(ControllerType.Joystick, gamepad - 1);
 
-			if (newGamepad != null)
-			{
-				playerInput.controllers.AddController(newGamepad, true);
-			}
-		}
+            if (newGamepad != null)
+            {
+                playerInput.controllers.AddController(newGamepad, true);
+                ControllerStatusManager.iGamepadID = newGamepad.id;
+            }
+
+            if (ControllerStatusManager.iGamepadID != -1)
+            {
+                calibrateGamepadButton.interactable = true;
+            }
+            else
+            {
+                calibrateGamepadButton.interactable = false;
+            }
+        }
+        
+        if (ReInput.controllers.joystickCount == 0)
+        {
+            calibrateGamepadButton.interactable = false;
+        }
 	}
 
 	// Sets Vibration

@@ -1,40 +1,33 @@
 
 skeleton.png
-size: 1024,1024
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+Body
+  rotate: false
+  xy: 8, 8
+  size: 1149, 462
+  orig: 1149, 462
+  offset: 0, 0
+  index: -1
 Clip
   rotate: false
-  xy: 612, 590
-  size: 54, 76
-  orig: 54, 76
+  xy: 1165, 163
+  size: 100, 139
+  orig: 100, 139
   offset: 0, 0
   index: -1
 ClipEmpty
   rotate: false
-  xy: 8, 162
-  size: 54, 76
-  orig: 54, 76
-  offset: 0, 0
-  index: -1
-LaserRifle
-  rotate: false
-  xy: 8, 414
-  size: 596, 252
-  orig: 596, 252
-  offset: 0, 0
-  index: -1
-Muzzle
-  rotate: false
-  xy: 256, 377
-  size: 36, 29
-  orig: 36, 29
+  xy: 1413, 331
+  size: 100, 139
+  orig: 100, 139
   offset: 0, 0
   index: -1
 MuzzleFlare
   rotate: false
-  xy: 8, 246
+  xy: 1165, 310
   size: 240, 160
   orig: 240, 160
   offset: 0, 0

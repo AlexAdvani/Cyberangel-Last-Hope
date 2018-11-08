@@ -7,13 +7,19 @@ public class TimedDestroy : MonoBehaviour
 	public float fLifeTime = 1;
 	public bool bDisableOnDestroy = false;
 
-	// Initialization
+	// On Enable
 	void OnEnable ()
 	{
 		StartCoroutine(DestroyObject());
 	}
 
-	IEnumerator DestroyObject()
+    // On Disable
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator DestroyObject()
 	{
 		yield return new WaitForSeconds(fLifeTime);
 

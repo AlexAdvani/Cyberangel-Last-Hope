@@ -24,8 +24,10 @@ public class TimerUI : MonoBehaviour
 	// Timer Running flag
 	bool bRunning;
 
-	// Current Time
-	public float CurrentTime
+    #region Public Properties
+
+    // Current Time
+    public float CurrentTime
 	{
 		get { return fCurrentTime; }
 	}
@@ -36,8 +38,10 @@ public class TimerUI : MonoBehaviour
 		get { return bRunning; }
 	}
 
-	// Update 
-	void Update ()
+    #endregion
+
+    // Update 
+    void Update ()
 	{
 		if (bRunning)
 		{

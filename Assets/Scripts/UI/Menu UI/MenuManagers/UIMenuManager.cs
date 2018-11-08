@@ -43,6 +43,9 @@ public class UIMenuManager : MonoBehaviour
 	// Previous Selected Object before the last window was openede
 	protected Stack<GameObject> prevSelectedWindowUIObjects;
 
+    // Clear Menu Parent of all windows on Awake flag
+    public bool bClearMenuParentOnAwake = false;
+
 	// Start Instantiated flag
 	public bool bStartInstantiated = true;
 	// Start UI Selected flag
@@ -69,6 +72,9 @@ public class UIMenuManager : MonoBehaviour
 	// Button Cancel Audio Data
 	public AudioEvent cancelAudio;
 
+    // UI Input Legend Manager
+    UIInputLegendManager legendManager;
+
 	#region Public Properties
 
 	// Current Screen Manager
@@ -77,12 +83,40 @@ public class UIMenuManager : MonoBehaviour
 		get { return currentScreenManager; }
 	}
 
+    public UIInputLegendManager LegendManager
+    {
+        get
+        {
+            if (legendManager == null)
+            {
+                legendManager = transform.parent.Find("UIMenuInputLegends").GetComponent<UIInputLegendManager>();
+            }
+
+            return legendManager;
+        }
+    }
+
+
 	#endregion
 
 	// Initialization
 	protected virtual void Awake()
 	{
 		playerInput = ReInput.players.GetPlayer(0);
+
+        // If we need to clear on awake, then loop through all of the menu windows and destroy them
+        if (bClearMenuParentOnAwake)
+        {
+            int windowCount = tMenuParent.childCount;
+
+            if (windowCount > 0)
+            {
+                for (int i = 0; i < windowCount; i++)
+                {
+                    Destroy(tMenuParent.GetChild(i).gameObject);
+                }
+            }
+        }
 
 		// Set Current Panel if starting instantiated
 		if (bStartInstantiated)
@@ -93,8 +127,8 @@ public class UIMenuManager : MonoBehaviour
 
 			if (currentScreenManager != null)
 			{
-				currentScreenManager.gameObject.SetActive(true);
-				currentScreenManager.SetMenuManager(this);
+                currentScreenManager.SetMenuManager(this);
+                currentScreenManager.gameObject.SetActive(true);
 
 				if (!bStartNotSelected)
 				{
@@ -116,39 +150,53 @@ public class UIMenuManager : MonoBehaviour
 		HandleUISelection();
 	}
 
-	// Handles Menu Input
-	private void HandleMenuInput()
-	{
-		if (playerInput.GetButtonDown("UISubmit"))
-		{
-			if (!bMenuInputDisabled)
-			{
-				PlayConfirmSound();
-			}
-		}
+    // Handles Menu Input
+    private void HandleMenuInput()
+    {
+        if (!tMenuParent.gameObject.activeInHierarchy)
+        {
+            return;
+        }
 
-		if (playerInput.GetButtonDown("UICancel"))
-		{
-			if (!bDisableCancelFunction)
-			{
-				if (!bOverrideCancelFunction)
-				{
-					if (!bScreenTransition)
-					{
-						if (currentWindows.Count > 0)
-						{
-							CloseTopWindow();
-							PlayCancelSound();
-						}
-						else if (prevScreens.Count > 0)
-						{
-							ReturnToPreviousScreen();
-							PlayCancelSound();
-						}
-					}
-				}
-			}
-		}
+        if (playerInput.GetButtonDown("UISubmit"))
+        {
+            if (!bMenuInputDisabled)
+            {
+                PlayConfirmSound();
+            }
+        }
+
+        if (playerInput.GetButtonDown("UICancel"))
+        {
+            if (!bDisableCancelFunction)
+            {
+                if (!bOverrideCancelFunction)
+                {
+                    if (!bScreenTransition)
+                    {
+                        if (currentWindows.Count > 0)
+                        {
+                            CloseTopWindow();
+                            PlayCancelSound();
+                        }
+                        else
+                        {
+                            if (!currentScreenManager.HandleCancelFunction())
+                            {
+                                ReturnToPreviousScreen();
+                            }
+
+                            PlayCancelSound();
+                        }
+                    }
+                }
+            }
+        }
+
+        if (currentScreenManager != null)
+        {
+            currentScreenManager.HandleExtraInput(playerInput);
+        }
 	}
 
 	// Handles UI Selection if lost or changed
@@ -244,13 +292,13 @@ public class UIMenuManager : MonoBehaviour
 		}
 	}
 
-	// Return to a previous screen if one is available
-	public virtual void ReturnToPreviousScreen()
-	{
-		if (prevScreens.Count == 0)
-		{
-			return;
-		}
+    // Return to a previous screen if one is available
+    public virtual void ReturnToPreviousScreen()
+    {
+        if (prevScreens.Count == 0)
+        {
+            return;
+        }
 
 		GameObject oldScreen = goCurrentPanelObj;
 		UIMenuScreenManager oldScreenManager = currentScreenManager;

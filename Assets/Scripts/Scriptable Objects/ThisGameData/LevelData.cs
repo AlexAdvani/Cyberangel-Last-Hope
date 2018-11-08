@@ -21,6 +21,19 @@ public class LevelData : ScriptableObject
 	public LevelTime silverTime;
 	// Bronze Time Requirement
 	public LevelTime bronzeTime;
+
+    // Level Has Time flag
+    public bool bHasScore = false;
+
+    // Gold Time Requirement
+    public int iGoldScore;
+    // Silver Time Requirement
+    public int iSilverScore;
+    // Bronze Time Requirement
+    public int iBronzeScore;
+
+    // Par Time
+    public LevelTime parTime;
 }
 
 // Time For Level in Minutes, Seconds and Milliseconds

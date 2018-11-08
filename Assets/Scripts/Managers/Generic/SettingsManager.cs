@@ -53,6 +53,7 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
         else // Otherwise, detect display settings
         {
             DetectDisplaySettings();
+            QualitySettings.vSyncCount = 1;
         }
     }
 

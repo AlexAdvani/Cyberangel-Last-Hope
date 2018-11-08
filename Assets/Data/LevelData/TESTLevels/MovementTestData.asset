@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sLevelName: Movement Test
   sSceneName: MovementTest
-  levelImage: {fileID: 0}
+  levelImage: {fileID: 21300000, guid: c28a85a31aa3e6e47ab46290a0105bb3, type: 3}
   bHasTime: 0
   goldTime:
     iMinutes: 0
@@ -24,6 +24,14 @@ MonoBehaviour:
     iSeconds: 0
     iMilliseconds: 0
   bronzeTime:
+    iMinutes: 0
+    iSeconds: 0
+    iMilliseconds: 0
+  bHasScore: 0
+  iGoldScore: 0
+  iSilverScore: 0
+  iBronzeScore: 0
+  parTime:
     iMinutes: 0
     iSeconds: 0
     iMilliseconds: 0

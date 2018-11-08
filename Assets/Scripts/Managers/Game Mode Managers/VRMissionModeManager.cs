@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 
 using BeautifulTransitions.Scripts.Transitions;
 using Com.LuisPedroFonseca.ProCamera2D;
@@ -17,26 +19,45 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 	Vector3 v3PlayerStartPos;
 	// Camera
 	ProCamera2D gameCamera;
+    // Camera Starting Position
+    Vector3 v3CameraStartPos;
 	// Number of Targets in Level
 	int iTargets;
 	// Target Gameobjects
 	GameObject[] agoTargets;
 	// Best Time (Seconds);
 	float fBestTime;
-	// End Mission Rank
-	string sEndRank = "";
+    // Best Score
+    int iBestScore;
+    // Par Time (Seconds);
+    float fParTime;
+    // Time Bonus
+    int iTimeBonus;
+    // Time Bonus Score
+    public float fTimeBonusScore;
+    // End Mission Rank
+    string sEndRank = "";
 
 	// In Game UI
 	public GameObject goInGameUI;
+    // Mission UI
+    public GameObject goMissionUI;
+    // Input Buttons UI
+    public GameObject goInputButtonsUI;
 	// Mission Timer
 	public TimerUI missionTimer;
-	// Target Counter UI 
-	public GameObject goTargetCounterUI;
-	// End Goal GameObject
-	GameObject goEndGoal;
+    // Mission Score
+    public ScoreUI missionScore;
+    // End Goal GameObject
+    GameObject goEndGoal;
 
 	// Screen Fade Transition UI
 	public GameObject goScreenFadeUI;
+
+    // On Target Destroy Action
+    public Action onTargetDestroy;
+    // On Mission Restart Action
+    public Action onMissionRestart;
 
 	#region Public Properties
 
@@ -52,11 +73,24 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 		get { return fBestTime; }
 	}
 
-	// End Mission Rank
-	public string EndRank
+    // Par Time
+    public int BestScore
+    {
+        get { return iBestScore; }
+    }
+
+    // End Mission Rank
+    public string EndRank
 	{
 		get { return sEndRank; }
 	}
+
+    // Time Bonus
+    public int TimeBonus
+    {
+        get { return iTimeBonus; }
+    }
+
 
 	#endregion
 
@@ -68,14 +102,22 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 		InitializeLevelElements();
 
 		GameManager.SetPause(false);
-	}
+        GameManager.onPause += HideVRModeUI;
+        GameManager.onUnpause += ShowVRModeUI;
+
+        HideVRModeUI();
+    }
 
     // Initialization
 	void Start()
 	{
 		if (levelData != null)
 		{
-			if (levelData.bHasTime)
+            if (levelData.bHasScore)
+            {
+                iBestScore = ProfileDataManager.Instance.LoadVRMissionScore(levelData.sLevelName);
+            }
+            else if (levelData.bHasTime)
 			{
 				fBestTime = ProfileDataManager.Instance.LoadVRMissionTime(levelData.sLevelName);
 			}
@@ -87,6 +129,7 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 	{
 		v3PlayerStartPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 		gameCamera = Camera.main.GetComponent<ProCamera2D>();
+        v3CameraStartPos = gameCamera.transform.position;
 		agoTargets = GameObject.FindGameObjectsWithTag("VRTarget");
 		iTargets = agoTargets.Length;
 		goEndGoal = GameObject.FindGameObjectWithTag("VRGoal");
@@ -106,12 +149,35 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 		{
 			goEndGoal.SetActive(true);
 		}
+
+        if (onTargetDestroy != null)
+        {
+            onTargetDestroy();
+        }
 	}
 
-	#region Mission Management
+    // Show VR Mode UI
+    public void ShowVRModeUI()
+    {
+        if (goMissionUI != null)
+        {
+            goMissionUI.SetActive(true);
+        }
+    }
 
-	// Starts the Mission Timer
-	public void StartMissionTimer()
+    // Hide VR Mode UI
+    public void HideVRModeUI()
+    {
+        if (goMissionUI != null)
+        {
+            goMissionUI.SetActive(false);
+        }
+    }
+
+    #region Mission Management
+
+    // Starts the Mission Timer
+    public void StartMissionTimer()
 	{
 		missionTimer.gameObject.SetActive(true);
 		missionTimer.StartTimer(true);
@@ -120,27 +186,66 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 	// Ends the Mission 
 	public void EndMission()
 	{
-		// No previous best time or beat best time
-		if (fBestTime == -1 || missionTimer.CurrentTime < fBestTime)
-		{
-			fBestTime = missionTimer.CurrentTime;
-			ProfileDataManager.Instance.SaveVRMissionTime(levelData.sLevelName, fBestTime);
-		}
-
-		// Check Time for Rank
-		CheckEndRanking(missionTimer.CurrentTime);
+        // Check Time for Rank
+        if (levelData.bHasScore)
+        {
+            CalculateTimeBonus();
+            CheckEndRankingScore(missionScore.Score);
+        }
+        else if (levelData.bHasTime)
+        {
+            CheckEndRanking(missionTimer.CurrentTime);
+        }
 
 		// Stop Timer
 		StopMissionTimer();
 
-		// Show End Screen UI
-		vrMenuManager.gameObject.SetActive(true);
+        if (levelData.bHasScore)
+        {
+            if (iBestScore == -1 || missionScore.Score > iBestScore)
+            {
+                iBestScore = missionScore.Score;
+                ProfileDataManager.Instance.SaveVRMissionScore(levelData.sLevelName, iBestScore);
+            }
+        }
+        else if (levelData.bHasTime)
+        {
+            // No previous best time or beat best time
+            if (fBestTime == -1 || missionTimer.CurrentTime < fBestTime)
+            {
+                fBestTime = missionTimer.CurrentTime;
+                ProfileDataManager.Instance.SaveVRMissionTime(levelData.sLevelName, fBestTime);
+            }
+        }
+
+        // Disable Mission UI
+        goMissionUI.SetActive(false);
+
+        // Show End Screen UI
+        vrMenuManager.gameObject.SetActive(true);
 		GameManager.PauseMenuManager.goPauseUI.SetActive(false);
 		vrMenuManager.GoToScreen("VREnd");
 	}
 
-	// Checks time and awards a rank
-	private void CheckEndRanking(float time)
+    // Calculates the time bonus from difference between the mission time and the par time
+    private void CalculateTimeBonus()
+    {
+        float difference = levelData.parTime.FGetTimeInSeconds() - missionTimer.CurrentTime;
+
+        if (difference > 0)
+        {
+            iTimeBonus = Mathf.RoundToInt(difference * fTimeBonusScore);
+        }
+        else
+        {
+            iTimeBonus = 0;
+        }
+
+        missionScore.AddScore(iTimeBonus);
+    }
+
+    // Checks time and awards a rank
+    private void CheckEndRanking(float time)
 	{
 		if (time < levelData.goldTime.FGetTimeInSeconds())
 		{
@@ -160,8 +265,63 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 		}
 	}
 
-	// Stops the Mission Timer
-	public void StopMissionTimer()
+    // Checks time and awards a rank
+    private void CheckEndRankingScore(float score)
+    {
+        if (score > levelData.iGoldScore)
+        {
+            sEndRank = "Gold";
+        }
+        else if (score > levelData.iSilverScore)
+        {
+            sEndRank = "Silver";
+        }
+        else if (score < levelData.iBronzeScore)
+        {
+            sEndRank = "Bronze";
+        }
+        else
+        {
+            sEndRank = "None";
+        }
+    }
+
+    // Add Score to the Mission Score
+    public void AddScore(int amount, bool multiplied = false, bool increaseMultiplier = false)
+    {
+        if (missionScore == null)
+        {
+            return;
+        }
+
+        missionScore.AddScore(amount, multiplied, increaseMultiplier);
+    }
+
+    // Take Score from the Mission Score
+    public void TakeScore(int amount, bool multiplied = false, bool decreaseMultiplier = false)
+    {
+        if (missionScore == null)
+        {
+            return;
+        }
+
+        missionScore.TakeScore(amount, multiplied, decreaseMultiplier);
+    }
+
+    // Reset Mission Score
+    public void ResetScore(bool resetMultiplier = false)
+    {
+        if (missionScore == null)
+        {
+            return;
+        }
+
+        missionScore.ResetScore(resetMultiplier);
+    }
+
+
+    // Stops the Mission Timer
+    public void StopMissionTimer()
 	{
 		missionTimer.StopTimer();
 		missionTimer.gameObject.SetActive(false);
@@ -190,8 +350,18 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 		missionTimer.StopTimer();
 		missionTimer.ResetTimer();
 
-		// Camera
-		gameCamera.CenterOnTargets();
+        // Reset Score if it exists
+        if (missionScore != null)
+        {
+            missionScore.ResetScore(true);
+        }
+
+        // Disable Mission UI
+        goMissionUI.SetActive(false);
+
+        // Camera
+        gameCamera.Reset();
+        gameCamera.transform.position = v3CameraStartPos;
 
 		// Targets
 		iTargets = agoTargets.Length;
@@ -207,7 +377,7 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 
 		for (int i = 0; i < projectiles.Length; i++)
 		{
-			Destroy(projectiles[i]);
+            projectiles[i].SetActive(false);
 		}
 
 		// Debris in Scene
@@ -215,14 +385,19 @@ public class VRMissionModeManager : SingletonBehaviour<VRMissionModeManager>
 
 		for (int i = 0; i < debris.Length; i++)
 		{
-			Destroy(debris[i]);
+            debris[i].SetActive(false);
 		}
 
         vrMenuManager.gameObject.SetActive(true);
 		vrMenuManager.GoToScreen("VRStart");
 		AudioManager.Instance.StopAllSounds();
 
-		TransitionHelper.TransitionIn(goScreenFadeUI);
+        if (onMissionRestart != null)
+        {
+            onMissionRestart();
+        }
+
+        TransitionHelper.TransitionIn(goScreenFadeUI);
 	}
 
 	// If there is a next mission, load it 

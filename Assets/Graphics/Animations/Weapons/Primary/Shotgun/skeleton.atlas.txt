@@ -1,41 +1,34 @@
 
 skeleton.png
-size: 1024,1024
+size: 2048,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Body
   rotate: false
-  xy: 8, 748
-  size: 868, 207
-  orig: 868, 207
-  offset: 0, 0
-  index: -1
-Muzzle Flare
-  rotate: false
-  xy: 8, 580
-  size: 240, 160
-  orig: 240, 160
+  xy: 8, 48
+  size: 1592, 380
+  orig: 1592, 380
   offset: 0, 0
   index: -1
 Pump
-  rotate: true
-  xy: 884, 771
-  size: 184, 71
-  orig: 184, 71
+  rotate: false
+  xy: 1608, 298
+  size: 338, 130
+  orig: 338, 130
   offset: 0, 0
   index: -1
 Slide
   rotate: false
-  xy: 8, 555
-  size: 64, 17
-  orig: 64, 17
+  xy: 8, 8
+  size: 117, 32
+  orig: 117, 32
   offset: 0, 0
   index: -1
 SlideBackground
   rotate: false
-  xy: 256, 723
-  size: 64, 17
-  orig: 64, 17
+  xy: 1608, 258
+  size: 117, 32
+  orig: 117, 32
   offset: 0, 0
   index: -1

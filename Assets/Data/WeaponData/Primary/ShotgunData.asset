@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f205b6d623ad224791dee4c16353f59, type: 3}
+  m_Name: ShotgunData
+  m_EditorClassIdentifier: 
+  sName: Shotgun
+  goWeaponPrefab: {fileID: 1157610507670610, guid: 2e797a65049d1c64083b6408a68bccf3,
+    type: 2}
+  goCasingPrefab: {fileID: 1646390720033552, guid: 565ee0be5867fb64bbc1dc0effd5ff43,
+    type: 2}
+  iCasingPoolSize: 8
+  goClipPrefab: {fileID: 0}
+  iClipPoolSize: 0
+  clipSprite: {fileID: 0}
+  v3WeaponOffset: {x: 0.015, y: 0.0024, z: 0}
+  v3HolsterOffset: {x: -0.156, y: -0.088, z: 0}
+  fAimIKOffset: 0.1978085
+  sPlayerAnimationType: Shotgun
+  uiWeaponIcon: {fileID: 21300000, guid: 7911b3cc71d5eec46b4424297430ae06, type: 3}
+  uiAmmoIcon: {fileID: 21300000, guid: 1a3f0f219c183e5429cc300290c76815, type: 3}
+  iUIRowCount: 1
+  fireAudio: {fileID: 11400000, guid: 93f90cb1d955cc546b3d701ff7af60c5, type: 2}
+  fireTailAudio: {fileID: 0}
+  emptyAudio: {fileID: 11400000, guid: 1efe7c879d5c68b44b1b9969ea700eee, type: 2}
+  reloadUnloadAudio: {fileID: 0}
+  reloadLoadAudio: {fileID: 11400000, guid: a6ae4c5b2faac164784b5771056e3e02, type: 2}
+  reloadSlideAudio: {fileID: 0}
+  reloadBoltAudio: {fileID: 11400000, guid: 579a81677d9de614d9f20e0e37e3ef7d, type: 2}
+  weaponType: 1
+  fDamage: 20
+  iMaxAmmo: 48
+  iClipSize: 8
+  firingMode: 0
+  bBoltAction: 1
+  iShotsPerBurst: 0
+  fBurstShotTime: 0
+  fFireRate: 0.2
+  bClipReload: 0
+  bCanFullReload: 0
+  holdType: 0
+  fRecoilIncreaseRate: 0.5
+  fMaxRecoil: 1
+  fRecoilDecreaseRate: 2.5
+  fRecoilResetTime: 0.2
+  fAimRecoilIncreaseRate: 0.08
+  fMaxAimRecoil: 0.2
+  fAimRecoilDecreaseRate: 0.12
+  fAimRecoilResetTime: 0.1
+  v2CameraShakeStrength: {x: 2, y: 2}
+  fCameraShakeDuration: 0.1
+  fVibrationStrength: 0.4
+  fVibrationTime: 0.1
+  goBulletPrefab: {fileID: 129938, guid: f81849c26f7d618458e29c2fe3b45004, type: 2}
+  iBulletPoolSize: 48
+  iShotgunProjectiles: 12
+  fShotgunSpreadRadius: 10
+  fBeamAmmoRate: 0
+  beamCollisionAudio: {fileID: 0}
+  sDescriptionInfo: High powered pump-action shotgun with moderate recoil. Sarah's
+    personal favourite back in SWAT.
+  iDamageInfoStat: 8
+  iFireRateInfoStat: 2
