@@ -14,10 +14,10 @@ MonoBehaviour:
   dPlatformScreens:
     KeysList: 05000000130000001500000002000000
     ValuesList:
-    - {fileID: 1931806177601068, guid: e09fe82cad764f644a74a6ccdb0a27f8, type: 2}
-    - {fileID: 1931806177601068, guid: e09fe82cad764f644a74a6ccdb0a27f8, type: 2}
+    - {fileID: 1931806177601068, guid: 48b7dd14c8a44234a9891728f39f787b, type: 2}
+    - {fileID: 1931806177601068, guid: 48b7dd14c8a44234a9891728f39f787b, type: 2}
     - {fileID: 1931806177601068, guid: 23f961e0b358c5d44b639229ebaf3efa, type: 2}
-    - {fileID: 1931806177601068, guid: e09fe82cad764f644a74a6ccdb0a27f8, type: 2}
+    - {fileID: 1931806177601068, guid: 48b7dd14c8a44234a9891728f39f787b, type: 2}
     InspectorWasUpdated: 0
     UpdateInspectorValues: 1
     CustomLabels:

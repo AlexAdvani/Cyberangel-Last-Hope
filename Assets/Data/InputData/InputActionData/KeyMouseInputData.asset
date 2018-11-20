@@ -36,6 +36,10 @@ MonoBehaviour:
     iActionID: 27
     axisRange: 0
     axisDirection: 0
+  - sName: Slide
+    iActionID: 53
+    axisRange: 0
+    axisDirection: 0
   - sName: Fire
     iActionID: 29
     axisRange: 0

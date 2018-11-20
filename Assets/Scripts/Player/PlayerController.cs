@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
-
-using Com.LuisPedroFonseca.ProCamera2D;
+﻿using Com.LuisPedroFonseca.ProCamera2D;
 using Rewired;
 using Spine.Unity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [SelectionBase]
 public class PlayerController : MonoBehaviour
@@ -346,8 +344,22 @@ public class PlayerController : MonoBehaviour
             switch (collisionShape)
             {
                 case ePlayerCollisionShape.Standard: // Standard bounds
-                    boxCollider.size = rStandBounds.size;
-                    boxCollider.offset = rStandBounds.position;
+                    // Previous Bounds
+                    Bounds prevBounds = boxCollider.bounds;
+                    // Raycast for ceiling checking
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position,Vector2.up, rStandBounds.size.y, 
+                        motor.staticEnvLayerMask | motor.movingPlatformLayerMask, 0);
+
+                    // If clipping could occur, push away by distance
+                    if (hit.collider != null)
+                    {
+                        StartCoroutine(TweenColliderSize(rStandBounds.size, rStandBounds.position, 0.25f));
+                    }
+                    else
+                    {
+                        boxCollider.size = rStandBounds.size;
+                        boxCollider.offset = rStandBounds.position;
+                    }
                 break;
 
                 case ePlayerCollisionShape.Crouch: // Crouch Bounds
@@ -445,7 +457,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Crouching
-        if (playerInput.GetAxis("Movement Vertical") < -0.8f)
+        if (playerInput.GetAxis("Movement Vertical") < -0.8f && Mathf.Abs(motor.normalizedXMovement) < 0.4f)
         {
             if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
             {
@@ -542,12 +554,16 @@ public class PlayerController : MonoBehaviour
                         }
                     }
 
-                    if (playerInput.GetAxis("Movement Vertical") < -0.4f)
+                    // If Slide Method is Down + Dash
+                    if (GlobalSettings.iSlideInputMethod == 0)
                     {
-                        if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
+                        if (playerInput.GetAxis("Movement Vertical") < -0.4f)
                         {
-                            collisionShape = ePlayerCollisionShape.Slide;
-                            bSliding = true;
+                            if (motor.motorState == PlatformerMotor2D.MotorState.OnGround)
+                            {
+                                collisionShape = ePlayerCollisionShape.Slide;
+                                bSliding = true;
+                            }
                         }
                     }
 
@@ -560,6 +576,26 @@ public class PlayerController : MonoBehaviour
                 }
             }
 		}
+
+        // If Slide Input Method is set to Own Input
+        if (GlobalSettings.iSlideInputMethod == 1)
+        {
+            if (playerInput.GetButtonDown("Slide"))
+            {
+                if (motor.canDash && motor.motorState == PlatformerMotor2D.MotorState.OnGround)
+                {
+                    collisionShape = ePlayerCollisionShape.Slide;
+                    bSliding = true;
+
+                    motor.Dash();
+
+                    if (onDash != null)
+                    {
+                        onDash();
+                    }
+                }
+            }
+        }
 
 		// Walk
 		if (!bOnWall && !bOnCorner)
@@ -674,11 +710,12 @@ public class PlayerController : MonoBehaviour
     private void OnDashEnd()
     {
         // Ray to check if we are still sliding under something
-        RaycastHit2D ray = Physics2D.Raycast(new Vector2(boxCollider.bounds.center.x, boxCollider.bounds.min.y),
+        RaycastHit2D ceilingRay = Physics2D.Raycast(new Vector2(boxCollider.bounds.center.x, boxCollider.bounds.min.y),
             Vector2.up, rStandBounds.height, motor.staticEnvLayerMask | motor.movingPlatformLayerMask);
+        RaycastHit2D floorRay = Physics2D.Raycast(transform.position, Vector2.down, 0.05f, motor.staticEnvLayerMask | motor.movingPlatformLayerMask);
 
         // If ray hits environment, slide until we are out of the tunnel
-        if (ray.collider != null)
+        if (ceilingRay.collider != null && floorRay.collider != null)
         {
             motor.dashDuration = 0.05f;
             motor.dashDistance = 1;
@@ -892,7 +929,7 @@ public class PlayerController : MonoBehaviour
 		// Switch Weapons
 		if (playerInput.GetButtonDown("Switch Weapon") || playerInput.GetNegativeButtonDown("Switch Weapon"))
 		{
-			StartSwitchWeapon();
+			StartCoroutine(StartSwitchWeapon());
 		}
 
 		// Aim Mode
@@ -1239,24 +1276,28 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Switches to the next weapon in the weapon list
-	private void StartSwitchWeapon()
+	private IEnumerator StartSwitchWeapon()
 	{
 		if (bHolsteringWeapon || bUnholsteringWeapon)
 		{
-			return;
+			yield return null;
 		}
 
 		// If there are less than 2 weapons in the list, return
 		if (lWeapons.Count < 2)
 		{
-			return;
+			yield return null;
 		}
 
 		// Currently Held Weapon
 		WeaponBehaviour weapon = CurrentWeapon;
 
+        if (weapon.Bolting)
+        {
+            yield return new WaitForSpineAnimationComplete(animator.GetAnimationTrack(1));
+        }
+
 		weapon.CancelReload();
-		weapon.CancelBolt();
 		weapon.StartCooldownTimers();
         weapon.StopMuzzleFlash();
 		weapon.bActive = false;
@@ -1364,7 +1405,7 @@ public class PlayerController : MonoBehaviour
     // Equips a currently held weapon
     public void EquipWeapon(int index, bool instantSwitch = false)
     {
-        StartSwitchWeapon();
+        StartCoroutine(StartSwitchWeapon());
 
         if (instantSwitch)
         {
@@ -1515,9 +1556,34 @@ public class PlayerController : MonoBehaviour
         follower.boneName = parentBone;
     }
 
-	#endregion
+    #endregion
 
-	#endregion
+    #endregion
+
+    // Tween Collider Size over time
+    private IEnumerator TweenColliderSize(Vector3 newSize, Vector3 newOffset, float time)
+    {
+        float timer = 0f;
+        float timePercentage;
+        Vector3 startSize = boxCollider.size;
+        Vector2 prevSize = startSize;
+        Vector2 startOffset = boxCollider.offset;
+
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+            timePercentage = timer / time;
+            
+            boxCollider.size = Vector3.Lerp(startSize, newSize, timePercentage);
+            boxCollider.offset = Vector3.Lerp(startOffset, newOffset, timePercentage);
+
+            transform.Translate(-(boxCollider.size - prevSize));
+
+            prevSize = boxCollider.size;
+
+            yield return null;
+        }
+    }
 
 	// Resets the player to a base state (For mission restarts and checkpoints)
 	public void ResetPlayer(Vector3 resetPos, bool facing = false)

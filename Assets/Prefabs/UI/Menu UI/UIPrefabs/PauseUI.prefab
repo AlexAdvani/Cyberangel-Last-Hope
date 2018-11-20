@@ -83,7 +83,7 @@ MonoBehaviour:
         type: 2}
     - goScreenPanel: {fileID: 1128999985839830, guid: c3e8b61fbffaf1649bafdb544956ef41,
         type: 2}
-    - goScreenPanel: {fileID: 1909196664286102, guid: 48cbcfa21ebc11246a326e33968e8ae5,
+    - goScreenPanel: {fileID: 1909196664286102, guid: 792d2db57180de14998617bf28cac398,
         type: 2}
     - goScreenPanel: {fileID: 1909196664286102, guid: 9b4b4c302d10c3042ad8965a4f8d5507,
         type: 2}

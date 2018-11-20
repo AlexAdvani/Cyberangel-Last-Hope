@@ -13,7 +13,7 @@ public class LoadingScreenManager : MonoBehaviour
 	// Fade UI Game Object
 	public GameObject goScreenFadeUI;
 	// Min delay before changing to the next scene
-	public int iLoadDelay = 2;
+	public float fLoadDelay = 1;
 
 	// Transitioning flag
 	bool bTransitioning = false;
@@ -49,7 +49,7 @@ public class LoadingScreenManager : MonoBehaviour
 	// Loads the next scene after a short delay
 	private IEnumerator LoadScene()
 	{
-		yield return new WaitForSecondsRealtime(iLoadDelay);
+		yield return new WaitForSecondsRealtime(fLoadDelay);
 
 		async = SceneManager.LoadSceneAsync(SceneLoadManager.SceneToLoad);
 		async.allowSceneActivation = false;

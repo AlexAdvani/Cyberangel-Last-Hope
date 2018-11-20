@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &401324
 Transform:
   m_ObjectHideFlags: 1
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5741906, y: -2.0513897, z: -0.09375}
+  m_LocalPosition: {x: 0.99614525, y: 1.6788568, z: -3.6202807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4548722980132530}
@@ -63,7 +63,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ab0e2bf9c316c4884b538dfb1116e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTrail: {fileID: 0}
   fSpeed: 100
   fDamage: 0
   fLifeTime: 5
@@ -127,7 +126,7 @@ GameObject:
   - component: {fileID: 4135023583776626}
   - component: {fileID: 198479017217689368}
   - component: {fileID: 199275366674830468}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +144,7 @@ GameObject:
   - component: {fileID: 114572004191958210}
   - component: {fileID: 198252390087064878}
   - component: {fileID: 199890882988911420}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Visual
   m_TagString: FX
   m_Icon: {fileID: 0}
@@ -162,7 +161,7 @@ GameObject:
   - component: {fileID: 4425917877949458}
   - component: {fileID: 198607652537468158}
   - component: {fileID: 199104209252002808}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +178,7 @@ GameObject:
   - component: {fileID: 4300456964463612}
   - component: {fileID: 198249878695987528}
   - component: {fileID: 199455875507275068}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: flarespikes_thin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245710472522338}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.425, y: 0.425, z: 0.425}
   m_Children:
   - {fileID: 4135023583776626}
@@ -18555,8 +18554,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -239850157
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 1
   m_SortMode: 0
@@ -18612,8 +18611,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -239850157
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 1
   m_SortMode: 0
@@ -18669,8 +18668,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -239850157
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_RenderMode: 4
   m_SortMode: 0

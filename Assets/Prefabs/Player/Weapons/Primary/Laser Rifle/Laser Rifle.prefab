@@ -233,7 +233,7 @@ MonoBehaviour:
   fBeamLength: 30
   beamCollisionMask:
     serializedVersion: 2
-    m_Bits: 139776
+    m_Bits: 664064
   goBeamImpactPrefab: {fileID: 1650862336651546, guid: 034fed13cc5e2fa4788c04aed55a0e98,
     type: 2}
   fBeamImpactDisableTime: 5

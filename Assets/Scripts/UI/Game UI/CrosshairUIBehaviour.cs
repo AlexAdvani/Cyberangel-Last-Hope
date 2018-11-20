@@ -195,6 +195,7 @@ public class CrosshairUIBehaviour : MonoBehaviour
     private void EnableCrosshair()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
         image.enabled = true;
         bActive = true;
     }
@@ -203,6 +204,7 @@ public class CrosshairUIBehaviour : MonoBehaviour
     private void DisableCrosshair()
     {
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         image.enabled = false;
         bActive = false;
     }

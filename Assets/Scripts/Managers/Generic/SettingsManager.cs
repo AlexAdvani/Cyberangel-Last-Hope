@@ -4,8 +4,10 @@ using Rewired;
 
 public class SettingsManager : SingletonBehaviour<SettingsManager>
 {
-	// Filename
-	public string sFileName;
+	// Config Filename
+	public string sConfigFileName;
+    // Input Filename
+    public string sInputFileName;
 
     // Gamepad Input XML Settings
     public static string sPadInputXml = "";
@@ -34,26 +36,98 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 		AudioManager.Instance.SetMute(GlobalSettings.bMute);
 	}
 
+    #region Loading Methods
+
+    // Try Reading Int Value
+    private int TryReading(ES2Reader reader, string varName, int defaultValue)
+    {
+        bool varExists = reader.TagExists(varName);
+
+        if (varExists)
+        {
+            return reader.Read<int>(varName);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    // Try Reading Float Value
+    private float TryReading(ES2Reader reader, string varName, float defaultValue)
+    {
+        bool varExists = reader.TagExists(varName);
+
+        if (varExists)
+        {
+            return reader.Read <float>(varName);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    // Try Reading String Value
+    private string TryReading(ES2Reader reader, string varName, string defaultValue)
+    {
+        bool varExists = reader.TagExists(varName);
+
+        if (varExists)
+        {
+            return reader.Read<string>(varName);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    // Try Reading Bool Value
+    private bool TryReading(ES2Reader reader, string varName, bool defaultValue)
+    {
+        bool varExists = reader.TagExists(varName);
+
+        if (varExists)
+        {
+            return reader.Read<bool>(varName);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
+    #endregion
+
     #region Loading
 
     // Loads Settings if a config file exists
     private void LoadSettings()
     {
         // If file exists, then load settings
-        if (ES2.Exists(Application.persistentDataPath + "/" + sFileName))
+        if (ES2.Exists(Application.persistentDataPath + "/" + sConfigFileName))
         {
-            ES2Reader reader = ES2Reader.Create(Application.persistentDataPath + "/" + sFileName);
+            ES2Reader configReader = ES2Reader.Create(Application.persistentDataPath + "/" + sConfigFileName);
 
-            LoadConfig(reader);
-            LoadInputMaps(reader);
-            LoadGamepadConfigMaps(reader);
+            LoadConfig(configReader);
 
-            reader.Dispose();
+            configReader.Dispose();
         }
         else // Otherwise, detect display settings
         {
             DetectDisplaySettings();
             QualitySettings.vSyncCount = 1;
+        }
+
+        if (ES2.Exists(Application.persistentDataPath + "/" + sInputFileName))
+        {
+            ES2Reader inputReader = ES2Reader.Create(Application.persistentDataPath + "/" + sInputFileName);
+
+            LoadInputMaps(inputReader);
+            LoadGamepadConfigMaps(inputReader);
+
+            inputReader.Dispose();
         }
     }
 
@@ -140,17 +214,24 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
     // Loads Options Config
     private void LoadConfig(ES2Reader reader)
     {
-        GlobalSettings.iCrosshairVisibility = reader.Read<int>("Crosshair");
-        GlobalSettings.iLaserVisible = reader.Read<int>("LaserSight");
-        GlobalSettings.iResolution = reader.Read<int>("ResolutionID");
-        GlobalSettings.iDisplayMode = reader.Read<int>("DisplayMode");
-        GlobalSettings.iMonitor = reader.Read<int>("Monitor");
-        GlobalSettings.bVSync = reader.Read<bool>("VSync");
-        GlobalSettings.fMasterVolume = reader.Read<float>("MasterVolume");
-        GlobalSettings.fSoundVolume = reader.Read<float>("SoundVolume");
-        GlobalSettings.fMusicVolume = reader.Read<float>("MusicVolume");
-        GlobalSettings.bMute = reader.Read<bool>("Mute");
-        GlobalSettings.bVibration = reader.Read<bool>("Vibration");
+        GlobalSettings.iCrosshairVisibility = TryReading(reader, "Crosshair", 0);
+        GlobalSettings.iLaserVisible = TryReading(reader, "LaserSight", 0);
+        GlobalSettings.iSlideInputMethod = TryReading(reader, "SlideInputCustom", 0);
+        GlobalSettings.iResolution = TryReading(reader, "ResolutionID", -1);
+        GlobalSettings.iDisplayMode = TryReading(reader, "DisplayMode", 0);
+        GlobalSettings.iMonitor = TryReading(reader, "Monitor", 0);
+        GlobalSettings.bVSync = TryReading(reader, "VSync", true);
+        GlobalSettings.fMasterVolume = TryReading(reader, "MasterVolume", 1f);
+        GlobalSettings.fSoundVolume = TryReading(reader, "SoundVolume", 1f);
+        GlobalSettings.fMusicVolume = TryReading(reader, "MusicVolume", 1f);
+        GlobalSettings.bMute = TryReading(reader, "Mute", false);
+        GlobalSettings.bVibration = TryReading(reader, "Vibration", true);
+
+        // If resolution setting is missing, detect display settings
+        if (GlobalSettings.iResolution == -1)
+        {
+            DetectDisplaySettings();
+        }
     }
 
     // Loads Input Maps
@@ -222,14 +303,20 @@ public class SettingsManager : SingletonBehaviour<SettingsManager>
 			return;
 		}
 
-		ES2Writer writer = ES2Writer.Create(Application.persistentDataPath + "/" + sFileName);
+		ES2Writer writer = ES2Writer.Create(Application.persistentDataPath + "/" + sConfigFileName);
 
 		SaveConfig(writer);
-		SaveInputMaps(writer);
-		SaveGamepadConfigMaps(writer);
-
+		
 		writer.Save();
 		writer.Dispose();
+
+        ES2Writer inputWriter = ES2Writer.Create(Application.persistentDataPath + "/" + sInputFileName);
+
+        SaveInputMaps(inputWriter);
+        SaveGamepadConfigMaps(inputWriter);
+
+        inputWriter.Save();
+        inputWriter.Dispose();
 
         SaveNotificationUI.OpenSaveNotification();
 

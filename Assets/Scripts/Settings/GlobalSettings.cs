@@ -3,9 +3,10 @@
     // Game Settings
     public static int iCrosshairVisibility = 0;
     public static int iLaserVisible = 0;
+    public static int iSlideInputMethod = 0;
 
-	// Graphics Settings
-	public static int iResolution = 0;
+    // Graphics Settings
+    public static int iResolution = 0;
 	public static int iDisplayMode = 1;
 	public static int iMonitor = 0;
 	public static bool bVSync = true;

@@ -12,6 +12,7 @@ public class MainMenuManager : UIMenuManager
 	{
 		bMenuInputDisabled = false;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 	}
 
 	// Update

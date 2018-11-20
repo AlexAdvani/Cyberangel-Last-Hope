@@ -6,26 +6,17 @@ public class UIMenuGameOptionsScreen : UIMenuScreenManager
     public TMP_Dropdown crosshairDropdown;
     // Laser Sight Dropdown
     public TMP_Dropdown laserSightDropdown;
+    // Slide Input Dropdown
+    public TMP_Dropdown slideInputDropdown;
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
 
-        bool settingsChanged = SettingsManager.bOptionChanged;
-
-        if (crosshairDropdown != null)
-        {
-            crosshairDropdown.value = GlobalSettings.iCrosshairVisibility;
-            crosshairDropdown.RefreshShownValue();
-        }
-
-        laserSightDropdown.value = GlobalSettings.iLaserVisible;
-        laserSightDropdown.RefreshShownValue();
-
-        SettingsManager.bOptionChanged = settingsChanged;
+        InitializeSettings();
 	}
-
+    
     // Cancel Function
     public override bool HandleCancelFunction()
     {
@@ -44,7 +35,33 @@ public class UIMenuGameOptionsScreen : UIMenuScreenManager
             return true;
         }
 
+        if (slideInputDropdown.transform.Find("Dropdown List") != null)
+        {
+            slideInputDropdown.Hide();
+            return true;
+        }
+
         return false;
+    }
+
+    // Initialize Settings UI
+    private void InitializeSettings()
+    {
+        bool settingsChanged = SettingsManager.bOptionChanged;
+
+        if (crosshairDropdown != null)
+        {
+            crosshairDropdown.value = GlobalSettings.iCrosshairVisibility;
+            crosshairDropdown.RefreshShownValue();
+        }
+
+        laserSightDropdown.value = GlobalSettings.iLaserVisible;
+        laserSightDropdown.RefreshShownValue();
+
+        slideInputDropdown.value = GlobalSettings.iSlideInputMethod;
+        slideInputDropdown.RefreshShownValue();
+
+        SettingsManager.bOptionChanged = settingsChanged;
     }
 
     // Set Crosshair Visibility
@@ -58,6 +75,13 @@ public class UIMenuGameOptionsScreen : UIMenuScreenManager
     public void SetLaserSightVisibility(int value)
     {
         GlobalSettings.iLaserVisible = value;
+        SettingsManager.bOptionChanged = true;
+    }
+
+    // Sets Slide Input Method
+    public void SetSlideInputMethod(int value)
+    {
+        GlobalSettings.iSlideInputMethod = value;
         SettingsManager.bOptionChanged = true;
     }
 }

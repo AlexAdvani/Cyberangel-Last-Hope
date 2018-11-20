@@ -333,6 +333,7 @@ public class WeaponBehaviour : SpineAnimatorBase
         // Handle Laser Sight
         HandleLaserSight();
 
+#if UNITY_EDITOR
         ///// TEST ///////////////// Use for finding firepoint ik offset
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -341,6 +342,7 @@ public class WeaponBehaviour : SpineAnimatorBase
                 print(tFirePoint.position.y - playerController.animator.weaponPivotIKBone.GetWorldPosition(playerController.animator.transform).y);
             }
         }
+#endif
     }
 
     // On Spine Event
@@ -466,7 +468,7 @@ public class WeaponBehaviour : SpineAnimatorBase
         DestroyObjectPools();
     }
 
-    #region Update
+#region Update
 
     // Handles Animation
     protected virtual void HandleAnimation()
@@ -800,7 +802,7 @@ public class WeaponBehaviour : SpineAnimatorBase
         }
     }
 
-    #endregion
+#endregion
 
     // Sets the link to the player instance
     public void SetPlayerController(PlayerController player)
@@ -865,7 +867,7 @@ public class WeaponBehaviour : SpineAnimatorBase
         playerInput.SetVibration(1, weaponData.fVibrationStrength, weaponData.fVibrationTime);
     }
 
-    #region Firing
+#region Firing
 
     // Fire Weapon
     protected virtual void Fire()
@@ -937,11 +939,7 @@ public class WeaponBehaviour : SpineAnimatorBase
         playerController.animator.ResetArmTimer();
 		StartCoroutine(ReenableFiring());
 
-        // Loop empty animation if the weapon is not a beam weapon and if the weapon is automatic
-        bool animLoop = weaponData.weaponType != eWeaponType.Beam && 
-            weaponData.firingMode == eWeaponFireMode.Automatic;
-
-        PlayAnimation("EmptyFire", 0, animLoop, !animLoop);
+        PlayAnimation("EmptyFire", 0, false, true);
 
 		// Stop firing
 		if (weaponData.firingMode == eWeaponFireMode.Burst && iBurstShots < weaponData.iShotsPerBurst)
@@ -1057,9 +1055,9 @@ public class WeaponBehaviour : SpineAnimatorBase
         }
     }
 
-    #endregion
+#endregion
 
-    #region Recoil
+#region Recoil
 
     // Enables Recoil Reduction
     protected IEnumerator BeginRecoilCooldown()
@@ -1167,9 +1165,9 @@ public class WeaponBehaviour : SpineAnimatorBase
 		fLastActiveTime = Time.time;
 	}
 
-	#endregion
+#endregion
 
-	#region Ammo Management
+#region Ammo Management
 
 	// Begins to reload the weapon
 	protected virtual void StartReload()
@@ -1419,9 +1417,9 @@ public class WeaponBehaviour : SpineAnimatorBase
 		iHeldAmmo = 0;
 	}
 
-	#endregion
+#endregion
 
-	#region Bolting
+#region Bolting
 
 	private void StartBolting()
 	{
@@ -1474,9 +1472,10 @@ public class WeaponBehaviour : SpineAnimatorBase
 		StartCoroutine(ReenableFiring());
 	}
 
+    // Cancels bolting
 	public void CancelBolt()
 	{
-		if (boltCoroutine == null)
+		if (boltCoroutine == null || !bBolting)
 		{
 			return;
 		}
@@ -1484,14 +1483,14 @@ public class WeaponBehaviour : SpineAnimatorBase
 		StopCoroutine(boltCoroutine);
 		fBoltTimer = 0;
 		bBolting = false;
-		bBolted = true;
+		bBolted = false;
 
-		bCanFire = true;
+		bCanFire = false;
 	}
 
-	#endregion
+#endregion
 
-	#region Audio
+#region Audio
 
 	// Plays the Unload Audio during a reload
 	private void PlayReloadUnloadAudio()
@@ -1537,7 +1536,7 @@ public class WeaponBehaviour : SpineAnimatorBase
 		weaponData.reloadBoltAudio.Play();
 	}
 
-	#endregion
+#endregion
 
 	// Applies cooldowns based on time counted
 	public virtual void EndCooldownTimers()

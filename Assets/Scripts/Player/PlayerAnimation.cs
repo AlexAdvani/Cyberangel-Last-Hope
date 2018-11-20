@@ -804,6 +804,12 @@ public class PlayerAnimation : SpineAnimatorBase
 		PlayAnimation(sWeaponAnimationType + sArmState + orientation, 1, false, false, 0, 0); 
 	}
 
+    // Cancels the weapon bolt animation
+    public void CancelReloadBoltAnimation()
+    {
+        
+    }
+
 	#endregion
 
 	#region Aim Animation

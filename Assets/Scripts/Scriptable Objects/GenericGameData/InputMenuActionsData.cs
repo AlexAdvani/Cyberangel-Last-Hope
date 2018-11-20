@@ -16,6 +16,7 @@ public class InputAction
     // Name
     public string sName;
     // Action ID
+    [ActionIdProperty(typeof(RewiredActions))]
     public int iActionID;
     // Axis Range
     public AxisRange axisRange;
