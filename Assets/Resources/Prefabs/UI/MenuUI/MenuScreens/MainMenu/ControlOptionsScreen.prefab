@@ -3598,7 +3598,7 @@ GameObject:
   - component: {fileID: 114839498363822486}
   - component: {fileID: 114548471457002590}
   m_Layer: 5
-  m_Name: ControlOptionsScreen
+  m_Name: ControlOptionsScreen-PC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
