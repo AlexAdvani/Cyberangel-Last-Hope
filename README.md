@@ -1,3 +1,3 @@
 # PlatformerShooterProject
 
-<a href="https://trello.com/b/xW6SQO0q/inavda-prototype-to-do" target="_blank">Trello TO-DO</a>
+A platformer with a focus on fast movement and shooting action made as a personal project. Currently, this only a gameplay prototype to showcase the core mechanics of the gameplay. 
